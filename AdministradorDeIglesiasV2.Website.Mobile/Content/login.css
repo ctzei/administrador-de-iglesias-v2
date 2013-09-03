@@ -1,0 +1,41 @@
+body
+{
+    padding: 0px;
+}
+
+.logo
+{
+    background-image: url(images/logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 148px;
+}
+
+.controles
+{
+    margin: 0 auto;
+}
+
+/* Tablet ONLY */
+@media all and (min-width: 792px)
+{
+    .logo
+    {
+        height: 250px;
+    }
+
+    .controles
+    {
+        width: 450px;
+    }
+}
+
+/* Phone ONLY */
+@media all and (max-width: 791px)
+{
+    .controles
+    {
+        width: 95%;
+    }
+}

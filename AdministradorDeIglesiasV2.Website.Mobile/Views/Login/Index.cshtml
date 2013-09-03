@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Iniciar Sesion";
+}
+
+@section head{
+    <link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/Views/Login/login.js")" type="text/javascript"></script>
+}
+
+<fieldset> 
+    <div class="logo"></div>
+
+    <div class="controles">
+        <div class="form-item">
+            @Html.TextBox("email", "", new { type = "email", placeholder = "Email", autocapitalize = "off" })
+        </div>
+
+        <div class="form-item">
+            @Html.Password("password", "", new { placeholder = "Contraseña", autocapitalize = "off" })
+        </div>
+
+        <div class="form-item">
+            <label for="recordarme">Recordarme:</label>
+            @Html.CheckBox("recordarme", true)
+        </div>
+
+        <div class="form-item">
+            <input id="iniciarSesion" type="submit" value="Aceptar" />
+        </div>
+
+        <div class="form-item">
+            <a id="versionCompleta" href="#" onclick="window.location.href = '@ViewBag.UrlDeVersionCompleta'; return false;">Versión Completa...</a>
+        </div>
+     </div>
+    
+</fieldset>

@@ -1,0 +1,382 @@
+body
+{
+    font-size: 18px;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #232323;
+    background-color: #fff;
+    min-height: 480px;
+    margin: 10px 0;
+}
+
+html
+{
+    height: 100%;
+}
+
+header,
+footer,
+nav,
+section
+{
+    display: block;
+}
+
+/* Navegacion principal
+-----------------------------------------------------------*/
+
+.top-nav
+{
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: #111111;
+    background: -moz-linear-gradient(#3C3C3C, #111111); /* FF 3.6+ */
+    background: -webkit-linear-gradient(#3C3C3C, #111111); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#3C3C3C, #111111); /* Opera 11.10 */
+    background: linear-gradient(#3C3C3C, #111111); /* the standard */
+}
+
+    .top-nav .title
+    {
+        color: white;
+        font-weight: bold;
+    }
+
+    .top-nav #inicio, .top-nav #atras, .top-nav #salir
+    {
+        position: absolute;
+        top: 0px;
+        font-size: 18px;
+    }
+
+    .top-nav #inicio
+    {
+        display: none;
+        left: 0px;
+    }
+
+    .top-nav #atras, .top-nav #salir
+    {
+        right: 0px;
+    }
+
+/* Tablet ONLY */
+@media all and (min-width: 792px)
+{
+    body
+    {
+        padding-top: 36px;
+    }
+
+    .top-nav
+    {
+        height: 36px;
+    }
+
+        .top-nav #inicio, .top-nav #atras, .top-nav #salir
+        {
+            width: 75px;
+            margin: 4px;
+            height: 30px;
+        }
+
+        .top-nav .title
+        {
+            line-height: 36px;
+        }
+}
+
+/* Phone ONLY */
+@media all and (max-width: 791px)
+{
+    body
+    {
+        padding-top: 26px;
+    }
+
+    .top-nav
+    {
+        height: 26px;
+    }
+
+        .top-nav #inicio
+        {
+            display: none;
+        }
+
+        .top-nav #inicio, .top-nav #atras, .top-nav #salir
+        {
+            width: 60px;
+            height: 24px;
+            margin: 1px 4px;
+            font-size: 14px;
+        }
+
+        .top-nav .title
+        {
+            font-size: 16px;
+            line-height: 26px;
+        }
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+
+.highlight
+{
+    font-weight: bolder;
+}
+
+.hand
+{
+    cursor: pointer;
+}
+
+fieldset
+{
+    border: 0px solid #ddd;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+legend
+{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea
+{
+    min-height: 75px;
+}
+
+.editor-label
+{
+    margin: 1em 0 0 0;
+}
+
+.editor-field
+{
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    /*border: 1px solid #ff0000;*/
+    background-color: #ffbbbb;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+
+/* Styles for basic forms (Custom)
+-----------------------------------------------------------*/
+
+.form-item
+{
+    width: 99%;
+    padding: 2px;
+    min-height: 24px;
+}
+
+.form-item-nowidth
+{
+    padding: 2px;
+    min-height: 24px;
+}
+
+.center-content
+{
+    text-align: center;
+}
+
+.right-content
+{
+    text-align: right;
+}
+
+.left-content
+{
+    text-align: left;
+}
+
+.right
+{
+    float: right;
+}
+
+.left
+{
+    float: left;
+}
+
+input:focus, select:focus
+{
+    -webkit-box-shadow: 0 0 6px #3A89C9;
+    -moz-box-shadow: 0 0 6px #3A89C9;
+    box-shadow: 0 0 8px #3A89C9;
+}
+
+input:not([type=checkbox]), select
+{
+    width: 99%;
+    height: 32px;
+    font-size: larger;
+    border-radius: 0.1em;
+    -webkit-border-radius: 0.1em;
+}
+
+a
+{
+    color: #000000;
+}
+
+.error
+{
+    color: Red;
+}
+
+input[type=submit]
+{
+    width: 100%;
+    background: #5F9CC5;
+    background: -moz-linear-gradient(#5F9CC5, #396B9E); /* FF 3.6+ */
+    background: -webkit-linear-gradient(#5F9CC5, #396B9E); /* Safari 5.1+, Chrome 10+ */
+    background: -o-linear-gradient(#5F9CC5, #396B9E); /* Opera 11.10 */
+    background: linear-gradient(#5F9CC5, #396B9E); /* the standard */
+    color: #FFFFFF;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #044062;
+    border: 1px solid #044062;
+    border-radius: 0.2em;
+    -webkit-border-radius: 0.2em;
+    background-clip: padding-box;
+    height: 36px;
+    cursor: pointer;
+}
+
+        input[type=submit]:active, input[type=submit]:hover
+        {
+            background: #5F9CC5;
+        }
+
+
+select
+{
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #396B9E;
+}
+
+input[type=checkbox]
+{
+    background: #5F9CC5;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+    table.gridDatos tr:nth-child(odd)
+    {
+        background: #FFFFFF;
+    }
+
+    table.gridDatos tr:nth-child(even)
+    {
+        background: #ACCFE6;
+    }
+
+    table.gridDatos tr
+    {
+        border-top: 1px solid #fff;
+        font-size: 20px;
+        line-height: 40px;
+    }
+
+    table.gridDatos th
+    {
+        background-color: #fff;
+    }
+
+    table.gridDatos th
+    {
+        padding: 3px 5px;
+    }
+
+    table.gridDatos td:hover
+    {
+        cursor: pointer;
+    }
+
+
+/* Navegacion por lista
+-----------------------------------------------------------*/
+ul.nav
+{
+    list-style: none;
+    display: block;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+    ul.nav li
+    {
+        border-bottom: 1px solid #396B9E;
+        background: #5F9CC5;
+        background: -moz-linear-gradient(#5F9CC5, #396B9E); /* FF 3.6+ */
+        background: -webkit-linear-gradient(#5F9CC5, #396B9E); /* Safari 5.1+, Chrome 10+ */
+        background: -o-linear-gradient(#5F9CC5, #396B9E); /* Opera 11.10 */
+        background: linear-gradient(#5F9CC5, #396B9E); /* the standard */
+        font-weight: bold;
+    }
+
+        ul.nav li a:active, ul.nav li a:hover
+        {
+            background: #5F9CC5;
+        }
+
+        ul.nav li a
+        {
+            padding: 5px 12px;
+            display: block;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: larger;
+            text-shadow: 0 1px 1px #044062;
+            line-height: 32px;
+        }
+
+            ul.nav li a span.caret
+            {
+                float: right;
+            }

@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DF26FC9-EDFB-4AC8-9844-D35FCCC4AFA0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdministradorDeIglesiasV2.Core</RootNamespace>
+    <AssemblyName>AdministradorDeIglesiasV2.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSMTP.Net">
+      <HintPath>..\DLLs\FreeSMTP.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Ext.Net\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constantes\Generales.cs" />
+    <Compile Include="Enums\PermisosEspeciales.cs" />
+    <Compile Include="Enums\EnumsGenerales.cs" />
+    <Compile Include="Literales.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Literales.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LogicaDeNegocios\CelulaLider.cs" />
+    <Compile Include="LogicaDeNegocios\CelulaCategoria.cs" />
+    <Compile Include="LogicaDeNegocios\Ciclo.cs" />
+    <Compile Include="LogicaDeNegocios\ConsolidacionBoletaRazonVisita.cs" />
+    <Compile Include="LogicaDeNegocios\ConsolidacionBoletaRazonCerrada.cs" />
+    <Compile Include="LogicaDeNegocios\ConsolidacionBoleta.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaTipoInstrumento.cs" />
+    <Compile Include="LogicaDeNegocios\ConsolidacionBoletaCategoria.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaMiembro.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaEnsayo.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaEnsayoMiembro.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaEventoMiembro.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaEvento.cs" />
+    <Compile Include="LogicaDeNegocios\AlabanzaMiembroDiaNoDisponible.cs" />
+    <Compile Include="LogicaDeNegocios\Genero.cs" />
+    <Compile Include="LogicaDeNegocios\Culto.cs" />
+    <Compile Include="LogicaDeNegocios\EstadoCivil.cs" />
+    <Compile Include="LogicaDeNegocios\PasoCategoria.cs" />
+    <Compile Include="LogicaDeNegocios\MiembroPaso.cs" />
+    <Compile Include="LogicaDeNegocios\HoraDia.cs" />
+    <Compile Include="LogicaDeNegocios\DiaSemana.cs" />
+    <Compile Include="LogicaDeNegocios\FoliGrupo.cs" />
+    <Compile Include="LogicaDeNegocios\Miembro.cs" />
+    <Compile Include="Manejadores\ManejadorDeConsolidacion.cs" />
+    <Compile Include="Manejadores\ManejadorDeCorreos.cs" />
+    <Compile Include="Manejadores\ManejadorDeAlabanza.cs" />
+    <Compile Include="Manejadores\ManejadorDeBusquedas.cs" />
+    <Compile Include="Manejadores\ManejadorDeReportesDeAsistencias.cs" />
+    <Compile Include="Manejadores\ManejadorDeLideresDeCelula.cs" />
+    <Compile Include="Manejadores\ManejadorDeServidores.cs" />
+    <Compile Include="Manejadores\ManejadorDeFoli.cs" />
+    <Compile Include="Manejadores\ManejadorDeEventos.cs" />
+    <Compile Include="Manejadores\ManejadorDeRoles.cs" />
+    <Compile Include="Manejadores\ManejadorDeMiembros.cs" />
+    <Compile Include="Manejadores\ManejadorDeAsistencias.cs" />
+    <Compile Include="Modelos\EntidadesExtendidas.Core.Generator.EntidadesExtendidas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\Iglesia.cs" />
+    <Compile Include="Modelos\Iglesia.Designer.cs">
+      <DependentUpon>Iglesia.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Manejadores\ManejadorDeCelulas.cs" />
+    <Compile Include="Modelos\Retornos\CelulaProxima.cs" />
+    <Compile Include="Modelos\Retornos\AsistenciaDeCelulaPorMiembroSumarizada.cs" />
+    <Compile Include="Modelos\Retornos\AsistenciaDeCelulaPorMiembro.cs" />
+    <Compile Include="Modelos\Retornos\AvanceDeFoli.cs" />
+    <Compile Include="Modelos\Retornos\AvanceDeFoliSumarizado.cs" />
+    <Compile Include="Modelos\Retornos\UltimasAsistenciasPorCelula.cs" />
+    <Compile Include="Modelos\Retornos\LideresDeCelulaPorRed.cs" />
+    <Compile Include="Modelos\Retornos\ReporteDeAsistenciasDeCelulaSumarizado.cs" />
+    <Compile Include="Modelos\Retornos\InformacionGeneralPorRed.cs" />
+    <Compile Include="Modelos\Retornos\PantallaPermitida.cs" />
+    <Compile Include="Modelos\Retornos\FichaDeInscripcionDeEvento.cs" />
+    <Compile Include="Modelos\Retornos\PasoPorMiembro.cs" />
+    <Compile Include="Modelos\ZAlabanzaCancion.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaEnsayo.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaEnsayoMiembro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaEvento.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaEventoCancion.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaEventoMiembro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaMiembro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaMiembroDiaNoDisponible.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZAlabanzaTipoInstrumento.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelula.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaCancelacionAsistencia.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaCategoria.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaInvitadosAsistencia.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaLider.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaMiembroAsistencia.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaMiembroMovimiento.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCelulaMovimientoRazon.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCiclo.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZConsolidacionBoleta.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZConsolidacionBoletaCategoria.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZConsolidacionBoletaRazonCerrada.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZConsolidacionBoletaRazonVisita.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZConsolidacionBoletaReporte.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZCulto.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZDiaSemana.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZEstadoCivil.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZEvento.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZEventoCategoria.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZEventoFichaInscripcion.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZEventoFichaInscripcionTipoRegistrante.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliGrupo.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliMaestro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliMiembro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliMiembroAvance.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliMiembroEstatus.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZFoliPago.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZGenero.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZHoraDia.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZMiembro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZMiembroFoto.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZMiembroPaso.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZMiembroRol.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZNotificacionDeAsistenciaInscripcion.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZNotificacionDeAsistenciaLog.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZNotificacionDeAsistenciaTipo.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZPantallaPermitida.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZParametro.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZPaso.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZPasoCategoria.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZPermisoEspecial.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZRol.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZRolAsignable.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZRolPantallaPermitida.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZRolPermisoEspecial.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZServidorCapitan.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZServidorCoordinador.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZServidorIntegrante.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZUbicacionEstado.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZUbicacionMunicipio.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\ZUbicacionPais.cs">
+      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LogicaDeNegocios\Celula.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Modelos\Iglesia.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Iglesia.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Modelos\EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Reglas de Negocio.doc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZagueEF.Core\ZagueEF.Core.csproj">
+      <Project>{8E34B2AA-B9A8-4930-A535-465E7F43ADA4}</Project>
+      <Name>ZagueEF.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Literales.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Literales.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Excepciones\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

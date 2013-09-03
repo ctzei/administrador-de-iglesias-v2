@@ -1,0 +1,101 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MainMasterPage.Master" AutoEventWireup="true" CodeBehind="Catalogos.master.cs" Inherits="AdministradorDeIglesiasV2.Website.Paginas.MasterPages.Catalogos" %>
+
+<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
+<%@ MasterType VirtualPath="~/MainMasterPage.master" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+    <asp:ContentPlaceHolder ID="cphHeadCatalogos" runat="server"></asp:ContentPlaceHolder>
+    <style type="text/css">
+        #cphMain_pnlBuscar > .x-panel-bwrap > .x-panel-body-noborder,
+        #cphMain_pnlEdicion > .x-panel-bwrap > .x-panel-body-noborder,
+        #cphMain_cphFiltros_pnlFiltros .x-panel-body-noborder,
+        #cphMain_cphEdicion_pnlEdicion .x-panel-body-noborder
+        {
+            overflow-x: hidden!important;
+            overflow-y: scroll!important;
+        }
+
+        #cphMain_cmdLimpiar
+        {
+            margin-right: 15px;
+        }
+    </style>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="cphMain" runat="server">
+
+    <asp:ContentPlaceHolder ID="cphStores" runat="server"></asp:ContentPlaceHolder>
+
+    <ext:Viewport ID="ViewportCatalogos" runat="server" Layout="BorderLayout" CMargins="50px">
+        <Items>
+            <ext:TabPanel ID="pnlSuperior" Region="Center" runat="server">
+                <Listeners>
+                    <TabChange Handler="cambiarTab();" />
+                </Listeners>
+                <Items>
+                    <ext:Panel ID="pnlBuscar" Title="Buscar" HideBorders="true" AutoScroll="true">
+                        <Items>
+                            <ext:FormPanel ID="pnlFiltros" runat="server" AutoHeight="true" Layout="Form" ButtonAlign="Right" PaddingSummary="5px 5px 0" HideBorders="true">
+                                <Content>
+                                    <asp:ContentPlaceHolder ID="cphFiltros" runat="server"></asp:ContentPlaceHolder>
+                                </Content>
+
+                                <Buttons>
+                                    <ext:Button ID="cmdBuscar" runat="server" Text="Buscar" Icon="Magnifier">
+                                        <Listeners>
+                                            <Click Handler="buscarClick();" />
+                                        </Listeners>
+                                    </ext:Button>
+                                    <ext:Button ID="cmdLimpiar" runat="server" Text="Limpiar">
+                                        <Listeners>
+                                            <Click Handler="limpiarClick();" />
+                                        </Listeners>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:FormPanel>
+                            <ext:Panel ID="pnlInferior" runat="server" Title="Resultados" AutoHeight="true">
+                                <Content>
+                                    <asp:ContentPlaceHolder ID="cphGridDeResultados" runat="server"></asp:ContentPlaceHolder>
+                                </Content>
+                            </ext:Panel>
+                        </Items>
+                    </ext:Panel>
+                    <ext:FormPanel ID="pnlEdicion" runat="server" Title="Crear/Editar" AnchorHorizontal="right" Layout="Form" ButtonAlign="Right" PaddingSummary="5px 5px 0" HideBorders="true" AutoScroll="true">
+                        <Content>
+                            <asp:ContentPlaceHolder ID="cphEdicion" runat="server"></asp:ContentPlaceHolder>
+                        </Content>
+
+                        <Buttons>
+                            <ext:Button ID="cmdMostrar" runat="server" Text="Mostrar">
+                                <Listeners>
+                                    <Click Handler="mostrarClick();" />
+                                </Listeners>
+                            </ext:Button>
+                            <ext:Button ID="cmdBorrar" runat="server" Text="Borrar" Icon="Delete">
+                                <Listeners>
+                                    <Click Handler="borrarClick();" />
+                                </Listeners>
+                            </ext:Button>
+                            <ext:Button ID="cmdGuardar" runat="server" Text="Guardar" Icon="Accept">
+                                <Listeners>
+                                    <Click Handler="guardarClick();" />
+                                </Listeners>
+                            </ext:Button>
+                            <ext:Button ID="cmdCancelar" runat="server" Text="Cancelar">
+                                <Listeners>
+                                    <Click Handler="cancelarClick();" />
+                                </Listeners>
+                            </ext:Button>
+                        </Buttons>
+                    </ext:FormPanel>
+                </Items>
+            </ext:TabPanel>
+        </Items>
+    </ext:Viewport>
+
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="cphFooter" runat="server">
+    <script src="../../Recursos/js/Paginas/MasterPages/catalogos.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="cphFooterCatalogo" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>

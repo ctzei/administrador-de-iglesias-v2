@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F598BC3-2CD6-4CAA-8335-1A31D7536FEE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdministradorDeIglesiasV2.Website</RootNamespace>
+    <AssemblyName>AdministradorDeIglesiasV2.Website</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <ExcludeApp_Data>true</ExcludeApp_Data>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28Web V2%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ext.Net, Version=1.2.0.19755, Culture=neutral, PublicKeyToken=2e12ce3d0176cd87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Ext.Net\Ext.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ext.Net.Utilities, Version=1.1.0.19751, Culture=neutral, PublicKeyToken=2c34ac34702a3c23, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Ext.Net\Ext.Net.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="FiftyOne.Foundation">
+      <HintPath>..\DLLs\51degrees\FiftyOne.Foundation.dll</HintPath>
+    </Reference>
+    <Reference Include="FreeSMTP.Net">
+      <HintPath>..\DLLs\FreeSMTP.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Ext.Net\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\web_browsers_patch.xml" />
+    <Content Include="Errores\Error.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Errores\404.aspx" />
+    <None Include="index.html.bak" />
+    <Content Include="Info.txt" />
+    <Content Include="Paginas\Alabanza\CatalogoDeCanciones.aspx" />
+    <Content Include="Paginas\Alabanza\CatalogoDeEventos.aspx" />
+    <Content Include="Paginas\Alabanza\CatalogoDeMiembros.aspx" />
+    <Content Include="Paginas\Alabanza\Calendario.aspx" />
+    <Content Include="Paginas\Alabanza\DetallesDeCancion.aspx" />
+    <Content Include="Paginas\Alabanza\DetallesDeEnsayo.aspx" />
+    <Content Include="Paginas\Alabanza\DetallesDeEvento.aspx" />
+    <Content Include="Paginas\Configuración\AdministracionDeCache.aspx" />
+    <Content Include="Paginas\Configuración\Logs.aspx" />
+    <Content Include="Paginas\Consolidación\CatalogoDeBoletas.aspx" />
+    <Content Include="Paginas\Células\BorrarCelulaPermanentemente.aspx" />
+    <Content Include="Paginas\Células\ReinicioDeAsistenciaDeCelula.aspx" />
+    <Content Include="Paginas\Foli\CatalogoDeGrupos.aspx" />
+    <Content Include="Paginas\Foli\AvanceDeMiembros.aspx" />
+    <Content Include="Paginas\Miembros\InicioDeSesionSecundaria.aspx" />
+    <Content Include="Paginas\Reportes\Células\UltimasAsistencias.aspx" />
+    <Content Include="Paginas\Reportes\Células\LideresDeCelula.aspx" />
+    <Content Include="Paginas\Servidores\CatalogoDeCapitanes.aspx" />
+    <Content Include="Paginas\UserControls\BuscadorSimple.ascx" />
+    <Content Include="Recursos\css\FullCalendar\fullcalendar.css" />
+    <Content Include="Recursos\css\FullCalendar\fullcalendar.print.css" />
+    <Content Include="Recursos\img\sin_foto.jpg" />
+    <Content Include="Recursos\js\admi.main.js" />
+    <Content Include="Recursos\js\admi.helpers.js" />
+    <Content Include="Recursos\js\extjs.helpers.js" />
+    <Content Include="Recursos\js\FullCalendar\fullcalendar.js" />
+    <Content Include="Recursos\js\FullCalendar\fullcalendar.min.js" />
+    <Content Include="Recursos\js\FullCalendar\gcal.js" />
+    <Content Include="Recursos\js\jquery-1.7.1.min.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\borrarCelulaPermanentemente.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\reinicioDeAsistenciaDeCelula.js" />
+    <Content Include="Recursos\js\Paginas\Consolidación\catalogoDeBoletas.js" />
+    <Content Include="Recursos\js\Paginas\Foli\avanceDeMiembros.js" />
+    <Content Include="Recursos\js\Paginas\Miembros\catalogoDePasosPorMiembro.js" />
+    <Content Include="Recursos\js\Paginas\Reportes\Celulas\ultimasAsistencias.js" />
+    <Content Include="Recursos\js\Paginas\Reportes\Celulas\lideresDeCelula.js" />
+    <Content Include="Recursos\js\Paginas\UserControls\buscadorSimple.js" />
+    <Content Include="WebServices\Generales\PruebaDeCorreo.aspx" />
+    <Content Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx" />
+    <None Include="App_Data\wurfl.xml.gz" />
+    <None Include="App_Offline.htm.bak" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\calendario.css" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\calendario.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.validate.additional-methods.min.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\logo-evento.png" />
+    <Content Include="Paginas\Células\CatalogoDeCelulas.aspx" />
+    <Content Include="Paginas\Células\CatalogoDeLideresDeCelula.aspx" />
+    <Content Include="Paginas\Células\BuscadorDeCelulas.aspx" />
+    <Content Include="Paginas\Células\DetallesDeCelula.aspx" />
+    <Content Include="Paginas\Miembros\DetallesDeMiembro.aspx" />
+    <Content Include="Paginas\Reportes\Células\Asistencias.aspx" />
+    <Content Include="Paginas\Células\ArbolDeCelulas.aspx" />
+    <Content Include="Paginas\Configuración\CatalogoDeCultos.aspx" />
+    <Content Include="Paginas\Configuración\CatalogoDeRoles.aspx" />
+    <Content Include="Paginas\Configuración\CatalogoDePasos.aspx" />
+    <Content Include="Paginas\Configuración\CatalogoDeCiclos.aspx" />
+    <Content Include="Paginas\Eventos\ConfirmacionDeInscipciones.aspx" />
+    <Content Include="Paginas\Miembros\CatalogoDeMiembros.aspx" />
+    <Content Include="Paginas\Login.aspx" />
+    <Content Include="Paginas\Main.aspx" />
+    <Content Include="Paginas\Células\RegistroDeAsistencia.aspx" />
+    <Content Include="Paginas\Miembros\CatalogoDeRolesPorMiembro.aspx" />
+    <Content Include="Paginas\Miembros\CatalogoDePasosPorMiembro.aspx" />
+    <Content Include="Paginas\Miembros\FotoDeMiembro.aspx" />
+    <Content Include="Paginas\Reportes\Células\FaltaDeRegistroDeAsistencia.aspx" />
+    <Content Include="Paginas\UserControls\Buscador.ascx" />
+    <Content Include="Paginas\UserControls\Miembros\FiltrosMiembros.ascx" />
+    <Content Include="Paginas\UserControls\Miembros\ResultadoMiembros.ascx" />
+    <Content Include="Recursos\css\admi.main.css" />
+    <Content Include="Recursos\js\Paginas\Eventos\confirmacionDeInscripciones.js" />
+    <Content Include="Recursos\js\Paginas\Miembros\detallesDeMiembro.js" />
+    <Content Include="Recursos\js\Paginas\Reportes\Celulas\faltaDeRegistroDeAsistencia.js" />
+    <Content Include="Recursos\js\Paginas\UserControls\buscador.js" />
+    <Content Include="Recursos\js\Paginas\UserControls\Miembros\resultadoMiembros.js" />
+    <Content Include="WebServices\Eventos\GuardarDeInscripcion.aspx" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\Inscripcion.html" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery-1.5.2.min.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.loading.1.6.4.min.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.validate.min.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\inscripcion.css" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\inscripcion.js" />
+    <Content Include="WebServices\Generales\Municipios.aspx" />
+    <Content Include="Recursos\img\logo.png" />
+    <Content Include="Recursos\js\Paginas\MasterPages\catalogos.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\catalogoDeLideresDeCelula.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\catalogoDeCelulas.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\buscadorDeCelulas.js" />
+    <Content Include="Recursos\js\Paginas\Miembros\catalogoDeMiembros.js" />
+    <Content Include="Recursos\js\Highcharts\highcharts.js" />
+    <Content Include="Recursos\js\Paginas\Reportes\Celulas\asistencias.js" />
+    <Content Include="Recursos\js\Paginas\login.js" />
+    <Content Include="Recursos\js\extjs.gmaps.helpers.js" />
+    <Content Include="Recursos\js\Paginas\Celulas\registroDeAsistencia.js" />
+    <Content Include="Recursos\js\Paginas\main.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="packages.config" />
+    <None Include="PaginasExternas\Eventos\Inscripciones\logo-evento.bak" />
+    <Content Include="Recursos\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Recursos\Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Recursos\Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Paginas\MasterPages\CatalogosComplejos.master" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Literales.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Literales.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Errores\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errores\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Errores\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errores\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MainMasterPage.Master.cs">
+      <DependentUpon>MainMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainMasterPage.Master.designer.cs">
+      <DependentUpon>MainMasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeCanciones.aspx.cs">
+      <DependentUpon>CatalogoDeCanciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeCanciones.aspx.designer.cs">
+      <DependentUpon>CatalogoDeCanciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeEventos.aspx.cs">
+      <DependentUpon>CatalogoDeEventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeEventos.aspx.designer.cs">
+      <DependentUpon>CatalogoDeEventos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeMiembros.aspx.cs">
+      <DependentUpon>CatalogoDeMiembros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\CatalogoDeMiembros.aspx.designer.cs">
+      <DependentUpon>CatalogoDeMiembros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\Calendario.aspx.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\Calendario.aspx.designer.cs">
+      <DependentUpon>Calendario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeCancion.aspx.cs">
+      <DependentUpon>DetallesDeCancion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeCancion.aspx.designer.cs">
+      <DependentUpon>DetallesDeCancion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeEnsayo.aspx.cs">
+      <DependentUpon>DetallesDeEnsayo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeEnsayo.aspx.designer.cs">
+      <DependentUpon>DetallesDeEnsayo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeEvento.aspx.cs">
+      <DependentUpon>DetallesDeEvento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Alabanza\DetallesDeEvento.aspx.designer.cs">
+      <DependentUpon>DetallesDeEvento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\AdministracionDeCache.aspx.cs">
+      <DependentUpon>AdministracionDeCache.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\AdministracionDeCache.aspx.designer.cs">
+      <DependentUpon>AdministracionDeCache.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\Logs.aspx.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\Logs.aspx.designer.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Consolidación\CatalogoDeBoletas.aspx.cs">
+      <DependentUpon>CatalogoDeBoletas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Consolidación\CatalogoDeBoletas.aspx.designer.cs">
+      <DependentUpon>CatalogoDeBoletas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\BorrarCelulaPermanentemente.aspx.cs">
+      <DependentUpon>BorrarCelulaPermanentemente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\BorrarCelulaPermanentemente.aspx.designer.cs">
+      <DependentUpon>BorrarCelulaPermanentemente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\ReinicioDeAsistenciaDeCelula.aspx.cs">
+      <DependentUpon>ReinicioDeAsistenciaDeCelula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\ReinicioDeAsistenciaDeCelula.aspx.designer.cs">
+      <DependentUpon>ReinicioDeAsistenciaDeCelula.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\CatalogoDeCelulas.aspx.cs">
+      <DependentUpon>CatalogoDeCelulas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\CatalogoDeCelulas.aspx.designer.cs">
+      <DependentUpon>CatalogoDeCelulas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\CatalogoDeLideresDeCelula.aspx.cs">
+      <DependentUpon>CatalogoDeLideresDeCelula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\CatalogoDeLideresDeCelula.aspx.designer.cs">
+      <DependentUpon>CatalogoDeLideresDeCelula.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\BuscadorDeCelulas.aspx.cs">
+      <DependentUpon>BuscadorDeCelulas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\BuscadorDeCelulas.aspx.designer.cs">
+      <DependentUpon>BuscadorDeCelulas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\DetallesDeCelula.aspx.cs">
+      <DependentUpon>DetallesDeCelula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\DetallesDeCelula.aspx.designer.cs">
+      <DependentUpon>DetallesDeCelula.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Foli\CatalogoDeGrupos.aspx.cs">
+      <DependentUpon>CatalogoDeGrupos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Foli\CatalogoDeGrupos.aspx.designer.cs">
+      <DependentUpon>CatalogoDeGrupos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Foli\AvanceDeMiembros.aspx.cs">
+      <DependentUpon>AvanceDeMiembros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Foli\AvanceDeMiembros.aspx.designer.cs">
+      <DependentUpon>AvanceDeMiembros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\InicioDeSesionSecundaria.aspx.cs">
+      <DependentUpon>InicioDeSesionSecundaria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\InicioDeSesionSecundaria.aspx.designer.cs">
+      <DependentUpon>InicioDeSesionSecundaria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\DetallesDeMiembro.aspx.cs">
+      <DependentUpon>DetallesDeMiembro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\DetallesDeMiembro.aspx.designer.cs">
+      <DependentUpon>DetallesDeMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\Asistencias.aspx.cs">
+      <DependentUpon>Asistencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\Asistencias.aspx.designer.cs">
+      <DependentUpon>Asistencias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\ArbolDeCelulas.aspx.cs">
+      <DependentUpon>ArbolDeCelulas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\ArbolDeCelulas.aspx.designer.cs">
+      <DependentUpon>ArbolDeCelulas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeCultos.aspx.cs">
+      <DependentUpon>CatalogoDeCultos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeCultos.aspx.designer.cs">
+      <DependentUpon>CatalogoDeCultos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeRoles.aspx.cs">
+      <DependentUpon>CatalogoDeRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeRoles.aspx.designer.cs">
+      <DependentUpon>CatalogoDeRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDePasos.aspx.cs">
+      <DependentUpon>CatalogoDePasos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDePasos.aspx.designer.cs">
+      <DependentUpon>CatalogoDePasos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeCiclos.aspx.cs">
+      <DependentUpon>CatalogoDeCiclos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Configuración\CatalogoDeCiclos.aspx.designer.cs">
+      <DependentUpon>CatalogoDeCiclos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Eventos\ConfirmacionDeInscipciones.aspx.cs">
+      <DependentUpon>ConfirmacionDeInscipciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Eventos\ConfirmacionDeInscipciones.aspx.designer.cs">
+      <DependentUpon>ConfirmacionDeInscipciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDeMiembros.aspx.cs">
+      <DependentUpon>CatalogoDeMiembros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDeMiembros.aspx.designer.cs">
+      <DependentUpon>CatalogoDeMiembros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MasterPages\Catalogos.master.cs">
+      <DependentUpon>Catalogos.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\MasterPages\Catalogos.master.designer.cs">
+      <DependentUpon>Catalogos.master</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Células\RegistroDeAsistencia.aspx.cs">
+      <DependentUpon>RegistroDeAsistencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Células\RegistroDeAsistencia.aspx.designer.cs">
+      <DependentUpon>RegistroDeAsistencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDeRolesPorMiembro.aspx.cs">
+      <DependentUpon>CatalogoDeRolesPorMiembro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDeRolesPorMiembro.aspx.designer.cs">
+      <DependentUpon>CatalogoDeRolesPorMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDePasosPorMiembro.aspx.cs">
+      <DependentUpon>CatalogoDePasosPorMiembro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\CatalogoDePasosPorMiembro.aspx.designer.cs">
+      <DependentUpon>CatalogoDePasosPorMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Miembros\FotoDeMiembro.aspx.cs">
+      <DependentUpon>FotoDeMiembro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Miembros\FotoDeMiembro.aspx.designer.cs">
+      <DependentUpon>FotoDeMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\UltimasAsistencias.aspx.cs">
+      <DependentUpon>UltimasAsistencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\UltimasAsistencias.aspx.designer.cs">
+      <DependentUpon>UltimasAsistencias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\FaltaDeRegistroDeAsistencia.aspx.cs">
+      <DependentUpon>FaltaDeRegistroDeAsistencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\FaltaDeRegistroDeAsistencia.aspx.designer.cs">
+      <DependentUpon>FaltaDeRegistroDeAsistencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\LideresDeCelula.aspx.cs">
+      <DependentUpon>LideresDeCelula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Células\LideresDeCelula.aspx.designer.cs">
+      <DependentUpon>LideresDeCelula.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Servidores\CatalogoDeCapitanes.aspx.cs">
+      <DependentUpon>CatalogoDeCapitanes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Servidores\CatalogoDeCapitanes.aspx.designer.cs">
+      <DependentUpon>CatalogoDeCapitanes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Buscador.ascx.cs">
+      <DependentUpon>Buscador.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Buscador.ascx.designer.cs">
+      <DependentUpon>Buscador.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\UserControls\BuscadorSimple.ascx.cs">
+      <DependentUpon>BuscadorSimple.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\UserControls\BuscadorSimple.ascx.designer.cs">
+      <DependentUpon>BuscadorSimple.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Miembros\FiltrosMiembros.ascx.cs">
+      <DependentUpon>FiltrosMiembros.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Miembros\FiltrosMiembros.ascx.designer.cs">
+      <DependentUpon>FiltrosMiembros.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Miembros\ResultadoMiembros.ascx.cs">
+      <DependentUpon>ResultadoMiembros.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\UserControls\Miembros\ResultadoMiembros.ascx.designer.cs">
+      <DependentUpon>ResultadoMiembros.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServices\Eventos\GuardarDeInscripcion.aspx.cs">
+      <DependentUpon>GuardarDeInscripcion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\Eventos\GuardarDeInscripcion.aspx.designer.cs">
+      <DependentUpon>GuardarDeInscripcion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\Generales\PruebaDeCorreo.aspx.cs">
+      <DependentUpon>PruebaDeCorreo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\Generales\PruebaDeCorreo.aspx.designer.cs">
+      <DependentUpon>PruebaDeCorreo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\Generales\Municipios.aspx.cs">
+      <DependentUpon>Municipios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\Generales\Municipios.aspx.designer.cs">
+      <DependentUpon>Municipios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx.cs">
+      <DependentUpon>FaltaDeAsistencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx.designer.cs">
+      <DependentUpon>FaltaDeAsistencias.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainMasterPage.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdministradorDeIglesiasV2.Core\AdministradorDeIglesiasV2.Core.csproj">
+      <Project>{4DF26FC9-EDFB-4AC8-9844-D35FCCC4AFA0}</Project>
+      <Name>AdministradorDeIglesiasV2.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZagueEF.Core.Web.CompressionModule\ZagueEF.Core.Web.CompressionModule.csproj">
+      <Project>{C82C8611-6AD4-45A9-A011-9FE994B1C335}</Project>
+      <Name>ZagueEF.Core.Web.CompressionModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZagueEF.Core.Web.ExtNET\ZagueEF.Core.Web.ExtNET.csproj">
+      <Project>{230B67BA-9C9C-4401-8807-F82A29C11EDF}</Project>
+      <Name>ZagueEF.Core.Web.ExtNET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZagueEF.Core.Web\ZagueEF.Core.Web.csproj">
+      <Project>{4E5B9F12-8DD8-4F48-A997-6DA3E373C1ED}</Project>
+      <Name>ZagueEF.Core.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZagueEF.Core\ZagueEF.Core.csproj">
+      <Project>{8E34B2AA-B9A8-4930-A535-465E7F43ADA4}</Project>
+      <Name>ZagueEF.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Paginas\MasterPages\Catalogos.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Literales.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Literales.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Recursos\js\Paginas\Alabanza\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>55566</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55566/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

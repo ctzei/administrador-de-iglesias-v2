@@ -1,0 +1,45 @@
+﻿@model List<AdministradorDeIglesiasV2.Core.Modelos.PantallaPermitida>
+@{
+    ViewBag.Title = "Menu Principal";
+}
+
+@section head{
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/Content/images/logo-114x114.png")"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("~/Content/images/logo-57x57.png")"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="@Url.Content("~/Content/images/logo-72x72.png")"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="@Url.Content("~/Content/images/logo-114x114.png")"/>
+    <link href="@Url.Content("~/Content/home.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/Views/Home/home.js")" type="text/javascript"></script>
+}
+
+<div class="top-nav">
+
+    @{if (!string.IsNullOrEmpty(@ViewBag.Title))
+      {
+        <span class="title">@ViewBag.Title</span>
+      }
+    }
+
+    <input id="salir" type="submit" value="Salir" />
+
+</div>
+
+<div class="content">
+    <ul class="nav">
+        @foreach (var pantalla in Model)
+        {    
+            <li><a onclick="window.location.href = '@Url.Content("~/" + pantalla.Nombre_Tecnico)'; return false;" href="#"><strong>@pantalla.Nombre</strong><span class="caret">▶</span></a></li>
+        }
+    </ul>
+</div>
+
+<div class="watermark"></div>
+
+<script type="text/javascript">
+    if ('standalone' in navigator && !navigator.standalone && (/iphone|ipod|ipad/gi).test(navigator.platform) && (/Safari/i).test(navigator.appVersion)) {
+        document.write('<link rel="stylesheet" href="@Url.Content("~/Content/add2home.css")">');
+        document.write('<script type="application/javascript" src="@Url.Content("~/Scripts/lib/add2home.js")"><\/s' + 'cript>');
+    }
+</script>

@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    @RenderSection("head", false)
+}
+
+<div class="top-nav">
+    <input id="inicio" type="submit" value="Inicio" onclick="window.location.href = '@Url.Content("~/")';" />
+
+    @{if (!string.IsNullOrEmpty(@ViewBag.Title))
+      {
+          <span class="title">@ViewBag.Title</span>
+      }
+    }
+
+    <input id="atras" type="submit" value="Atras" onclick="mask(); javascript: history.back();" />
+</div>
+
+@RenderBody()
+
+@section footer{
+    @RenderSection("footer", false)
+}

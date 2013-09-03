@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutDetalle.cshtml";
+    ViewBag.Title = "Registro de Asistencia";
+}
+
+@section head{
+    <link href="@Url.Content("~/Content/registroDeAsistencia.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/Views/RegistroDeAsistencia/registroDeAsistencia.js")" type="text/javascript"></script>
+}
+
+<fieldset id="filtros">
+    <div class="form-item">
+        @Html.Label("celulaId", "Célula:")
+        @Html.DropDownList("celulaId", (SelectList)ViewBag.CelulasPermitidas)
+    </div>
+    <div class="form-item">
+        @Html.Label("dia", "Día:")
+        @Html.DropDownList("dia", (SelectList)ViewBag.Dias)
+    </div>
+    <div class="form-item">
+        @Html.Label("mes", "Mes:")
+        @Html.DropDownList("mes", (SelectList)ViewBag.Meses)
+    </div>
+    <div class="form-item">
+        @Html.Label("anio", "Año:")
+        @Html.DropDownList("anio", (SelectList)ViewBag.Anios)
+    </div>
+</fieldset>
+
+<div id="asistencias">@Html.Raw(ViewBag.Asistencia)</div>

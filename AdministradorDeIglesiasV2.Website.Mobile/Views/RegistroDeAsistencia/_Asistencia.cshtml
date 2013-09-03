@@ -1,0 +1,34 @@
+﻿@model List<AdministradorDeIglesiasV2.Core.Modelos.Retornos.AsistenciaDeCelulaPorMiembro>
+           
+<fieldset>  
+    @if (Model != null)
+    {
+        <table id="gridAsistencia" class="gridDatos" border="0" width="99%">
+            <tbody>
+            @foreach (var asistencia in Model)
+            {    
+                <tr data-miembro-id="@asistencia.MiembroId.ToString()" data-asistencia-id="@asistencia.Id.ToString()">
+                    <td style="width:25px;">@Html.CheckBox("asistencia", asistencia.Asistencia)</td>
+                    <td class="miembro">@asistencia.PrimerNombre @asistencia.SegundoNombre @asistencia.ApellidoPaterno</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+    <hr />
+
+    <div class="invitados">
+        @Html.Label("numeroDeInvitados", "Número de Invitados:")
+        @Html.TextBox("numeroDeInvitados", (int)ViewBag.NumeroDeInvitados, new {type = "number"})
+    </div>
+        
+    <div class="botones">
+        <div class="form-item">
+            <input id="guardarAsistencia" type="submit" value="Guardar" />
+        </div>
+        <div class="form-item">
+            <input id="cancelarAsistencia" type="submit" value="Cancelar" />
+        </div>
+    </div>
+</fieldset>   

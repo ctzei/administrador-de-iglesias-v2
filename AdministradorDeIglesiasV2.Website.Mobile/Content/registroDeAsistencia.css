@@ -1,0 +1,82 @@
+#filtros, .botones
+{
+    margin: 0 auto;
+}
+
+table.fecha
+{
+    width: 100%;
+}
+
+.invitados
+{
+    padding-right: 5px;
+    padding-bottom: 5px;
+    text-align: right;
+}
+
+.invitados input
+{
+    text-align: right;
+    width: 50px;
+}
+
+/* Tablet ONLY */
+@media all and (min-width: 792px)
+{
+    #filtros
+    {
+        width: 795px;
+    }
+
+        #filtros > .form-item:first-child
+        {
+            width: 50%;
+        }
+
+        #filtros > .form-item:last-child
+        {
+            width: 11%;
+        }
+
+        #filtros > .form-item
+        {
+            width: 16%;
+            float: left;
+        }
+
+    .botones
+    {
+        width: 270px;
+    }
+
+        .botones .form-item
+        {
+            width: 48%;
+            float: left;
+        }
+
+    table.fecha td
+    {
+        padding: 0px 5px;
+    }
+}
+
+/* Phone ONLY */
+@media all and (max-width: 791px)
+{
+    #filtros
+    {
+        width: 100%;
+    }
+
+    .botones
+    {
+        width: 100%;
+    }
+
+    .form-item label
+    {
+        display: none;
+    }
+}

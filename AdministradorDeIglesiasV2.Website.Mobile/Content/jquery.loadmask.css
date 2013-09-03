@@ -1,0 +1,73 @@
+.loadmask, .loadmask-msg, .loadmask-msg span, .loadmask-msg h1 {
+    cursor:wait;
+}
+
+.loadmask {
+    z-index: 999;
+    position: absolute;
+    top:0;
+    left:0;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+    background-color: #ffffff;
+    width: 100%;
+    height: 200%;
+    zoom: 1;
+}
+
+.loadmask-msg {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    /* background: #2489CE; */
+    background: #5F9CC5; /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#5F9CC5), to(#396B9E)); /* for webkit browsers */
+    background: -moz-linear-gradient(#5F9CC5,  #396B9E) repeat scroll 0 0 #396B9E; /* for firefox 3.6+ */ 
+    
+    background-clip:padding-box;
+    font-family: Helvetica,Arial,sans-serif;
+    color: #FFFFFF;
+    border: 1px solid #2A2A2A;
+    text-shadow: 0 1px 0 #000000;
+    width: 160px;
+    padding: 10px 30px;
+    -moz-opacity: 0.85;
+    opacity: .85;
+    filter: alpha(opacity=85);
+    -webkit-border-top-left-radius: 0.6em;
+    -webkit-border-top-right-radius: 0.6em;
+    -webkit-border-bottom-left-radius: 0.6em;
+    -webkit-border-bottom-right-radius: 0.6em;
+    border-radius: 0.6em;
+}
+
+.loadmask-msg span {
+    border-radious: 20px 20px 20px 20px;
+    background: transparent;
+    background-size: 35px 35px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAMAAAApB0NrAAAAMFBMVEX////x8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHvvEhiAAAAD3RSTlMAESIzRFVmd4iZqrvM3e5GKvWZAAAA3klEQVR42sXTW27EIAxAUfwA85gk+99tbZqxaE3Tr6r3z+JIRkikPwmoaBl/BtzGeH1W94z7GLc5tBYVVCNurBxJv5GbMwdipjLoRDKMnF+RdGu5qKjROHnUWuu9pCWa5rVsapqSiMRHIxLewszhy83E5+iG8ntVrbopROd1XTXNsGqUYoeacS82AxvTLm0xaZME8xiL9oshM/hswAyn54pIKSkG64WKRpFYPpjJsCUebxB8M5CVZEOReJhnBG+BiNMExMxkhzibJCC2SLvR5pc6ISchdONiE+AkJv6rDxjdCn2b/fy8AAAAAElFTkSuQmCC);
+    display: block;
+    height: 35px;
+    width: 35px;
+    margin: 0 auto;  
+}
+
+.loadmask-msg h1 {
+    font-size:15px;
+    text-align:center;
+}
+
+.masked {
+    overflow: hidden !important;
+}
+
+.masked-relative {
+    position: relative !important;
+}
+
+.masked-hidden {
+    visibility: hidden !important;
+}

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Jóvenes 2013</title>
+    <link href="inscripcion.css" rel="stylesheet" type="text/css" />
+    <link href="calendario.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-1.5.2.min.js" type="text/javascript"></script>
+    <script src="jquery.validate.min.js" type="text/javascript"></script>
+    <script src="jquery.validate.additional-methods.min.js" type="text/javascript"></script>
+    <script src="jquery.loading.1.6.4.min.js" type="text/javascript"></script>
+    <script src="calendario.js" type="text/javascript"></script>
+    <script src="inscripcion.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <form id="inscripcion" method="get"> 
+        <input id="method" name="handler" type="hidden" value="guardarInscripcion" />
+        <input id="evento" name="evento" type="hidden" value="3" />
+
+        <div id="header"></div>
+
+        <div class="main">
+            <div id="registro">
+                <div class="titles">
+                    <h2>Ficha de Inscripción</h2>
+                    <h4>Te recomendamos proporcionar información válida ya que será nuestro medio de contacto para confirmar tú inscripción.</h4>
+                </div>
+
+                <div class="centerCol">
+                    <h3>Tipo de Inscripción:</h3>
+                    <p class="field"> 
+                        <input id="inscripcionIndividual" type="radio" name="tipoDeInscripcion" title="Individual" value="1" class="required" checked="checked" /><label for="inscripcionIndividual">Individual</label>
+                        <input id="inscripcionGrupal" type="radio" name="tipoDeInscripcion" title="Grupal" value="2" class="required" /><label for="inscripcionGrupal">Grupal</label><br />
+                    </p>
+                    <br />
+                </div>
+
+                <div class="leftCol">
+                    <h4>Datos Personales</h4>
+                    <p class="field"> 
+                        <label class="lbl" for="email">E-mail:*</label>
+                        <input id="email" name="email" size="25" class="txt email required" maxlength="50" type="text" /> 
+                    </p>
+        
+                    <p class="field"> 
+                        <label class="lbl" for="pnombre">Primer Nombre:*</label>
+                        <input id="pnombre" name="pnombre" size="25" class="txt required" maxlength="50" type="text" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="snombre">Segundo Nombre:</label>
+                        <input id="snombre" name="snombre" size="25" class="txt" maxlength="50" type="text" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="apaterno">Apellido Paterno:*</label>
+                        <input id="apaterno" name="apaterno" size="25" class="txt required" maxlength="50" type="text" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="amaterno">Apellido Materno:</label>
+                        <input id="amaterno" name="amaterno" size="25" class="txt" maxlength="50" type="text" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="tel">Teléfono:*</label>
+                        <input id="tel" name="tel" class="txt digits required" maxlength="25" type="text" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="genero">Género:*</label>
+                        <select id="genero" name="genero" class="txt required">
+                            <option value="" selected="selected">--Seleccione--</option>
+                            <option value="1">Hombre</option>
+                            <option value="2">Mujer</option>
+                        </select>
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="estado">Estado:*</label>
+                        <select id="estado" name="estado" class="txt required">
+                            <option value="" selected="selected">--Seleccione--</option>
+                            <option value="1">Aguascalientes</option>
+                            <option value="2">Baja California</option>
+                            <option value="3">Baja California Sur</option>
+                            <option value="4">Campeche</option>
+                            <option value="5">Chiapas</option>
+                            <option value="6">Chihuahua</option>
+                            <option value="7">Coahuila</option>
+                            <option value="8">Colima</option>
+                            <option value="9">Distrito Federal</option>
+                            <option value="10">Durango</option>
+                            <option value="11">Estado de México</option>
+                            <option value="12">Guanajuato</option>
+                            <option value="13">Guerrero</option>
+                            <option value="14">Hidalgo</option>
+                            <option value="15">Jalisco</option>
+                            <option value="16">Michoacán</option>
+                            <option value="17">Morelos</option>
+                            <option value="18">Nayarit</option>
+                            <option value="19">Nuevo León</option>
+                            <option value="20">Oaxaca</option>
+                            <option value="21">Puebla</option>
+                            <option value="22">Querétaro</option>
+                            <option value="23">Quintana Roo</option>
+                            <option value="24">San Luis Potosí</option>
+                            <option value="25">Sinaloa</option>
+                            <option value="26">Sonora</option>
+                            <option value="27">Tabasco</option>
+                            <option value="28">Tamaulipas</option>
+                            <option value="29">Tlaxcala</option>
+                            <option value="30">Veracruz</option>
+                            <option value="31">Yucatán</option>
+                            <option value="32">Zacatecas</option>
+                        </select>
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="municipio">Municipio:*</label>
+                        <select id="municipio" name="municipio" class="txt required">
+                            <option value="" selected="selected">--Seleccione--</option>
+                        </select>
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="tregistrante">Tipo de Registrante:*</label>
+                        <select id="tregistrante" name="tregistrante" class="txt required">
+                            <option value="" selected="selected">--Seleccione--</option>
+                            <option value="1">Asiste a Puerta el Cielo</option>
+                            <option value="2">Asiste a OTRA iglesia</option>
+                            <option value="3">Visitante o Invitado</option>
+                        </select>
+                    </p>
+
+                    <p class="field hidden"> 
+                        <label class="lbl" for="iregistrante">A que iglesia:</label>
+                        <input id="iregistrante" name="iregistrante" maxlength="50" class="txt" type="text" />
+                    </p>
+                </div>
+
+                <div class="rightCol">
+                    <h4>Datos del Pago</h4>
+
+                    <br />
+                    <input id="depositoBancario" type="radio" name="tipoDeDeposito" title="Depósito Bancario" value="1" class="required" checked="checked" /><label for="depositoBancario">Depósito Bancario</label>
+                    <input id="transferenciaElectronica" type="radio" name="tipoDeDeposito" title="Transferencia Electrónica" value="1" class="required" /><label for="transferenciaElectronica">Transferencia Electrónica</label>
+                    <input id="efectivo" type="radio" name="tipoDeDeposito" title="efectivo" value="1" class="required" /><label for="efectivo">Efectivo</label>
+
+                    <p class="field mrgtop10"> 
+                        <label class="lbl" for="rnum">Número de Movimiento:*</label>
+                        <input id="rnum" name="rnum" class="txt digits required" type="text" />
+                    </p>
+
+                    <p class="field mrgtop10 hidden"> 
+                        <label class="lbl" for="ralfa">Folio de Internet:*</label>
+                        <input id="ralfa" name="ralfa" maxlength="50" class="txt required" type="text" value="NA" />
+                    </p>
+
+                    <p class="field"> 
+                        <label class="lbl" for="fecha">Fecha:*</label>
+                        <input id="fecha" name="fecha" class="txt ddmmyyy required" type="text"/>
+                    </p>
+
+                    <p class="field hidden"> 
+                        <label class="lbl" for="cant">Cantidad de Personas en el Grupo:*</label>
+                        <input id="cant" name="cant" class="txt number required" type="text" value="1" />
+                    </p>
+
+                    <p class="buttons"> 
+                        <input id="aceptar" class="btn" type="submit" value="Aceptar" />
+                        <input id="limpiar" class="btn" type="reset" value="Limpiar" />
+                    </p>
+                </div>
+            </div>
+
+            <div id="confirmacion">
+                <h2>Tu información ha sido recibida de manera exitosa.</h2>
+                <p>Tu folio de registro es el <span id="folio">####</span>.</p>
+                <p>En un tiempo no mayor a 5 días estarás recibiendo la confirmación de tu inscripción vía correo electrónico.</p>
+                <p>Cualquier duda escríbenos a <a id="correo" href="mailto:congresos@puertacielo.org">congresos@puertacielo.org</a></p>
+                <p>GRACIAS</p>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>

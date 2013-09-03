@@ -1,0 +1,43 @@
+﻿/* Loading */
+.loading-indicator, .x-mask-loading div {font-size:13px ! important;}
+
+/* Splits */
+.x-layout-cmini-west, .x-layout-cmini-east, .x-layout-split {width:6px ! important;}
+.x-layout-mini {left:1px ! important;}
+
+/* Grids */
+.x-grid3-cell-inner, .x-grid3-hd-inner {font-size:12px ! important;}
+.x-grid3-row-alt {background-color: #BDC7D6 ! important;}
+.x-grid3-row-selected{background-color:#FBF0D2 !important;}
+
+/* Botones */
+.x-btn button {font-size:13px ! important; padding-left:11px ! important; padding-right: 11px ! important; font-weight:bold ! important;}
+.x-btn-text {height:18px ! important;}
+.x-btn-text-icon .x-btn-icon-small-left .x-btn-text {padding-left:18px ! important; padding-right:6px ! important;}
+
+/* Varios */
+.no-tiene-email-chk {margin-top:3px ! important;}
+.x-form-field, .x-form-item, .x-tree-node, .x-btn, .x-panel-header, .x-tab-strip-text, .x-btn, td, .x-btn-noicon {font-size:13px ! important;}
+a {color:#465A6C;}
+body {font-family:tahoma,arial,verdana,sans-serif;font-size:13px;}
+.logo {margin:10px auto; text-align:center; background-image:url("../img/logo.png"); background-position:center center; background-repeat:no-repeat; height: 200px;}
+.faded {opacity:0.4; filter:alpha(opacity=40);}
+.main-area {position:absolute; height:87%; width:100%;}
+.bold, .bold span, div.bold {font-weight: bolder;}
+.center {text-align:center;}
+.small {font-size:smaller! important;}
+
+/* Colores especiales de las filas de los grids */
+.x-grid-row-red, .alert {color:#A60000; font-style:italic;}
+.x-grid-row-yellow, .warning {color:#FFFF80; font-style:italic;}
+.x-grid-row-green, .success {color:#99CC99; font-style:italic;}
+
+/* Tables */
+table.gridDatos tr:nth-child(odd) { background:#FFFFFF; }
+table.gridDatos tr:nth-child(even) { background:#ACCFE6; }
+table.gridDatos tr {border-top: 1px solid #fff;}
+table.gridDatos th {background-color: #fff;}
+table.gridDatos th{padding: 3px 5px;}
+
+/* IE hacks */
+.x-ie-shadow { background-color: transparent; } /* Ext.NET tiene issues al mostrar modal dialogs en IE*/

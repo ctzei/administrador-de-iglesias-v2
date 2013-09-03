@@ -1,0 +1,152 @@
+html
+{
+    background-color:#FFFFFF;
+}
+
+body 
+{
+    font: 75%/150% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
+    color: #3366AA;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D8E7FE', endColorstr='#FFFFFF'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#D8E7FE), to(#FFFFFF)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #D8E7FE,  #FFFFFF); /* for firefox 3.6+ */
+}
+
+.loading 
+{
+    font-weight:bold;
+}
+
+#header
+{
+    -moz-opacity:0.90; 
+    filter:alpha(opacity=90);
+    opacity:0.90;
+    background:url(logo-evento.png) no-repeat center center;
+    height:100px;
+    background-color:#FFFFFF;
+}
+
+.titles
+{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+label.error  
+{
+    float: none; 
+    color: #CC0000; 
+    padding-left: .5em; 
+    vertical-align:top; 
+}
+
+h4
+{
+    margin:0px 0px 0px 0px;
+    font-size:12px;
+}
+
+h3
+{
+    font-size:14px;
+}
+
+h2
+{
+    font-size:16px;
+}
+
+.main
+{
+    width:900px;
+    margin:0 auto;
+}
+
+.centerCol
+{
+    width:900px;
+    margin:0 auto;
+    text-align:center;
+}
+
+
+.leftCol
+{
+    float:left;
+    margin-right: -390px;
+}
+
+.rightCol
+{
+    width:390px;
+    float:right;
+}
+
+.lbl 
+{
+	float:left;
+	margin:5px;
+	width:150px;
+	display:block;
+}
+
+
+.field
+{
+    margin:0px 0px 6px 0px;
+}
+
+.txt {
+	margin:3px;
+	padding:0px 3px;
+	color:#3366AA;
+	border:1px solid;
+}
+
+.btn
+{
+    margin:3px;
+	padding:3px 5px;
+    border:0;
+    color:#FFFFFF;
+    background-color:#3366AA;
+}
+
+.btn:hover
+{
+    color:#D8E7FE; 
+    background-color:#3366AA;
+}
+
+.buttons
+{
+    margin-top:40px;
+}
+
+#confirmacion
+{
+    display:none;
+    text-align:center;
+}
+
+#folio
+{
+    font-size:large;
+    font-weight:bold;
+}
+
+.hidden
+{
+    display:none;
+}
+
+.bold
+{
+    font-weight:bold;
+}
+
+.mrgtop10
+{
+    margin-top:10px;
+}

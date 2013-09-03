@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AsistenciaACelulaPreviamenteCancelada" xml:space="preserve">
+    <value>La asistencia en esta fecha fue previamente cancelada; aun así se puede guardar asistencia y se borrará la cancelación de la asistencia. Razón de la cancelacion: {0}</value>
+    <comment>Registro de Asistencia</comment>
+  </data>
+  <data name="AsistenciaDeCelulaReiniciada" xml:space="preserve">
+    <value>Asistencia reiniciada correctamente.</value>
+    <comment>Reinicio de Asistencia de Celula</comment>
+  </data>
+  <data name="AsistenciaGuardadaCorrectamente" xml:space="preserve">
+    <value>Asistencia guardada correctamente.</value>
+    <comment>Registro de Asistencia</comment>
+  </data>
+  <data name="CambioDeCicloNoPermitido" xml:space="preserve">
+    <value>No es posible cambiar el ciclo de un registro existente; es necesario eliminar el anterior y crear un nuevo.</value>
+    <comment>Catalogo de Pasos por Miembro</comment>
+  </data>
+  <data name="CambiosAplicados" xml:space="preserve">
+    <value>Cambios aplicados correctamente.</value>
+    <comment>Catalogos</comment>
+  </data>
+  <data name="CampoNoValido" xml:space="preserve">
+    <value>Uno de los campos tiene un valor no válido; favor de volverlo a intentar.</value>
+    <comment>Catalogos</comment>
+  </data>
+  <data name="CancelacionDeAsistenciaGuardadaCorrectamente" xml:space="preserve">
+    <value>La cancelación de la asistencia de la célula se ha guardado correctamente.</value>
+    <comment>Registro de Asistencia</comment>
+  </data>
+  <data name="CelulaNecesaria" xml:space="preserve">
+    <value>Es necesario seleccionar una célula antes de continuar.</value>
+    <comment>Registro de Asistencia</comment>
+  </data>
+  <data name="CelulaYFechaNecesarias" xml:space="preserve">
+    <value>Es necesario seleccionar una célula y fecha antes de continuar.</value>
+    <comment>Registro de Asistencia, Reporte de Asistencias</comment>
+  </data>
+  <data name="CicloNoCorrecto" xml:space="preserve">
+    <value>Alguno de los pasos no tiene definido un ciclo correcto.</value>
+    <comment>Catalogo de Pasos por Miembro</comment>
+  </data>
+  <data name="ContrasenaCambiadaCorrectamente" xml:space="preserve">
+    <value>La contraseña ha sido actualizada correctamente.</value>
+    <comment>Login</comment>
+  </data>
+  <data name="ErrorAlCargar" xml:space="preserve">
+    <value>No es posible cargar el registro seleccionado, es posible que ya se encuentre eliminado.</value>
+    <comment>Catalogos</comment>
+  </data>
+  <data name="FiltrosConDatosInvalidos" xml:space="preserve">
+    <value>Los filtros contienen valores/datos inválidos. Favor de volver a intentar.</value>
+    <comment>Catalogos</comment>
+  </data>
+  <data name="GrupoYFechaNecesarias" xml:space="preserve">
+    <value>Es necesario seleccionar una grupo y fecha antes de continuar.</value>
+    <comment>Avance de Miembros</comment>
+  </data>
+  <data name="LimiteDeResultadosExcedido" xml:space="preserve">
+    <value>Los filtros actuales regresaron {0} resultados; por seguridad solo se mostrarán los primeros {1}.</value>
+    <comment>FiltrosMiembros, Buscador</comment>
+  </data>
+  <data name="OperacionNovalidaBorrar" xml:space="preserve">
+    <value>La operacion de borrar no es posible de efectuarse en este caso, el registro es solo modificable.</value>
+    <comment>Catalogo de Roles por Miembro</comment>
+  </data>
+  <data name="RegistroInexistente" xml:space="preserve">
+    <value>El registro no se encuentra en la base de datos; es posible que alguien mas ya lo haya eliminado.</value>
+    <comment>Catalogo de Roles por Miembro</comment>
+  </data>
+</root>
