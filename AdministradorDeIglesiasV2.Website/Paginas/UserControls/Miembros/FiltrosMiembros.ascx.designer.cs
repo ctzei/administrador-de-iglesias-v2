@@ -254,5 +254,14 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.UserControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ZagueEF.Core.Web.ExtNET.Controls.ZNumberField filtroTel;
+        
+        /// <summary>
+        /// filtroConyuge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AdministradorDeIglesiasV2.Website.Paginas.UserControls.BuscadorSimple filtroConyuge;
     }
 }

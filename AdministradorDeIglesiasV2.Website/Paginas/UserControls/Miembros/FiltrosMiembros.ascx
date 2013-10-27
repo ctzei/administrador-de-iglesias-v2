@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FiltrosMiembros.ascx.cs" Inherits="AdministradorDeIglesiasV2.Website.Paginas.UserControls.FiltrosMiembros" %>
+
 <%@ Register Assembly="ZagueEF.Core.Web.ExtNET" Namespace="ZagueEF.Core.Web.ExtNET.Controls" TagPrefix="Z" %>
 <%@ Register assembly="Ext.Net" namespace="Ext.Net" tagprefix="ext" %>
+<%@ Register Src="~/Paginas/UserControls/BuscadorSimple.ascx" TagPrefix="uc3" TagName="BuscadorSimple" %>
 
 <ext:Store ID="StoreResultados" runat="server" IgnoreExtraFields="true">
     <Reader>
@@ -185,6 +187,11 @@
                                 runat="server"
                                 FieldLabel="Tel"
                                 />
+                            <ext:Container runat="server" Layout="Form">
+                                <Content>
+                                    <uc3:BuscadorSimple runat="server" ID="filtroConyuge" LabelWidth="105" FieldLabel="Cónyuge" TipoDeObjeto="Miembro" />
+                                </Content>
+                            </ext:Container>
                         </Items>
                     </ext:Container>
                 </ext:LayoutColumn>

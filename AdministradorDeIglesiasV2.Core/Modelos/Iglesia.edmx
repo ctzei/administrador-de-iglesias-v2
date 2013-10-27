@@ -210,6 +210,10 @@
             <End Role="Miembro" EntitySet="Miembro" />
             <End Role="CelulaInvitadosAsistencia" EntitySet="CelulaInvitadosAsistencia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Conyuge_Miembro" Association="IglesiaModel.Store.FK_Conyuge_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="Miembro1" EntitySet="Miembro" />
+          </AssociationSet>
           <AssociationSet Name="FK_FoliGrupo_Ciclo" Association="IglesiaModel.Store.FK_FoliGrupo_Ciclo">
             <End Role="Ciclo" EntitySet="Ciclo" />
             <End Role="FoliGrupo" EntitySet="FoliGrupo" />
@@ -1005,6 +1009,7 @@
           <Property Name="Fecha_Nacimiento" Type="datetime" />
           <Property Name="AsisteIglesia" Type="bit" Nullable="false" />
           <Property Name="Comentario" Type="varchar" MaxLength="250" />
+          <Property Name="ConyugeId" Type="int" />
           <Property Name="Creacion" Type="datetime" Nullable="false" />
           <Property Name="Modificacion" Type="datetime" Nullable="false" />
           <Property Name="Borrado" Type="bit" Nullable="false" />
@@ -1698,6 +1703,18 @@
             </Principal>
             <Dependent Role="CelulaInvitadosAsistencia">
               <PropertyRef Name="MiembroQueRegistraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Conyuge_Miembro">
+          <End Role="Miembro" Type="IglesiaModel.Store.Miembro" Multiplicity="0..1" />
+          <End Role="Miembro1" Type="IglesiaModel.Store.Miembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="MiembroId" />
+            </Principal>
+            <Dependent Role="Miembro1">
+              <PropertyRef Name="ConyugeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2850,6 +2867,10 @@
             <End Role="Miembro" EntitySet="Miembro" />
             <End Role="CelulaInvitadosAsistencia" EntitySet="CelulaInvitadosAsistencia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Conyuge_Miembro" Association="AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="Miembro1" EntitySet="Miembro" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="CelulaLider">
           <Key>
@@ -3035,6 +3056,9 @@
           <NavigationProperty Name="EstadoCivil" Relationship="AdministradorDeIglesiasV2.Core.Modelos.EstadoCivil_Miembro_FK1" FromRole="Miembro" ToRole="EstadoCivil" />
           <NavigationProperty Name="AlabanzaMiembro" Relationship="AdministradorDeIglesiasV2.Core.Modelos.FK_AlabanzaMiembro_Miembro" FromRole="Miembro" ToRole="AlabanzaMiembro" />
           <NavigationProperty Name="CelulaInvitadosAsistencia" Relationship="AdministradorDeIglesiasV2.Core.Modelos.FK_CelulaInvitadosAsistencia_Miembro" FromRole="Miembro" ToRole="CelulaInvitadosAsistencia" />
+          <Property Type="Int32" Name="ConyugeId" />
+          <NavigationProperty Name="Miembro1" Relationship="AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro" FromRole="Miembro" ToRole="Miembro1" />
+          <NavigationProperty Name="Miembro2" Relationship="AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro" FromRole="Miembro1" ToRole="Miembro" />
           </EntityType>
         <EntityType Name="MiembroPaso">
           <Key>
@@ -4950,6 +4974,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Conyuge_Miembro">
+          <End Type="AdministradorDeIglesiasV2.Core.Modelos.Miembro" Role="Miembro" Multiplicity="0..1" />
+          <End Type="AdministradorDeIglesiasV2.Core.Modelos.Miembro" Role="Miembro1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="MiembroId" />
+            </Principal>
+            <Dependent Role="Miembro1">
+              <PropertyRef Name="ConyugeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5076,6 +5112,7 @@
           <EntitySetMapping Name="Miembro">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.Miembro">
               <MappingFragment StoreEntitySet="Miembro">
+                <ScalarProperty Name="ConyugeId" ColumnName="ConyugeId" />
                 <ScalarProperty Name="GeneroId" ColumnName="GeneroId" />
                 <ScalarProperty Name="AsisteIglesia" ColumnName="AsisteIglesia" />
                 <ScalarProperty Name="ModificacionId" ColumnName="ModificacionId" />
@@ -7260,6 +7297,7 @@
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaInvitadosAsistencia" Width="1.5" PointX="11.372598962566162" PointY="28.284669114409326" />
         <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.FK_Celula_CelulaInvitadosAsistencia_FK1" />
         <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.FK_CelulaInvitadosAsistencia_Miembro" />
+        <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro" />
         </Diagram>
     </Diagrams>
   </Designer>

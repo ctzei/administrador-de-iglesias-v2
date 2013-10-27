@@ -91,30 +91,45 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.UserControls
 
         public void EstablecerId(int id)
         {
-            RegistroBasico rtn = null;
-            switch (_tipoDeObjeto){
-                case ManejadorDeBusquedas.TipoDeObjeto.Celula:
-                    rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == id select new RegistroBasico{
-                        Id = o.CelulaId,
-                        Descripcion = o.Descripcion
-                    }).FirstOrDefault();
-                    break;
-                case ManejadorDeBusquedas.TipoDeObjeto.Miembro:
-                    rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro where o.MiembroId == id select new RegistroBasico{
-                        Id = o.MiembroId,
-                        Descripcion = o.Primer_Nombre + " " + o.Segundo_Nombre + " " + o.Apellido_Paterno + " " + o.Apellido_Materno + " (" + o.Email + ")"
-                    }).FirstOrDefault();
-                    break;
-                case ManejadorDeBusquedas.TipoDeObjeto.AlabanzaMiembro:
-                    rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().AlabanzaMiembro where o.Id == id select new RegistroBasico{
-                        Id = o.Id,
-                        Descripcion = o.Miembro.Primer_Nombre + " " + o.Miembro.Segundo_Nombre + " " + o.Miembro.Apellido_Paterno + " " + o.Miembro.Apellido_Materno + " (" + o.Miembro.Email + ")"
-                    }).FirstOrDefault();
-                    break;
-            }
+            this.Limpiar();
 
-            StoreObjetoSeleccionado.Cargar(new [] {rtn});
-            objetoSeleccionado.Value = id;
+            if (id > 0)
+            {
+                RegistroBasico rtn = null;
+                switch (_tipoDeObjeto)
+                {
+                    case ManejadorDeBusquedas.TipoDeObjeto.Celula:
+                        rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula
+                               where o.CelulaId == id
+                               select new RegistroBasico
+                               {
+                                   Id = o.CelulaId,
+                                   Descripcion = o.Descripcion
+                               }).FirstOrDefault();
+                        break;
+                    case ManejadorDeBusquedas.TipoDeObjeto.Miembro:
+                        rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro
+                               where o.MiembroId == id
+                               select new RegistroBasico
+                               {
+                                   Id = o.MiembroId,
+                                   Descripcion = o.Primer_Nombre + " " + o.Segundo_Nombre + " " + o.Apellido_Paterno + " " + o.Apellido_Materno + " (" + o.Email + ")"
+                               }).FirstOrDefault();
+                        break;
+                    case ManejadorDeBusquedas.TipoDeObjeto.AlabanzaMiembro:
+                        rtn = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().AlabanzaMiembro
+                               where o.Id == id
+                               select new RegistroBasico
+                               {
+                                   Id = o.Id,
+                                   Descripcion = o.Miembro.Primer_Nombre + " " + o.Miembro.Segundo_Nombre + " " + o.Miembro.Apellido_Paterno + " " + o.Miembro.Apellido_Materno + " (" + o.Miembro.Email + ")"
+                               }).FirstOrDefault();
+                        break;
+                }
+
+                StoreObjetoSeleccionado.Cargar(new[] { rtn });
+                objetoSeleccionado.Value = id;
+            }
         }
 
         public void EstablecerId(int? id)
@@ -122,6 +137,10 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.UserControls
             if (id.HasValue)
             {
                 EstablecerId(id.Value);
+            }
+            else
+            {
+                EstablecerId(-1);
             }
         }
 

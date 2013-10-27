@@ -26,6 +26,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
         void ICatalogo.CargarControles()
         {
             Filtros.CargarControles();
+            registroConyuge.Limpiar();
         }
 
         void ICatalogo.Buscar()
@@ -54,6 +55,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             registroTelMovil.Value = entidad.Tel_Movil;
             registroTelTrabajo.Value = entidad.Tel_Trabajo;
             registroFechaDeNacimiento.Value = entidad.Fecha_Nacimiento;
+            registroConyuge.EstablecerId(entidad.ConyugeId);
         }
 
         void ICatalogo.Borrar(int id)
@@ -88,6 +90,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             entidad.Tel_Movil = registroTelMovil.Text;
             entidad.Tel_Trabajo = registroTelTrabajo.Text;
             entidad.Fecha_Nacimiento = registroFechaDeNacimiento.SelectedDate;
+            entidad.ConyugeId = registroConyuge.ObtenerId(true);
             entidad.Borrado = false;
             entidad.Guardar(SesionActual.Instance.getContexto<IglesiaEntities>());
         }

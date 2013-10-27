@@ -106,6 +106,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "Celula_ConsolidacionBoletaReporte_FK1", "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), "ConsolidacionBoletaReporte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaReporte), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "FK_Celula_CelulaInvitadosAsistencia_FK1", "Celula", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.Celula), "CelulaInvitadosAsistencia", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.CelulaInvitadosAsistencia), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "FK_CelulaInvitadosAsistencia_Miembro", "Miembro", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.Miembro), "CelulaInvitadosAsistencia", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.CelulaInvitadosAsistencia), true)]
+[assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "FK_Conyuge_Miembro", "Miembro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AdministradorDeIglesiasV2.Core.Modelos.Miembro), "Miembro1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.Miembro), true)]
 
 #endregion
 
@@ -17103,6 +17104,30 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         private global::System.Int32 _GeneroId;
         partial void OnGeneroIdChanging(global::System.Int32 value);
         partial void OnGeneroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ConyugeId
+        {
+            get
+            {
+                return _ConyugeId;
+            }
+            set
+            {
+                OnConyugeIdChanging(value);
+                ReportPropertyChanging("ConyugeId");
+                _ConyugeId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ConyugeId");
+                OnConyugeIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ConyugeId;
+        partial void OnConyugeIdChanging(Nullable<global::System.Int32> value);
+        partial void OnConyugeIdChanged();
 
         #endregion
 
@@ -17653,6 +17678,66 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CelulaInvitadosAsistencia>("AdministradorDeIglesiasV2.Core.Modelos.FK_CelulaInvitadosAsistencia_Miembro", "CelulaInvitadosAsistencia", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AdministradorDeIglesiasV2.Core.Modelos", "FK_Conyuge_Miembro", "Miembro1")]
+        public EntityCollection<Miembro> Miembro1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AdministradorDeIglesiasV2.Core.Modelos", "FK_Conyuge_Miembro", "Miembro")]
+        public Miembro Miembro2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Miembro> Miembro2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Miembro>("AdministradorDeIglesiasV2.Core.Modelos.FK_Conyuge_Miembro", "Miembro", value);
                 }
             }
         }

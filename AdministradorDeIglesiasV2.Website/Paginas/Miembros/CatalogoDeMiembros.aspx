@@ -5,6 +5,7 @@
 
 <%@ Register src="../UserControls/Miembros/FiltrosMiembros.ascx" tagname="FiltrosMiembros" tagprefix="uc1" %>
 <%@ Register src="../UserControls/Miembros/ResultadoMiembros.ascx" tagname="ResultadoMiembros" tagprefix="uc2" %>
+<%@ Register Src="../UserControls/BuscadorSimple.ascx" TagName="BuscadorSimple" TagPrefix="uc3" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphFiltros" runat="server">
     <uc1:FiltrosMiembros ID="Filtros" runat="server" />
@@ -185,6 +186,11 @@
                                     runat="server"
                                     FieldLabel="Tel de Trabajo"
                                     />
+                                <ext:Container runat="server" Layout="Form">
+                                    <Content>
+                                        <uc3:BuscadorSimple ID="registroConyuge" runat="server" LabelWidth="105" FieldLabel="Cónyuge" TipoDeObjeto="Miembro" />
+                                    </Content>
+                                </ext:Container>
                             </Items>
                         </ext:Container>
                     </ext:LayoutColumn>

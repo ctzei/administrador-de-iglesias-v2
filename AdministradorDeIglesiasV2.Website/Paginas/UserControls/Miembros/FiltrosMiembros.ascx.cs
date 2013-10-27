@@ -75,6 +75,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.UserControls
             List<int> idsCelulasEliminadasConMiembros = manejadorCelulas.ObtenerCelulasEliminadasConMiembrosComoIds();
             bool registrosBorrados = filtroBorrado.Checked;
             bool registrosSinCelula = filtroSinCelula.Checked;
+            int? conyugeId = filtroConyuge.ObtenerId(true);
 
             //Guarda los resultados obtenidos de las busquedas
             IQueryable<object> resultados = null;
@@ -102,6 +103,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.UserControls
                                 ((o.Tel_Movil.Contains(filtroTel.Text)) || (o.Tel_Movil == null)) ||
                                 ((o.Tel_Trabajo.Contains(filtroTel.Text)) || (o.Tel_Trabajo == null))) &&
                                 (o.Fecha_Nacimiento == (filtroFechaDeNacimiento.SelectedDate > DateTime.MinValue ? filtroFechaDeNacimiento.SelectedDate : o.Fecha_Nacimiento)) &&
+                                ((o.ConyugeId == conyugeId) || (conyugeId == null)) &&
                                 (o.Borrado == registrosBorrados) &&
                                 (((idsCelulasPermitidas.Contains(o.CelulaId))  && !registrosSinCelula) || //Dentro de las celulas permitidas para el usuario actual
                                 ((idsCelulasSinLider.Contains(o.CelulaId)) || (idsCelulasEliminadasConMiembros.Contains(o.CelulaId)) && registrosSinCelula) || //Dentro de los usuarios cuya celula no tiene lider

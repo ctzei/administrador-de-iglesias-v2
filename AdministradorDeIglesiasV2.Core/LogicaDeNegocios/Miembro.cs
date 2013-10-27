@@ -36,6 +36,7 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         {
             Miembro entidad = (Miembro)entry.Entity;
             Validaciones.ValidarEmail(entidad.Email);
+            validarConyuge(entidad);
             validarTelefonos(entidad);
             validarPassword(entidad);
             validarLiderzagoDeMiembro(entidad);
@@ -76,6 +77,18 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
                     {
                         throw new ExcepcionReglaNegocio(registroExistenteMsg);
                     }
+                }
+            }
+        }
+
+        private void validarConyuge(Miembro entidad)
+        {
+            if (entidad.ConyugeId != null)
+            {
+                Miembro conyuge = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro where o.MiembroId == entidad.ConyugeId.Value && o.Borrado == false select o).SingleOrDefault();
+                if (conyuge != null && (conyuge.ConyugeId == null || conyuge.ConyugeId.Value != entidad.MiembroId))
+                {
+                    conyuge.ConyugeId = entidad.MiembroId;
                 }
             }
         }

@@ -283,6 +283,15 @@ namespace AdministradorDeIglesiasV2.Website.Paginas {
         protected global::ZagueEF.Core.Web.ExtNET.Controls.ZNumberField registroTelTrabajo;
         
         /// <summary>
+        /// registroConyuge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AdministradorDeIglesiasV2.Website.Paginas.UserControls.BuscadorSimple registroConyuge;
+        
+        /// <summary>
         /// wndFoto control.
         /// </summary>
         /// <remarks>
