@@ -33,7 +33,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             Miembro usuario;
             try
             {
-                usuario = (from u in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro where u.Email == email && ((usarSoloEmail == false) ? u.Contrasena == password : 1 == 1) select u).FirstOrDefault();
+                usuario = (from u in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro where u.Borrado == false && u.Email == email && ((usarSoloEmail == false) ? u.Contrasena == password : 1 == 1) select u).FirstOrDefault();
             }
             catch (System.Data.EntityException ex)
             {
