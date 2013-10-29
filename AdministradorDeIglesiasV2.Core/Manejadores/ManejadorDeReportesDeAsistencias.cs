@@ -51,6 +51,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                                                  from logs in ps.DefaultIfEmpty()
                                                  where
                                                     inscripciones.Borrado == false &&
+                                                    inscripciones.Miembro.Borrado == false &&
                                                     (logs.Semana != semanaActual || logs == null) &&
                                                     (((inscripciones.DiaSemanaId == (int)fecha.DayOfWeek) && ((inscripciones.HoraDiaId / 2) - .5 <= fecha.Hour)) || //Si es el mismo dia de la inscripcion valida la hora actual contra la de la inscripcion
                                                     ((int)fecha.DayOfWeek > inscripciones.DiaSemanaId)) //Si ya se paso del dia de la inscipcion se manda la notificacion sin importar la hora
@@ -204,7 +205,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                             {
                                 if (agregarCorreosDeLideres)
                                 {
-                                    foreach (CelulaLider celulaLider in celula.CelulaLider.Where(o => o.Celula.Borrado == false && o.Borrado == false))
+                                    foreach (CelulaLider celulaLider in celula.CelulaLider.Where(o => o.Celula.Borrado == false && o.Miembro.Borrado == false && o.Borrado == false))
                                     {
                                         // Solo agregamos al correo los usuarios con correos NO falsos... y que no sea el usuario principal a quien se mandara el reporte
                                         if ((!celulaLider.Miembro.Email.Trim().ToLower().EndsWith("correo-e.com")) && (celulaLider.MiembroId != miembro.MiembroId))
@@ -223,7 +224,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                     if (tieneCelulasSinAsistencia)
                     {
                         //Preparamos los ultimos detalles del correo a enviar
-                        email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML, BodyPartEncoding.QuotedPrintable);
+                        email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML, BodyPartEncoding.None);
                         email.Recipients.Add(miembro.Email, miembro.NombreCompleto, RecipientType.To);
                         email.From.Email = remitente;
                         email.From.Name = "Reporte de Asistencias No Registradas";
