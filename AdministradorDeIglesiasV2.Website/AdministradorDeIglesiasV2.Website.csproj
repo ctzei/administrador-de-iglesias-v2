@@ -155,10 +155,9 @@
     <Content Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx" />
     <None Include="App_Data\wurfl.xml.gz" />
     <None Include="App_Offline.htm.bak" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\calendario.css" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\calendario.js" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.validate.additional-methods.min.js" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\logo-evento.png" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\jquery.datepicker.css" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\jquery.datepicker.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\logo-evento.png" />
     <Content Include="Paginas\Células\CatalogoDeCelulas.aspx" />
     <Content Include="Paginas\Células\CatalogoDeLideresDeCelula.aspx" />
     <Content Include="Paginas\Células\BuscadorDeCelulas.aspx" />
@@ -190,11 +189,9 @@
     <Content Include="Recursos\js\Paginas\UserControls\Miembros\resultadoMiembros.js" />
     <Content Include="WebServices\Eventos\GuardarDeInscripcion.aspx" />
     <Content Include="PaginasExternas\Eventos\Inscripciones\Inscripcion.html" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery-1.5.2.min.js" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.loading.1.6.4.min.js" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\jquery.validate.min.js" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\inscripcion.css" />
-    <Content Include="PaginasExternas\Eventos\Inscripciones\inscripcion.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\jquery.loading.1.6.4.min.js" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\inscripcion.css" />
+    <Content Include="PaginasExternas\Eventos\Inscripciones\bak\inscripcion.js" />
     <Content Include="WebServices\Generales\Municipios.aspx" />
     <Content Include="Recursos\img\logo.png" />
     <Content Include="Recursos\js\Paginas\MasterPages\catalogos.js" />
@@ -212,7 +209,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
-    <None Include="PaginasExternas\Eventos\Inscripciones\logo-evento.bak" />
     <Content Include="Recursos\Web.config">
       <SubType>Designer</SubType>
     </Content>

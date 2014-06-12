@@ -63,6 +63,7 @@ namespace AdministradorDeIglesiasV2.Website
         {
             routes.MapPageRoute("Main", "", "~/Paginas/Main.aspx");
             routes.MapPageRoute("Login", "Login/{*queryvalues}", "~/Paginas/Login.aspx");
+            routes.MapPageRoute("Inscripciones", "Inscripcion", "~/PaginasExternas/Eventos/Inscripciones/Inscripcion.html");
             routes.MapPageRoute("Error", "Error", "~/Errores/Error.aspx");
             routes.MapPageRoute("404", "404", "~/Errores/404.aspx");
         }
