@@ -175,6 +175,15 @@ namespace AdministradorDeIglesiasV2.Website.Paginas {
         protected global::Ext.Net.DisplayField registroTelefonos;
         
         /// <summary>
+        /// registroComentario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.DisplayField registroComentario;
+        
+        /// <summary>
         /// registroFoto control.
         /// </summary>
         /// <remarks>

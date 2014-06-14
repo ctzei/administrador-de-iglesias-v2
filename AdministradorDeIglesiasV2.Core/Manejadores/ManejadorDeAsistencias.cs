@@ -129,9 +129,11 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             int mesSeleccionado = fecha.Month;
             int diaSeleccionado = fecha.Day;
 
+            IglesiaEntities contexto = new IglesiaEntities();
+
             List<Modelos.Retornos.AsistenciaDeCelulaPorMiembro> asistencias = (
-                from m in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro
-                join a in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia on
+                from m in contexto.Miembro
+                join a in contexto.CelulaMiembroAsistencia on
                     new { MiembroId = m.MiembroId, Anio = anioSeleccionado, Mes = mesSeleccionado, Dia = diaSeleccionado }
                     equals
                     new { MiembroId = a.MiembroId, Anio = a.Anio, Mes = a.Mes, Dia = a.Dia }
@@ -148,6 +150,9 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                     ApellidoPaterno = m.Apellido_Paterno,
                     ApellidoMaterno = m.Apellido_Materno,
                     Asistencia = (a.CelulaMiembroAsistenciaId != null ? true : false),
+                    Estatus =
+                        (from o in contexto.ConsolidacionBoleta where o.Email == m.Email select o.Email).Any() && !(from o in contexto.CelulaMiembroAsistencia where o.CelulaId == celulaId && o.MiembroId == m.MiembroId select o.MiembroId).Any() ? "Consolidacion" :
+                        (from o in contexto.CelulaMiembroAsistencia where o.CelulaId == celulaId && o.MiembroId == m.MiembroId select o.MiembroId).Count() < 4 ? "Nuevo" : null,
                     Peticiones = a.Peticiones
                 }).ToList<Modelos.Retornos.AsistenciaDeCelulaPorMiembro>();
 
@@ -195,7 +200,6 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             int mesSeleccionado = fecha.Month;
             int diaSeleccionado = fecha.Day;
 
-            SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.AgregarAsistencias); //Validamos si el usuario tiene permiso para registrar asistencias
             determinarSiFechaEsPermitida(fecha, celulaId); // Determinanos si la fecha es correcta y permitida
 
             Dictionary<int, string> asistenciasNuevas = new Dictionary<int, string>();

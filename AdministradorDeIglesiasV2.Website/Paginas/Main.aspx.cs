@@ -113,7 +113,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             int numDeBoletasSinReporteSemanal = (from o in contexto.ConsolidacionBoleta
                                                  where
                                                  o.Borrado == false &&
-                                                 o.BoletaCerrada == false &&
+                                                 o.BoletaEstatusId > 100 &&
                                                  o.AsignadaACelulaId != null &&
                                                  idsCelulasPermitidas.Contains(o.AsignadaACelulaId.Value) &&
                                                  !contexto.ConsolidacionBoletaReporte.Any(t =>

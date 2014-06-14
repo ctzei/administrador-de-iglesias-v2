@@ -31,11 +31,15 @@ BeginNamespace(namespaceName, code);
 
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : ObjectContext
 {
-	public int SaveChangesDirectly(SaveOptions options)
+    public int SaveChanges(SaveOptions options, bool saveDirectlyToDB = false)
     {
-		return base.SaveChanges(options);
-	}
-
+		if (saveDirectlyToDB) {
+			return base.SaveChanges(options);
+		} else {
+			return this.SaveChanges(options);
+		}
+    }
+    
     public override int SaveChanges(SaveOptions options)
     {
         //Buscamos todas las entidades que sean IEntidadModificable y que hayan sufrido cambios

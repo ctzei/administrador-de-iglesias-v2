@@ -148,6 +148,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
                 o.MiembroId,
                 Nombre = o.PrimerNombre + " " + o.SegundoNombre + " " + o.ApellidoPaterno + " " + o.ApellidoMaterno,
                 o.Asistencia,
+                o.Estatus,
                 o.Peticiones
             }));
             registroNumeroDeInvitados.Value = manejadorDeAsistencias.ObtenerNumeroDeInvitados(celulaId, fecha);

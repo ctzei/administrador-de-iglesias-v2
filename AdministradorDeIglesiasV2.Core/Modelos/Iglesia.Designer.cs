@@ -80,7 +80,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "Celula_CelulaPredeterminada_FK1", "Celula", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.Celula), "ConsolidacionBoletaCategoria", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "Celula_ConsolidacionBoleta_FK1", "Celula", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AdministradorDeIglesiasV2.Core.Modelos.Celula), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1", "ConsolidacionBoletaCategoria", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
-[assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonVisita", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "Culto_ConsolidacionBoleta_FK1", "Culto", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.Culto), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
 [assembly: EdmRelationshipAttribute("AdministradorDeIglesiasV2.Core.Modelos", "Genero_ConsolidacionBoleta", "Genero", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(AdministradorDeIglesiasV2.Core.Modelos.Genero), "ConsolidacionBoleta", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta), true)]
@@ -865,22 +864,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ConsolidacionBoletaRazonCerrada> ConsolidacionBoletaRazonCerrada
-        {
-            get
-            {
-                if ((_ConsolidacionBoletaRazonCerrada == null))
-                {
-                    _ConsolidacionBoletaRazonCerrada = base.CreateObjectSet<ConsolidacionBoletaRazonCerrada>("ConsolidacionBoletaRazonCerrada");
-                }
-                return _ConsolidacionBoletaRazonCerrada;
-            }
-        }
-        private ObjectSet<ConsolidacionBoletaRazonCerrada> _ConsolidacionBoletaRazonCerrada;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ConsolidacionBoletaRazonVisita> ConsolidacionBoletaRazonVisita
         {
             get
@@ -1472,14 +1455,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         public void AddToRolAsignable(RolAsignable rolAsignable)
         {
             base.AddObject("RolAsignable", rolAsignable);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ConsolidacionBoletaRazonCerrada EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToConsolidacionBoletaRazonCerrada(ConsolidacionBoletaRazonCerrada consolidacionBoletaRazonCerrada)
-        {
-            base.AddObject("ConsolidacionBoletaRazonCerrada", consolidacionBoletaRazonCerrada);
         }
     
         /// <summary>
@@ -8881,7 +8856,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         /// <param name="ubicacionMunicipioId">Initial value of the UbicacionMunicipioId property.</param>
         /// <param name="cultoId">Initial value of the CultoId property.</param>
         /// <param name="fechaDeCulto">Initial value of the FechaDeCulto property.</param>
-        /// <param name="boletaCerrada">Initial value of the BoletaCerrada property.</param>
         /// <param name="boletaRazonVisitaId">Initial value of the BoletaRazonVisitaId property.</param>
         /// <param name="categoriaBoletaId">Initial value of the CategoriaBoletaId property.</param>
         /// <param name="creacion">Initial value of the Creacion property.</param>
@@ -8889,7 +8863,7 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         /// <param name="borrado">Initial value of the Borrado property.</param>
         /// <param name="creacionId">Initial value of the CreacionId property.</param>
         /// <param name="modificacionId">Initial value of the ModificacionId property.</param>
-        public static ConsolidacionBoleta CreateConsolidacionBoleta(global::System.Int32 id, global::System.String email, global::System.String primerNombre, global::System.String apellidoPaterno, global::System.Int32 generoId, global::System.Int32 estadoCivilId, global::System.Int32 ubicacionMunicipioId, global::System.Int32 cultoId, global::System.DateTime fechaDeCulto, global::System.Boolean boletaCerrada, global::System.Int32 boletaRazonVisitaId, global::System.Int32 categoriaBoletaId, global::System.DateTime creacion, global::System.DateTime modificacion, global::System.Boolean borrado, global::System.Int32 creacionId, global::System.Int32 modificacionId)
+        public static ConsolidacionBoleta CreateConsolidacionBoleta(global::System.Int32 id, global::System.String email, global::System.String primerNombre, global::System.String apellidoPaterno, global::System.Int32 generoId, global::System.Int32 estadoCivilId, global::System.Int32 ubicacionMunicipioId, global::System.Int32 cultoId, global::System.DateTime fechaDeCulto, global::System.Int32 boletaRazonVisitaId, global::System.Int32 categoriaBoletaId, global::System.DateTime creacion, global::System.DateTime modificacion, global::System.Boolean borrado, global::System.Int32 creacionId, global::System.Int32 modificacionId)
         {
             ConsolidacionBoleta consolidacionBoleta = new ConsolidacionBoleta();
             consolidacionBoleta.Id = id;
@@ -8901,7 +8875,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
             consolidacionBoleta.UbicacionMunicipioId = ubicacionMunicipioId;
             consolidacionBoleta.CultoId = cultoId;
             consolidacionBoleta.FechaDeCulto = fechaDeCulto;
-            consolidacionBoleta.BoletaCerrada = boletaCerrada;
             consolidacionBoleta.BoletaRazonVisitaId = boletaRazonVisitaId;
             consolidacionBoleta.CategoriaBoletaId = categoriaBoletaId;
             consolidacionBoleta.Creacion = creacion;
@@ -9428,54 +9401,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean BoletaCerrada
-        {
-            get
-            {
-                return _BoletaCerrada;
-            }
-            set
-            {
-                OnBoletaCerradaChanging(value);
-                ReportPropertyChanging("BoletaCerrada");
-                _BoletaCerrada = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("BoletaCerrada");
-                OnBoletaCerradaChanged();
-            }
-        }
-        private global::System.Boolean _BoletaCerrada;
-        partial void OnBoletaCerradaChanging(global::System.Boolean value);
-        partial void OnBoletaCerradaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> BoletaRazonCerradaId
-        {
-            get
-            {
-                return _BoletaRazonCerradaId;
-            }
-            set
-            {
-                OnBoletaRazonCerradaIdChanging(value);
-                ReportPropertyChanging("BoletaRazonCerradaId");
-                _BoletaRazonCerradaId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("BoletaRazonCerradaId");
-                OnBoletaRazonCerradaIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _BoletaRazonCerradaId;
-        partial void OnBoletaRazonCerradaIdChanging(Nullable<global::System.Int32> value);
-        partial void OnBoletaRazonCerradaIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Int32 BoletaRazonVisitaId
         {
             get
@@ -9662,6 +9587,30 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         private global::System.Int32 _ModificacionId;
         partial void OnModificacionIdChanging(global::System.Int32 value);
         partial void OnModificacionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> BoletaEstatusId
+        {
+            get
+            {
+                return _BoletaEstatusId;
+            }
+            set
+            {
+                OnBoletaEstatusIdChanging(value);
+                ReportPropertyChanging("BoletaEstatusId");
+                _BoletaEstatusId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoletaEstatusId");
+                OnBoletaEstatusIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _BoletaEstatusId;
+        partial void OnBoletaEstatusIdChanging(Nullable<global::System.Int32> value);
+        partial void OnBoletaEstatusIdChanged();
 
         #endregion
 
@@ -9740,44 +9689,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ConsolidacionBoletaCategoria>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1", "ConsolidacionBoletaCategoria", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AdministradorDeIglesiasV2.Core.Modelos", "ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada")]
-        public ConsolidacionBoletaRazonCerrada ConsolidacionBoletaRazonCerrada
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsolidacionBoletaRazonCerrada>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsolidacionBoletaRazonCerrada>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ConsolidacionBoletaRazonCerrada> ConsolidacionBoletaRazonCerradaReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsolidacionBoletaRazonCerrada>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ConsolidacionBoletaRazonCerrada>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoletaRazonCerrada", value);
                 }
             }
         }
@@ -10341,217 +10252,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsolidacionBoleta>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1", "ConsolidacionBoleta", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AdministradorDeIglesiasV2.Core.Modelos", Name="ConsolidacionBoletaRazonCerrada")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ConsolidacionBoletaRazonCerrada : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new ConsolidacionBoletaRazonCerrada object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="creacion">Initial value of the Creacion property.</param>
-        /// <param name="modificacion">Initial value of the Modificacion property.</param>
-        /// <param name="creacionId">Initial value of the CreacionId property.</param>
-        /// <param name="modificacionId">Initial value of the ModificacionId property.</param>
-        public static ConsolidacionBoletaRazonCerrada CreateConsolidacionBoletaRazonCerrada(global::System.Int32 id, global::System.DateTime creacion, global::System.DateTime modificacion, global::System.Int32 creacionId, global::System.Int32 modificacionId)
-        {
-            ConsolidacionBoletaRazonCerrada consolidacionBoletaRazonCerrada = new ConsolidacionBoletaRazonCerrada();
-            consolidacionBoletaRazonCerrada.Id = id;
-            consolidacionBoletaRazonCerrada.Creacion = creacion;
-            consolidacionBoletaRazonCerrada.Modificacion = modificacion;
-            consolidacionBoletaRazonCerrada.CreacionId = creacionId;
-            consolidacionBoletaRazonCerrada.ModificacionId = modificacionId;
-            return consolidacionBoletaRazonCerrada;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Descripcion
-        {
-            get
-            {
-                return _Descripcion;
-            }
-            set
-            {
-                OnDescripcionChanging(value);
-                ReportPropertyChanging("Descripcion");
-                _Descripcion = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Descripcion");
-                OnDescripcionChanged();
-            }
-        }
-        private global::System.String _Descripcion;
-        partial void OnDescripcionChanging(global::System.String value);
-        partial void OnDescripcionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Creacion
-        {
-            get
-            {
-                return _Creacion;
-            }
-            set
-            {
-                OnCreacionChanging(value);
-                ReportPropertyChanging("Creacion");
-                _Creacion = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Creacion");
-                OnCreacionChanged();
-            }
-        }
-        private global::System.DateTime _Creacion;
-        partial void OnCreacionChanging(global::System.DateTime value);
-        partial void OnCreacionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime Modificacion
-        {
-            get
-            {
-                return _Modificacion;
-            }
-            set
-            {
-                OnModificacionChanging(value);
-                ReportPropertyChanging("Modificacion");
-                _Modificacion = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Modificacion");
-                OnModificacionChanged();
-            }
-        }
-        private global::System.DateTime _Modificacion;
-        partial void OnModificacionChanging(global::System.DateTime value);
-        partial void OnModificacionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CreacionId
-        {
-            get
-            {
-                return _CreacionId;
-            }
-            set
-            {
-                OnCreacionIdChanging(value);
-                ReportPropertyChanging("CreacionId");
-                _CreacionId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CreacionId");
-                OnCreacionIdChanged();
-            }
-        }
-        private global::System.Int32 _CreacionId;
-        partial void OnCreacionIdChanging(global::System.Int32 value);
-        partial void OnCreacionIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ModificacionId
-        {
-            get
-            {
-                return _ModificacionId;
-            }
-            set
-            {
-                OnModificacionIdChanging(value);
-                ReportPropertyChanging("ModificacionId");
-                _ModificacionId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ModificacionId");
-                OnModificacionIdChanged();
-            }
-        }
-        private global::System.Int32 _ModificacionId;
-        partial void OnModificacionIdChanging(global::System.Int32 value);
-        partial void OnModificacionIdChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AdministradorDeIglesiasV2.Core.Modelos", "ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoleta")]
-        public EntityCollection<ConsolidacionBoleta> ConsolidacionBoleta
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ConsolidacionBoleta>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoleta");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsolidacionBoleta>("AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1", "ConsolidacionBoleta", value);
                 }
             }
         }

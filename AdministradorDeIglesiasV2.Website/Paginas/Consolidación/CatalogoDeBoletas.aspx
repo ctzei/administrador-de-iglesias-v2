@@ -25,8 +25,6 @@
                     <ext:RecordField Name="Culto" />
                     <ext:RecordField Name="FechaDeCulto" />
                     <ext:RecordField Name="RazonDeVisita" />
-                    <ext:RecordField Name="Cerrada" Type="Boolean" />
-                    <ext:RecordField Name="RazonDeCerrar" />
                     <ext:RecordField Name="Municipio" />
                     <ext:RecordField Name="Colonia" />
                     <ext:RecordField Name="Direccion" />
@@ -102,12 +100,12 @@
         </Reader>
     </ext:Store>
 
-    <ext:Store ID="StoreRazonesParaCerrar" runat="server" IgnoreExtraFields="true">
+    <ext:Store ID="StoreEstatus" runat="server" IgnoreExtraFields="true">
         <Reader>
             <ext:JsonReader>
                 <Fields>
-                    <ext:RecordField Name="Id" />
-                    <ext:RecordField Name="Descripcion" />
+                    <ext:RecordField Name="Key" />
+                    <ext:RecordField Name="Value" />
                 </Fields>
             </ext:JsonReader>
         </Reader>
@@ -267,23 +265,13 @@
                                     runat="server"
                                     FieldLabel="Razón de Visita"
                                     StoreID="StoreRazonesDeVisita" />
-                                <Z:ZCheckbox
-                                    ID="filtroBoletaCerrada"
-                                    FieldLabel="¿Boleta cerrada?"
-                                    runat="server">
-                                    <Listeners>
-                                        <Change Handler="setElementState('#{filtroRazonParaCerrar}', #{filtroBoletaCerrada}.checked);" />
-                                        <Check Handler="setElementState('#{filtroRazonParaCerrar}', #{filtroBoletaCerrada}.checked);" />
-                                    </Listeners>
-                                </Z:ZCheckbox>
                                 <Z:ZMultiCombo
-                                    ID="filtroRazonParaCerrar"
+                                    ID="filtroEstatus"
                                     runat="server"
-                                    FieldLabel="Razón para Cerrar"
-                                    StoreID="StoreRazonesParaCerrar">
-                                    <Listeners>
-                                        <BeforeRender Handler="#{filtroRazonParaCerrar}.disable();" />
-                                    </Listeners>
+                                    FieldLabel="Estatus"
+                                    ValueField="Key"
+                                    DisplayField="Value"
+                                    StoreID="StoreEstatus">
                                 </Z:ZMultiCombo>
                                 <Z:ZMultiCombo
                                     ID="filtroCategoria"
@@ -462,23 +450,13 @@
                                     FieldLabel="Razón de Visita"
                                     StoreID="StoreRazonesDeVisita"
                                     AllowBlank="false" />
-                                <Z:ZCheckbox
-                                    ID="registroBoletaCerrada"
-                                    FieldLabel="¿Boleta cerrada?"
-                                    runat="server">
-                                    <Listeners>
-                                        <Change Handler="setElementState('#{registroRazonParaCerrar}', #{registroBoletaCerrada}.checked);" />
-                                        <Check Handler="setElementState('#{registroRazonParaCerrar}', #{registroBoletaCerrada}.checked);" />
-                                    </Listeners>
-                                </Z:ZCheckbox>
                                 <Z:ZComboBox
-                                    ID="registroRazonParaCerrar"
+                                    ID="registroEstatus"
                                     runat="server"
-                                    FieldLabel="Razón para Cerrar"
-                                    StoreID="StoreRazonesParaCerrar">
-                                    <Listeners>
-                                        <BeforeRender Handler="#{registroRazonParaCerrar}.disable();" />
-                                    </Listeners>
+                                    FieldLabel="Estatus"
+                                    ValueField="Key"
+                                    DisplayField="Value"
+                                    StoreID="StoreEstatus">
                                 </Z:ZComboBox>
                                 <Z:ZComboBox
                                     ID="registroCategoria"
@@ -610,7 +588,6 @@
         <ColumnModel ID="ColumnModel1" runat="server">
             <Columns>
                 <ext:Column Header="ID" Width="40" DataIndex="Id" Hidden="true" />
-                <ext:CheckColumn Header="Cerrada" Width="40" DataIndex="Cerrada" Hidden="true" />
                 <ext:Column Header="Email" Width="100" DataIndex="Email" />
                 <ext:Column Header="Primer Nombre" Width="100" DataIndex="PrimerNombre" />
                 <ext:Column Header="Segundo Nombre" Width="100" DataIndex="SegundoNombre" />
@@ -623,7 +600,7 @@
                     <Renderer Fn="Ext.Renderers.IsoDateSimple" />
                 </ext:Column>
                 <ext:Column Header="Razón De Visita del Miembro" Width="100" DataIndex="RazonDeVisita" Hidden="true" />
-                <ext:Column Header="Razón para Cerrar" Width="100" DataIndex="RazonDeCerrar" Hidden="true" />
+                <ext:Column Header="Estatus" Width="100" DataIndex="RazonDeCerrar" Hidden="true" />
                 <ext:Column Header="Municipio" Width="100" DataIndex="Municipio" />
                 <ext:Column Header="Colonia" Width="100" DataIndex="Colonia" />
                 <ext:Column Header="Dirección" Width="100" DataIndex="Direccion" />

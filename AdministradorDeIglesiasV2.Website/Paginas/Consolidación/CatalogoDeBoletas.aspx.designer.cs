@@ -67,13 +67,13 @@ namespace AdministradorDeIglesiasV2.Website.Paginas {
         protected global::Ext.Net.Store StoreRazonesDeVisita;
         
         /// <summary>
-        /// StoreRazonesParaCerrar control.
+        /// StoreEstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store StoreRazonesParaCerrar;
+        protected global::Ext.Net.Store StoreEstatus;
         
         /// <summary>
         /// StoreCategorias control.
@@ -328,22 +328,13 @@ namespace AdministradorDeIglesiasV2.Website.Paginas {
         protected global::ZagueEF.Core.Web.ExtNET.Controls.ZMultiCombo filtroRazonDeVisita;
         
         /// <summary>
-        /// filtroBoletaCerrada control.
+        /// filtroEstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZCheckbox filtroBoletaCerrada;
-        
-        /// <summary>
-        /// filtroRazonParaCerrar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZMultiCombo filtroRazonParaCerrar;
+        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZMultiCombo filtroEstatus;
         
         /// <summary>
         /// filtroCategoria control.
@@ -643,22 +634,13 @@ namespace AdministradorDeIglesiasV2.Website.Paginas {
         protected global::ZagueEF.Core.Web.ExtNET.Controls.ZComboBox registroRazonDeVisita;
         
         /// <summary>
-        /// registroBoletaCerrada control.
+        /// registroEstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZCheckbox registroBoletaCerrada;
-        
-        /// <summary>
-        /// registroRazonParaCerrar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZComboBox registroRazonParaCerrar;
+        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZComboBox registroEstatus;
         
         /// <summary>
         /// registroCategoria control.

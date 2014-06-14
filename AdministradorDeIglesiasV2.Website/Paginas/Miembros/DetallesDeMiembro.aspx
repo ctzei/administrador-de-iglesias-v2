@@ -79,6 +79,7 @@
                                                     <ext:DisplayField ID="registroEstadoCivil" runat="server" FieldLabel="Estado Civil" Cls="bold"></ext:DisplayField>  
                                                     <ext:DisplayField ID="registroFechaDeNacimiento" runat="server" FieldLabel="Nacimiento" Cls="bold"></ext:DisplayField>
                                                     <ext:DisplayField ID="registroTelefonos" runat="server" FieldLabel="Teléfonos" Cls="bold"></ext:DisplayField>  
+                                                    <ext:DisplayField ID="registroComentario" runat="server" FieldLabel="Comentario" Cls="bold"></ext:DisplayField>  
                                                 </Items>
                                             </ext:FormPanel>
                                         </ext:Cell>

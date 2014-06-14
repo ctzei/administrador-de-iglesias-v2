@@ -121,6 +121,7 @@ namespace ZagueEF.Core
         {
             get
             {
+                validarRequest();
                 object oPermisosEspeciales = HttpContext.Current.Session[PermisosEspecialesAsignadosKey];
 
                 if (oPermisosEspeciales == null)

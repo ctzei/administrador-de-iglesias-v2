@@ -23,6 +23,7 @@
                         <ext:RecordField Name="MiembroId" />
                         <ext:RecordField Name="Nombre" />
                         <ext:RecordField Name="Asistencia" Type="Boolean" />
+                        <ext:RecordField Name="Estatus" />
                         <ext:RecordField Name="Peticiones"/>
                     </Fields>
                 </ext:JsonReader>
@@ -99,6 +100,7 @@
                             <ext:Column Header="Nombre" Width="500" DataIndex="Nombre">
                                 <Renderer Fn="Ext.Renderers.DetallesDeMiembro" />
                             </ext:Column>
+                            <ext:Column Header="Estatus" Width="100" DataIndex="Estatus" />
                             <ext:Column Header="Peticiones" Width="150" DataIndex="Peticiones" Editable="true">
                                 <Editor>
                                     <Z:ZTextField runat="server" MaxLength="25" AllowBlank="true" />

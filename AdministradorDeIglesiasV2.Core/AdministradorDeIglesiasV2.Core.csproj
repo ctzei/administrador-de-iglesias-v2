@@ -76,7 +76,6 @@
     <Compile Include="LogicaDeNegocios\CelulaCategoria.cs" />
     <Compile Include="LogicaDeNegocios\Ciclo.cs" />
     <Compile Include="LogicaDeNegocios\ConsolidacionBoletaRazonVisita.cs" />
-    <Compile Include="LogicaDeNegocios\ConsolidacionBoletaRazonCerrada.cs" />
     <Compile Include="LogicaDeNegocios\ConsolidacionBoleta.cs" />
     <Compile Include="LogicaDeNegocios\AlabanzaTipoInstrumento.cs" />
     <Compile Include="LogicaDeNegocios\ConsolidacionBoletaCategoria.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="LogicaDeNegocios\AlabanzaEventoMiembro.cs" />
     <Compile Include="LogicaDeNegocios\AlabanzaEvento.cs" />
     <Compile Include="LogicaDeNegocios\AlabanzaMiembroDiaNoDisponible.cs" />
+    <Compile Include="LogicaDeNegocios\CelulaMiembroAsistencia.cs" />
     <Compile Include="LogicaDeNegocios\Genero.cs" />
     <Compile Include="LogicaDeNegocios\Culto.cs" />
     <Compile Include="LogicaDeNegocios\EstadoCivil.cs" />
@@ -189,9 +189,6 @@
       <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
     </Compile>
     <Compile Include="Modelos\ZConsolidacionBoletaCategoria.cs">
-      <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Modelos\ZConsolidacionBoletaRazonCerrada.cs">
       <DependentUpon>EntidadesExtendidas.Core.Generator.EntidadesExtendidas.tt</DependentUpon>
     </Compile>
     <Compile Include="Modelos\ZConsolidacionBoletaRazonVisita.cs">

@@ -135,7 +135,15 @@ namespace ExtensionMethods
 
         public static DateTime PreviousSunday(this DateTime date)
         {
-            return date.AddDays(-((int)date.DayOfWeek));
+            int dayOfWeek = (int)date.DayOfWeek;
+            if (date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return date.AddDays(-7);
+            }
+            else
+            {
+                return date.AddDays(-dayOfWeek);
+            }
         }
 
         #endregion
@@ -235,6 +243,27 @@ namespace ExtensionMethods
             }
             else
                 return 0;
+        }
+
+        #endregion
+
+        #region Int
+
+        public static bool inRange(this int i, int start, int end, Boolean inclusive = true)
+        {
+            if (inclusive)
+            {
+                return i >= start && i <= end;
+            }
+            else
+            {
+                return i > start && i < end;
+            }
+        }
+
+        public static bool notInRange(this int i, int start, int end, Boolean inclusive = true)
+        {
+            return !i.inRange(start, end, inclusive);
         }
 
         #endregion

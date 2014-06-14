@@ -98,7 +98,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         }
 
                         // Guardamos los cambios en la BD (Por miembros...)
-                        contexto.SaveChangesDirectly(SaveOptions.DetectChangesBeforeSave);
+                        contexto.SaveChanges(SaveOptions.DetectChangesBeforeSave, true);
                     }
 
                     using (var contexto = new IglesiaEntities())
@@ -138,7 +138,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         contexto.DeleteObject(celulaABorrar);
 
                         // Guardamos los cambios en la BD (Por celula...)
-                        contexto.SaveChangesDirectly(SaveOptions.DetectChangesBeforeSave);
+                        contexto.SaveChanges(SaveOptions.DetectChangesBeforeSave, true);
                     }
                 }
 

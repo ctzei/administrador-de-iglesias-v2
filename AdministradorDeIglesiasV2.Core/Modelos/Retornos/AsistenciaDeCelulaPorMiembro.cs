@@ -13,7 +13,8 @@ namespace AdministradorDeIglesiasV2.Core.Modelos.Retornos
         public string SegundoNombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-        public string Peticiones { get; set; }
         public bool Asistencia { get; set; }
+        public string Estatus { get; set; }
+        public string Peticiones { get; set; }
     }
 }

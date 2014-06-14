@@ -24,13 +24,13 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             StoreEstadosCiviles.Cargar(EstadoCivil.Obtener());
             StoreCultos.Cargar(Culto.Obtener());
             StoreRazonesDeVisita.Cargar(ConsolidacionBoletaRazonVisita.Obtener());
-            StoreRazonesParaCerrar.Cargar(ConsolidacionBoletaRazonCerrada.Obtener());
+            StoreEstatus.Cargar(ConsolidacionBoleta.Estatus.Lista());
             StoreCategorias.Cargar(ConsolidacionBoletaCategoria.Obtener());
             StoreReportes.Limpiar();
 
             if (SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.VerTodasLasBoletasDeConsolidacion, false))
             {
-                filtroFechaDeCulto.Value = DateTime.Now.PreviousSunday();
+                filtroFechaDeCulto.Value = DateTime.Now.PreviousSunday().PreviousSunday();
                 registroFechaDeCulto.Value = DateTime.Now.PreviousSunday();
             }
         }
@@ -41,7 +41,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             int? invitadoPorMiembroId = filtroInvitadoPorMiembro.ObtenerId(true);
             List<int> idsCulto = filtroCulto.ObtenerIds();
             List<int> idsRazonDeVisita = filtroRazonDeVisita.ObtenerIds();
-            List<int> idsRazonParaCerrar = filtroRazonParaCerrar.ObtenerIds();
+            List<int> idsRazonParaCerrar = filtroEstatus.ObtenerIds();
             List<int> idsCategorias = filtroCategoria.ObtenerIds();
             int idMunicipio = filtroMunicipio.ObtenerId();
             List<int> idsEstadoCivil = filtroEstadoCivil.ObtenerIds();
@@ -55,6 +55,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             var query = (
                 from o in SesionActual.Instance.getContexto<IglesiaEntities>().ConsolidacionBoleta
                 where
+                    (o.Id == (filtroId.Number > 0 ? filtroId.Number : o.Id)) &&
                     (o.Email.Contains(filtroEmail.Text)) &&
                     (o.PrimerNombre.Contains(filtroPrimerNombre.Text)) &&
                     (o.SegundoNombre.Contains(filtroSegundoNombre.Text)) &&
@@ -64,8 +65,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
                     ((o.InvitadoPorMiembroId == invitadoPorMiembroId) || (invitadoPorMiembroId == null)) &&
                     (idsCulto.Contains(o.CultoId) || (idsCulto.Count == 0)) &&
                     (idsRazonDeVisita.Contains(o.BoletaRazonVisitaId) || (idsRazonDeVisita.Count == 0)) &&
-                    (o.BoletaCerrada == filtroBoletaCerrada.Checked) &&
-                    (idsRazonParaCerrar.Contains(o.BoletaRazonCerradaId.Value) || (idsRazonParaCerrar.Count == 0)) &&
+                    (idsRazonParaCerrar.Contains(o.BoletaEstatusId.Value) || (idsRazonParaCerrar.Count == 0)) &&
                     (idsCategorias.Contains(o.CategoriaBoletaId) || (idsCategorias.Count == 0)) &&
                     (o.UbicacionMunicipioId == (idMunicipio > 0 ? idMunicipio : o.UbicacionMunicipioId)) &&
                     ((o.Colonia.Contains(filtroColonia.Text)) || (o.Colonia == null)) &&
@@ -93,8 +93,6 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
                     Culto = o.Culto.Descripcion,
                     FechaDeCulto = o.FechaDeCulto,
                     RazonDeVisita = o.ConsolidacionBoletaRazonVisita.Descripcion,
-                    Cerrada = o.BoletaCerrada,
-                    RazonDeCerrar = o.ConsolidacionBoletaRazonCerrada.Descripcion,
                     Municipio = o.UbicacionMunicipio.Descripcion,
                     Colonia = o.Colonia,
                     Direccion = o.Direccion,
@@ -126,7 +124,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             StoreResultados.Cargar(query);
             registroNumeroDeBoletas.Value = string.Format("Total de boletas: {0}", query.Count());
         }
-
+        
         void ICatalogo.Mostrar(int id)
         {
             ConsolidacionBoleta entidad = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().ConsolidacionBoleta where o.Id == id select o).FirstOrDefault();
@@ -141,8 +139,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             registroCulto.Value = entidad.CultoId;
             registroFechaDeCulto.Value = entidad.FechaDeCulto;
             registroRazonDeVisita.Value = entidad.BoletaRazonVisitaId;
-            registroBoletaCerrada.Checked = entidad.BoletaCerrada;
-            registroRazonParaCerrar.Value = entidad.BoletaRazonCerradaId;
+            registroEstatus.Value = entidad.BoletaEstatusId;
             registroCategoria.Value = entidad.CategoriaBoletaId;
             registroMunicipio.ForzarSeleccion(entidad.UbicacionMunicipioId, entidad.UbicacionMunicipio.Descripcion);
             registroColonia.Value = entidad.Colonia;
@@ -195,8 +192,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             entidad.CultoId = registroCulto.ObtenerId();
             entidad.FechaDeCulto = registroFechaDeCulto.SelectedDate;
             entidad.BoletaRazonVisitaId = registroRazonDeVisita.ObtenerId();
-            entidad.BoletaCerrada = registroBoletaCerrada.Checked;
-            entidad.BoletaRazonCerradaId = registroRazonParaCerrar.ObtenerId(true);
+            entidad.BoletaEstatusId = registroEstatus.ObtenerId(true);
             entidad.UbicacionMunicipioId = registroMunicipio.ObtenerId();
             entidad.Colonia = registroColonia.Text;
             entidad.Direccion = registroDireccion.Text;
@@ -227,33 +223,6 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             }
 
             entidad.Guardar(SesionActual.Instance.getContexto<IglesiaEntities>());
-
-            // Si la boleta fue cerrada correctamente...
-            if (entidad.BoletaCerrada == true)
-            {
-                Miembro miembroYaExistente = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro where o.Email == entidad.Email select o).SingleOrDefault();
-                if (miembroYaExistente != null)
-                {
-                    X.Msg.Alert(Generales.nickNameDeLaApp, string.Format("La boleta ha sido cerrada correctamente. El miembro ya se encuentra asignado a la célula: {0} [{1}]", miembroYaExistente.Celula.Descripcion, miembroYaExistente.CelulaId)).Show();
-                }
-                else
-                {
-                    registroBoletaId.Text = registroId.Text;
-
-                    // Preseleccionamos la celula a la que se habia asignado la boleta
-                    if (entidad.AsignadaACelulaId.HasValue)
-                    {
-                        registroCelulaDeMiembroCreado.EstablecerId(entidad.AsignadaACelulaId.Value);
-                    }
-                    else
-                    {
-                        registroCelulaDeMiembroCreado.Limpiar();
-                    }
-
-                    // Mostramos el mensaje para "asignar" la boleta a alguna celula preexistente
-                    X.AddScript(string.Format("{0}.show();", wndCrearMiembro.ClientID));
-                }
-            }
         }
 
         [DirectMethod(ShowMask = true)]
@@ -274,35 +243,6 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
                     registroReporteNuevo.Text = string.Empty;
                     ((ICatalogo)this).Mostrar(boletaId);
                     X.Msg.Notify(Generales.nickNameDeLaApp, "Reporte agregadado correctamente").Show();
-                }
-                else
-                {
-                    throw new ExcepcionReglaNegocio("Favor de seleccionar alguna boleta válida.");
-                }
-
-            }
-            catch (ExcepcionReglaNegocio ex)
-            {
-                X.Msg.Alert(Generales.nickNameDeLaApp, ex.Message).Show();
-            }
-        }
-
-        [DirectMethod(ShowMask = true)]
-        public void CrearMiembro()
-        {
-            try
-            {
-                int boletaId;
-                if (!int.TryParse(registroBoletaId.Text, out boletaId)){
-                    boletaId = -1;
-                }
-
-                if (boletaId > 0)
-                {
-                    wndCrearMiembro.Hide();
-                    ManejadorDeConsolidacion manejador = new ManejadorDeConsolidacion();
-                    Miembro miembro = manejador.CrearMiembroDesdeBoleta(boletaId, registroCelulaDeMiembroCreado.ObtenerId());
-                    X.Msg.Alert(Generales.nickNameDeLaApp, string.Format("El miembro creado correctamente y asignado a la célula: {0} [{1}]", miembro.Celula.Descripcion, miembro.CelulaId)).Show();
                 }
                 else
                 {

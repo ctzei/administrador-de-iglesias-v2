@@ -53,6 +53,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             registroEstadoCivil.Text = miembro.EstadoCivil.Descripcion;
             registroFechaDeNacimiento.Text = string.Format("{0} ({1} años)", miembro.Fecha_Nacimiento.GetValueOrDefault(DateTime.Today).ToShortDateString(), ((DateTime.Today - miembro.Fecha_Nacimiento.GetValueOrDefault(DateTime.Today)).Days / 365).ToString());
             registroTelefonos.Text = string.Format("{0} | {1} | {2}", miembro.Tel_Casa, miembro.Tel_Movil, miembro.Tel_Trabajo);
+            registroComentario.Text = miembro.Comentario;
 
             X.Call("cargarMapaDesdeDireccionEnPanel", gridDireccion.ClientID, miembro.UbicacionMunicipio.UbicacionEstado.UbicacionPais.Descripcion, miembro.UbicacionMunicipio.UbicacionEstado.Descripcion, miembro.UbicacionMunicipio.Descripcion, miembro.Colonia, miembro.Direccion);
             X.Call("cargarFoto", registroFoto.ClientID, miembro.MiembroId);

@@ -13,7 +13,7 @@ namespace ZagueEF.Core.Web.ExtNET.Controls
             this.AnchorHorizontal = "97%";
             this.MsgTarget = Ext.Net.MessageTarget.Side;
             this.BlankText = Literales.CampoRequerido;
-            this.Format = "dd/MMM/yyyy";
+            //this.Format = "dd/MMM/yyyy";
         }
     }
 }

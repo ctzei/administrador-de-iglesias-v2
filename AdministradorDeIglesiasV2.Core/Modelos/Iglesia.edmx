@@ -26,7 +26,6 @@
           <EntitySet Name="Ciclo" EntityType="IglesiaModel.Store.Ciclo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsolidacionBoleta" EntityType="IglesiaModel.Store.ConsolidacionBoleta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsolidacionBoletaCategoria" EntityType="IglesiaModel.Store.ConsolidacionBoletaCategoria" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ConsolidacionBoletaRazonCerrada" EntityType="IglesiaModel.Store.ConsolidacionBoletaRazonCerrada" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsolidacionBoletaRazonVisita" EntityType="IglesiaModel.Store.ConsolidacionBoletaRazonVisita" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsolidacionBoletaReporte" EntityType="IglesiaModel.Store.ConsolidacionBoletaReporte" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Culto" EntityType="IglesiaModel.Store.Culto" store:Type="Tables" Schema="dbo" />
@@ -112,10 +111,6 @@
           </AssociationSet>
           <AssociationSet Name="ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1" Association="IglesiaModel.Store.ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1">
             <End Role="ConsolidacionBoletaCategoria" EntitySet="ConsolidacionBoletaCategoria" />
-            <End Role="ConsolidacionBoleta" EntitySet="ConsolidacionBoleta" />
-          </AssociationSet>
-          <AssociationSet Name="ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1" Association="IglesiaModel.Store.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1">
-            <End Role="ConsolidacionBoletaRazonCerrada" EntitySet="ConsolidacionBoletaRazonCerrada" />
             <End Role="ConsolidacionBoleta" EntitySet="ConsolidacionBoleta" />
           </AssociationSet>
           <AssociationSet Name="ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1" Association="IglesiaModel.Store.ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1">
@@ -711,8 +706,7 @@
           <Property Name="FechaDeCulto" Type="datetime" Nullable="false" />
           <Property Name="AsignadaACelulaId" Type="int" />
           <Property Name="AsignadaAMiembroId" Type="int" />
-          <Property Name="BoletaCerrada" Type="bit" Nullable="false" />
-          <Property Name="BoletaRazonCerradaId" Type="int" />
+          <Property Name="BoletaEstatusId" Type="int" />
           <Property Name="BoletaRazonVisitaId" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar(max)" />
           <Property Name="CategoriaBoletaId" Type="int" Nullable="false" />
@@ -729,17 +723,6 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" />
           <Property Name="CelulaPredeterminadaId" Type="int" Nullable="false" />
-          <Property Name="Creacion" Type="datetime" Nullable="false" />
-          <Property Name="Modificacion" Type="datetime" Nullable="false" />
-          <Property Name="CreacionId" Type="int" Nullable="false" />
-          <Property Name="ModificacionId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ConsolidacionBoletaRazonCerrada">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
           <Property Name="Creacion" Type="datetime" Nullable="false" />
           <Property Name="Modificacion" Type="datetime" Nullable="false" />
           <Property Name="CreacionId" Type="int" Nullable="false" />
@@ -1415,18 +1398,6 @@
             </Principal>
             <Dependent Role="ConsolidacionBoleta">
               <PropertyRef Name="CategoriaBoletaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1">
-          <End Role="ConsolidacionBoletaRazonCerrada" Type="IglesiaModel.Store.ConsolidacionBoletaRazonCerrada" Multiplicity="0..1" />
-          <End Role="ConsolidacionBoleta" Type="IglesiaModel.Store.ConsolidacionBoleta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ConsolidacionBoletaRazonCerrada">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConsolidacionBoleta">
-              <PropertyRef Name="BoletaRazonCerradaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2731,7 +2702,6 @@
             <End Role="Rol" EntitySet="Rol" />
             <End Role="RolPermisoEspecial" EntitySet="RolPermisoEspecial" />
           </AssociationSet>
-          <EntitySet Name="ConsolidacionBoletaRazonCerrada" EntityType="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada" />
           <EntitySet Name="ConsolidacionBoletaRazonVisita" EntityType="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita" />
           <AssociationSet Name="Genero_Miembro" Association="AdministradorDeIglesiasV2.Core.Modelos.Genero_Miembro">
             <End Role="Genero" EntitySet="Genero" />
@@ -2749,10 +2719,6 @@
           </AssociationSet>
           <AssociationSet Name="ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1" Association="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1">
             <End Role="ConsolidacionBoletaCategoria" EntitySet="ConsolidacionBoletaCategoria" />
-            <End Role="ConsolidacionBoleta" EntitySet="ConsolidacionBoleta" />
-          </AssociationSet>
-          <AssociationSet Name="ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1" Association="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1">
-            <End Role="ConsolidacionBoletaRazonCerrada" EntitySet="ConsolidacionBoletaRazonCerrada" />
             <End Role="ConsolidacionBoleta" EntitySet="ConsolidacionBoleta" />
           </AssociationSet>
           <AssociationSet Name="ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1" Association="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1">
@@ -4329,18 +4295,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ConsolidacionBoletaRazonCerrada">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="Creacion" Nullable="false" Precision="3" />
-          <Property Type="DateTime" Name="Modificacion" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="CreacionId" Nullable="false" />
-          <Property Type="Int32" Name="ModificacionId" Nullable="false" />
-          <NavigationProperty Name="ConsolidacionBoleta" Relationship="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoletaRazonCerrada" ToRole="ConsolidacionBoleta" />
-        </EntityType>
         <EntityType Name="ConsolidacionBoletaRazonVisita">
           <Key>
             <PropertyRef Name="Id" />
@@ -4390,8 +4344,6 @@
           <Property Type="DateTime" Name="FechaDeCulto" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="AsignadaACelulaId" />
           <Property Type="Int32" Name="AsignadaAMiembroId" />
-          <Property Type="Boolean" Name="BoletaCerrada" Nullable="false" />
-          <Property Type="Int32" Name="BoletaRazonCerradaId" />
           <Property Type="Int32" Name="BoletaRazonVisitaId" Nullable="false" />
           <Property Type="String" Name="Observaciones" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="CategoriaBoletaId" Nullable="false" />
@@ -4402,7 +4354,6 @@
           <Property Type="Int32" Name="ModificacionId" Nullable="false" />
           <NavigationProperty Name="Celula" Relationship="AdministradorDeIglesiasV2.Core.Modelos.Celula_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="Celula" />
           <NavigationProperty Name="ConsolidacionBoletaCategoria" Relationship="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaCategoria_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="ConsolidacionBoletaCategoria" />
-          <NavigationProperty Name="ConsolidacionBoletaRazonCerrada" Relationship="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="ConsolidacionBoletaRazonCerrada" />
           <NavigationProperty Name="ConsolidacionBoletaRazonVisita" Relationship="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="ConsolidacionBoletaRazonVisita" />
           <NavigationProperty Name="Culto" Relationship="AdministradorDeIglesiasV2.Core.Modelos.Culto_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="Culto" />
           <NavigationProperty Name="Genero" Relationship="AdministradorDeIglesiasV2.Core.Modelos.Genero_ConsolidacionBoleta" FromRole="ConsolidacionBoleta" ToRole="Genero" />
@@ -4411,6 +4362,7 @@
           <NavigationProperty Name="UbicacionMunicipio" Relationship="AdministradorDeIglesiasV2.Core.Modelos.UbicacionMunicipio_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="UbicacionMunicipio" />
           <NavigationProperty Name="EstadoCivil" Relationship="AdministradorDeIglesiasV2.Core.Modelos.EstadoCivil_ConsolidacionBoleta_FK1" FromRole="ConsolidacionBoleta" ToRole="EstadoCivil" />
           <NavigationProperty Name="ConsolidacionBoletaReporte" Relationship="AdministradorDeIglesiasV2.Core.Modelos.Celula_ConsolidacionBoletaReporte_FK1" FromRole="ConsolidacionBoleta" ToRole="ConsolidacionBoletaReporte" />
+          <Property Type="Int32" Name="BoletaEstatusId" />
         </EntityType>
         <EntityType Name="ConsolidacionBoletaCategoria">
           <Key>
@@ -4459,18 +4411,6 @@
             </Principal>
             <Dependent Role="ConsolidacionBoleta">
               <PropertyRef Name="CategoriaBoletaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1">
-          <End Type="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada" Role="ConsolidacionBoletaRazonCerrada" Multiplicity="0..1" />
-          <End Type="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta" Role="ConsolidacionBoleta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ConsolidacionBoletaRazonCerrada">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConsolidacionBoleta">
-              <PropertyRef Name="BoletaRazonCerradaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5694,18 +5634,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ConsolidacionBoletaRazonCerrada">
-            <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada">
-              <MappingFragment StoreEntitySet="ConsolidacionBoletaRazonCerrada">
-                <ScalarProperty Name="ModificacionId" ColumnName="ModificacionId" />
-                <ScalarProperty Name="CreacionId" ColumnName="CreacionId" />
-                <ScalarProperty Name="Modificacion" ColumnName="Modificacion" />
-                <ScalarProperty Name="Creacion" ColumnName="Creacion" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ConsolidacionBoletaRazonVisita">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita">
               <MappingFragment StoreEntitySet="ConsolidacionBoletaRazonVisita">
@@ -5721,6 +5649,7 @@
           <EntitySetMapping Name="ConsolidacionBoleta">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoleta">
               <MappingFragment StoreEntitySet="ConsolidacionBoleta">
+                <ScalarProperty Name="BoletaEstatusId" ColumnName="BoletaEstatusId" />
                 <ScalarProperty Name="ModificacionId" ColumnName="ModificacionId" />
                 <ScalarProperty Name="CreacionId" ColumnName="CreacionId" />
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
@@ -5729,8 +5658,6 @@
                 <ScalarProperty Name="CategoriaBoletaId" ColumnName="CategoriaBoletaId" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="BoletaRazonVisitaId" ColumnName="BoletaRazonVisitaId" />
-                <ScalarProperty Name="BoletaRazonCerradaId" ColumnName="BoletaRazonCerradaId" />
-                <ScalarProperty Name="BoletaCerrada" ColumnName="BoletaCerrada" />
                 <ScalarProperty Name="AsignadaAMiembroId" ColumnName="AsignadaAMiembroId" />
                 <ScalarProperty Name="AsignadaACelulaId" ColumnName="AsignadaACelulaId" />
                 <ScalarProperty Name="FechaDeCulto" ColumnName="FechaDeCulto" />
@@ -5977,7 +5904,7 @@
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaLider" Width="1.5" PointX="13.5" PointY="44.5" Height="2.2496956380208388" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaMiembroAsistencia" Width="1.5" PointX="10.5" PointY="44.125" Height="3.0714322916666674" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaMiembroMovimiento" Width="1.5" PointX="13.5" PointY="40.25" Height="2.9070849609375102" />
-        <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaMovimientoRazon" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7566536458333246" />
+        <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaMovimientoRazon" Width="1.5" PointX="4.5" PointY="11.75" Height="1.7566536458333246" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.Ciclo" Width="1.5" PointX="0.75" PointY="48.375" Height="2.414042968749996" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.Culto" Width="1.5" PointX="3" PointY="39.375" Height="2.5783902994791674" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.DiaSemana" Width="1.5" PointX="0.75" PointY="39.5" Height="1.9210009765625102" />
@@ -5986,7 +5913,7 @@
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.MiembroPaso" Width="1.5" PointX="16.5" PointY="44.375" Height="2.5783902994791674" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.MiembroRol" Width="1.5" PointX="16.5" PointY="40.625" Height="2.0853483072916674" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.PantallaPermitida" Width="1.5" PointX="17.25" PointY="14.5" Height="2.249695638020853" />
-        <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.Parametro" Width="1.5" PointX="2.75" PointY="0.75" Height="1.7566536458333246" />
+        <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.Parametro" Width="1.5" PointX="6.5" PointY="11.75" Height="1.7566536458333246" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.Paso" Width="1.5" PointX="14.25" PointY="22.5" Height="2.2496956380208246" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.PasoCategoria" Width="1.5" PointX="12" PointY="22.75" Height="1.9210009765624818" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.PermisoEspecial" Width="1.5" PointX="14.25" PointY="14.75" Height="1.756653645833353" />
@@ -6808,7 +6735,6 @@
           <ConnectorPoint PointX="13.125" PointY="0.37500000000000022" />
           <ConnectorPoint PointX="13.5" PointY="0.75" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada" Width="1.5" PointX="8.25" PointY="54.75" Height="2.0853483072916674" />
         <EntityTypeShape EntityType="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita" Width="1.5" PointX="8.25" PointY="57.5" Height="2.0853483072916674" />
         <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.Genero_Miembro" >
           <ConnectorPoint PointX="16.390625" PointY="3.28904296875" />
@@ -6849,11 +6775,6 @@
           <ConnectorPoint PointX="20.25" PointY="28.707021484374991" />
           <ConnectorPoint PointX="23.96875" PointY="28.707021484374991" />
           <ConnectorPoint PointX="23.96875" PointY="19.298157552083353" />
-        </AssociationConnector>
-        <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonCerrada_ConsolidacionBoleta_FK1" >
-          <ConnectorPoint PointX="21.466796875" PointY="7.4603483072916674" />
-          <ConnectorPoint PointX="21.841796875" PointY="17.817369914062567" />
-          <ConnectorPoint PointX="23.125" PointY="17.817369914062567" />
         </AssociationConnector>
         <AssociationConnector Association="AdministradorDeIglesiasV2.Core.Modelos.ConsolidacionBoletaRazonVisita_ConsolidacionBoleta_FK1" >
           <ConnectorPoint PointX="21.59375" PointY="24.25" />
