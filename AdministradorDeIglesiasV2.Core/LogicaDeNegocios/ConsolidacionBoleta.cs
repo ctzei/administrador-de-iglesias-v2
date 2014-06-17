@@ -13,20 +13,20 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         public class Estatus
         {
             // ABIERTA
-            public readonly static KeyValuePair<int, string> SIN_REPORTE = new KeyValuePair<int, string>(101, "Sin Reporte");
-            public readonly static KeyValuePair<int, string> NO_LOCALIZADO = new KeyValuePair<int, string>(102, "No localizado aún");
+            public readonly static KeyValuePair<int, string> SIN_REPORTE = new KeyValuePair<int, string>(101, "Abierta - Sin Reporte");
+            public readonly static KeyValuePair<int, string> NO_LOCALIZADO = new KeyValuePair<int, string>(102, "Abierta - No localizado aún");
 
             // SEGUIMIENTO
-            public readonly static KeyValuePair<int, string> PENDIENTE_ASIGNAR_CELULA = new KeyValuePair<int, string>(201, "Pendiente asignar célula");
-            public readonly static KeyValuePair<int, string> ASIGNADO_A_CELULA = new KeyValuePair<int, string>(202, "Asignado a célula");
+            public readonly static KeyValuePair<int, string> PENDIENTE_ASIGNAR_CELULA = new KeyValuePair<int, string>(201, "Seguimiento - Pendiente asignar célula");
+            public readonly static KeyValuePair<int, string> ASIGNADO_A_CELULA = new KeyValuePair<int, string>(202, "Seguimiento - Asignado a célula");
 
             // CERRADA
-            public readonly static KeyValuePair<int, string> ASISTE_A_IGLESIA = new KeyValuePair<int, string>(1, "Asiste a Iglesia");
-            public readonly static KeyValuePair<int, string> ASISTE_A_CELULA = new KeyValuePair<int, string>(2, "Asiste a célula");
-            public readonly static KeyValuePair<int, string> ASISTE_A_IGLESIA_Y_CELULA = new KeyValuePair<int, string>(3, "Asiste a iglesia y célula");
-            public readonly static KeyValuePair<int, string> NO_INTERESADO = new KeyValuePair<int, string>(4, "No interesado");
-            public readonly static KeyValuePair<int, string> ASISTE_A_OTRA_IGLESIA = new KeyValuePair<int, string>(5, "Asiste a otra iglesia");
-            public readonly static KeyValuePair<int, string> DATOS_INCORRECTOS = new KeyValuePair<int, string>(6, "Datos incorrectos");
+            public readonly static KeyValuePair<int, string> ASISTE_A_IGLESIA = new KeyValuePair<int, string>(1, "Cerrada - Asiste a Iglesia");
+            public readonly static KeyValuePair<int, string> ASISTE_A_CELULA = new KeyValuePair<int, string>(2, "Cerrada - Asiste a célula");
+            public readonly static KeyValuePair<int, string> ASISTE_A_IGLESIA_Y_CELULA = new KeyValuePair<int, string>(3, "Cerrada - Asiste a iglesia y célula");
+            public readonly static KeyValuePair<int, string> NO_INTERESADO = new KeyValuePair<int, string>(4, "Cerrada - No interesado");
+            public readonly static KeyValuePair<int, string> ASISTE_A_OTRA_IGLESIA = new KeyValuePair<int, string>(5, "Cerrada - Asiste a otra iglesia");
+            public readonly static KeyValuePair<int, string> DATOS_INCORRECTOS = new KeyValuePair<int, string>(6, "Cerrada - Datos incorrectos");
 
             public static List<KeyValuePair<int, string>> Lista()
             {
