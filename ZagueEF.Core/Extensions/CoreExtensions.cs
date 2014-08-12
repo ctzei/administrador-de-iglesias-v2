@@ -245,6 +245,16 @@ namespace ExtensionMethods
                 return 0;
         }
 
+        /// <summary>
+        /// Cleans the string by stripping out any accented character
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string Clean(this string str)
+        {
+            return System.Text.Encoding.UTF8.GetString(System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(str));
+        }
+
         #endregion
 
         #region Int

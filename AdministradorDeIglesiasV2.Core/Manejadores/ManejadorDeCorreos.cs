@@ -10,6 +10,7 @@ using AdministradorDeIglesiasV2.Core.Modelos;
 using ZagueEF.Core;
 using Quiksoft.FreeSMTP;
 using log4net;
+using ExtensionMethods;
 
 namespace AdministradorDeIglesiasV2.Core.Manejadores
 {
@@ -80,14 +81,21 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
             // Agregamos el mensaje final de la falta de caracteres especiales
             string mensajeFinal = "* CARACTERES ESPECIALES Y ACENTOS HAN SIDO OMITIDOS DE FORMA VOLUNTARIA.";
-            BodyPart bodyPart = (BodyPart)email.BodyParts.GetLastItem();
-            if (bodyPart.Format == BodyPartFormat.HTML)
+            BodyPart finalBodyPart = (BodyPart)email.BodyParts.GetLastItem();
+            if (finalBodyPart.Format == BodyPartFormat.HTML)
             {
-                bodyPart.Body += string.Format("<br/><p>{0}</p>", mensajeFinal);
+                finalBodyPart.Body += string.Format("<br/><p>{0}</p>", mensajeFinal);
             }
-            else if (bodyPart.Format == BodyPartFormat.Plain)
+            else if (finalBodyPart.Format == BodyPartFormat.Plain)
             {
-                bodyPart.Body += Environment.NewLine + Environment.NewLine + Environment.NewLine + mensajeFinal;
+                finalBodyPart.Body += Environment.NewLine + Environment.NewLine + Environment.NewLine + mensajeFinal;
+            }
+
+            // Limpiamos el texto (quitamos acentos y demas caracteres especiales)
+            while (email.BodyParts.MoveNext())
+            {
+                BodyPart bodyPart = (BodyPart)email.BodyParts.Current;
+                bodyPart.Body = bodyPart.Body.Clean();
             }
 
             AsyncMethodCaller caller = new AsyncMethodCaller(EnviarCorreoEnNuevoThread);

@@ -42,7 +42,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             DateTime fecha = DateTime.Now;
             DateTime fechaInicial = fecha.GetFirstDateOfWeek().AddDays(-7);
             int semanaActual = fecha.GetWeekNumber();
-            string tituloDelReporte = string.Format("Reporte de Asistencias de Celula NO REGISTRADAS de la semana {0} del año, {1} ({2} a {3})", semanaActual, fecha.Year, fechaInicial.ToString("dd/MM/yy"), fechaInicial.AddDays(7).ToString("dd/MM/yy"));
+            string tituloDelReporte = string.Format("Asistencias de Celula NO REGISTRADAS de la semana {0} ({2} a {3})", semanaActual, fecha.Year, fechaInicial.ToString("dd/MMM/yy"), fechaInicial.AddDays(7).ToString("dd/MMM/yy"));
 
             //Obtenemos todos los miembros inscritos a este reporte
             List<int> inscripcionesANotificar = (from inscripciones in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaInscripcion
@@ -165,8 +165,8 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                     StringBuilder contenido = new StringBuilder(750);
 
                     //Inicializamos el contenido del correo
-                    contenido.AppendLine(string.Format("<h3>{0}</h3>", tituloDelReporte));
-                    contenido.AppendLine("<p>A continuacion se mostraran las faltas de registro de asistencia, separadas por redes, de las cuales el usuario es lider directo. Las siguientes celulas aun no han registrado asistencias en la semana anterior inmediata:</p>");
+                    contenido.Append(string.Format("<h3>{0}</h3>", tituloDelReporte));
+                    contenido.Append("<p>A continuacion se mostraran las faltas de registro de asistencia, separadas por redes, de las cuales el usuario es lider directo. Las siguientes celulas aun no han registrado asistencias en la semana anterior inmediata:</p>");
 
                     //Por cada celular que sea lider directo se va a buscar la asistencia de sus "celulas" de primer orden o TODA la red, dependiendo del tipo de reporte
                     foreach (int celulaId in celulasALasQueEsLider)
@@ -195,8 +195,8 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                             tieneCelulasSinAsistencia = true;
                         }
 
-                        contenido.AppendLine("<br/><table border='1' width='500px'>");
-                        contenido.AppendLine(string.Format("<tr><th>{0}</th><th>{1}</th></tr>", "Id", "Descripcion"));
+                        contenido.Append("<br/><table border='1' width='500px'>");
+                        contenido.AppendFormat("<tr><th>{0}</th><th>{1}</th></tr>", "Id", "Descripcion");
 
                         foreach (int c in celulasSinAsistenciaRegistrada)
                         {
@@ -215,18 +215,17 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                                     }
                                 }
 
-                                contenido.AppendLine(string.Format("<tr><td>{0}</td><td>{1}</td></tr>", celula.CelulaId, celula.Descripcion));
+                                contenido.AppendFormat("<tr><td>{0}</td><td>{1}</td></tr>", celula.CelulaId, celula.Descripcion);
                             }
                         }
-                        contenido.AppendLine("</table>");
+                        contenido.Append("</table>");
                     }
 
                     if (tieneCelulasSinAsistencia)
                     {
                         //Preparamos los ultimos detalles del correo a enviar
-                        email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML, BodyPartEncoding.None);
+                        email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML);
                         email.Recipients.Add(miembro.Email, miembro.NombreCompleto, RecipientType.To);
-                        email.From.Name = "Reporte de Asistencias No Registradas";
                         email.Subject = tituloDelReporte;
                         return email;
                     }
