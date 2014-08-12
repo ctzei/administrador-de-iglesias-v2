@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using System.Runtime.Remoting.Messaging;
 using System.Data.Objects;
 using AdministradorDeIglesiasV2.Core;
@@ -15,6 +16,10 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
     public class ManejadorDeCorreos
     {
         private static readonly ILog log = LogManager.GetLogger("Email");
+
+        private readonly string remitente = ConfigurationManager.AppSettings["RemitenteDeCorreos"];
+        private readonly string bcc = ConfigurationManager.AppSettings["BccDeCorreos"];
+        private readonly string servidorDeCorreos = ConfigurationManager.AppSettings["ServidorDeCorreos"];
 
         #region Pruebas
 
@@ -51,20 +56,42 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             };
 
             // Enviamos el correo
-            this.EnviarCorreoAsync(servidorSmtp, email, generarLog);
+            this.EnviarCorreoAsync(email, generarLog);
         }
 
         #endregion
 
-        public void EnviarCorreoAsync(string servidorSmtp, EmailMessage email)
+        public void EnviarCorreoAsync(EmailMessage email)
         {
-            EnviarCorreoAsync(servidorSmtp, email, null);
+            EnviarCorreoAsync(email, null);
         }
 
-        public void EnviarCorreoAsync(string servidorSmtp, EmailMessage email, Action callback)
+        public void EnviarCorreoAsync(EmailMessage email, Action callback)
         {
+            // Establecemos el remitente
+            email.From.Email = remitente;
+            email.From.Name = "Puerta del Cielo";
+
+            // Agregamos algun BCC si este se encuentra configurado
+            if (bcc.Trim().Length > 0)
+            {
+                email.Recipients.Add(bcc, bcc, RecipientType.BCC);
+            }
+
+            // Agregamos el mensaje final de la falta de caracteres especiales
+            string mensajeFinal = "* CARACTERES ESPECIALES Y ACENTOS HAN SIDO OMITIDOS DE FORMA VOLUNTARIA.";
+            BodyPart bodyPart = (BodyPart)email.BodyParts.GetLastItem();
+            if (bodyPart.Format == BodyPartFormat.HTML)
+            {
+                bodyPart.Body += string.Format("<br/><p>{0}</p>", mensajeFinal);
+            }
+            else if (bodyPart.Format == BodyPartFormat.Plain)
+            {
+                bodyPart.Body += Environment.NewLine + Environment.NewLine + Environment.NewLine + mensajeFinal;
+            }
+
             AsyncMethodCaller caller = new AsyncMethodCaller(EnviarCorreoEnNuevoThread);
-            caller.BeginInvoke(servidorSmtp, email, callback, new AsyncCallback(AsyncThreadCallback), null);
+            caller.BeginInvoke(servidorDeCorreos, email, callback, new AsyncCallback(AsyncThreadCallback), null);
         }
 
         public List<string> ObtenerRecipientes(EmailMessage email)
@@ -121,6 +148,16 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             {
                 log.ErrorFormat("Ocurrio un error al momento de estar mandando un email a: {0}", recipients);
                 log.Error(e);
+            }
+            finally
+            {
+                while (email.BodyParts.MoveNext())
+                {
+                    if (email.BodyParts.Current is BodyPart)
+                    {
+                        log.DebugFormat("Contenido del Email: {0}", ((BodyPart)email.BodyParts.Current).Body);
+                    }
+                }
             }
         }
 

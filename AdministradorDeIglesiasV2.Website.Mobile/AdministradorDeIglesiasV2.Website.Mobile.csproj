@@ -52,9 +52,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLLs\51degrees\FiftyOne.Foundation.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -125,6 +125,7 @@
     <Content Include="Scripts\lib\jquery.placeholder.js" />
     <Content Include="Scripts\lib\json2.js" />
     <Content Include="Scripts\lib\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\Views\Home\home.js" />
     <Content Include="Scripts\Views\Login\login.js" />
     <Content Include="Scripts\Views\RegistroDeAsistencia\registroDeAsistencia.js" />

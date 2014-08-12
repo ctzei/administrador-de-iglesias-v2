@@ -37,12 +37,12 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             DetalladaSinCorreos = 4
         }
 
-        public bool NotificarFaltaDeAsistenciasPorEmail(string remitente, string servidorSmtp)
+        public bool NotificarFaltaDeAsistenciasPorEmail()
         {
             DateTime fecha = DateTime.Now;
             DateTime fechaInicial = fecha.GetFirstDateOfWeek().AddDays(-7);
             int semanaActual = fecha.GetWeekNumber();
-            string tituloDelReporte = string.Format("Reporte de Asistencias de Célula NO REGISTRADAS de la semana {0} del año, {1} ({2} a {3})", semanaActual, fecha.Year, fechaInicial.ToString("dd/MM/yy"), fechaInicial.AddDays(7).ToString("dd/MM/yy"));
+            string tituloDelReporte = string.Format("Reporte de Asistencias de Celula NO REGISTRADAS de la semana {0} del año, {1} ({2} a {3})", semanaActual, fecha.Year, fechaInicial.ToString("dd/MM/yy"), fechaInicial.AddDays(7).ToString("dd/MM/yy"));
 
             //Obtenemos todos los miembros inscritos a este reporte
             List<int> inscripcionesANotificar = (from inscripciones in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaInscripcion
@@ -72,7 +72,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                     notificacionInscripcion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaInscripcion where o.Id == inscripcionId select o).SingleOrDefault();
 
                     // Se mandara un correo unico por miembro; incluyendo toda la info de todas las celulas a las que es lider directo
-                    EmailMessage email = GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(fechaInicial, notificacionInscripcion.Miembro, (TipoDeReporte)notificacionInscripcion.TipoId, tituloDelReporte, remitente);
+                    EmailMessage email = GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(fechaInicial, notificacionInscripcion.Miembro, (TipoDeReporte)notificacionInscripcion.TipoId, tituloDelReporte);
 
                     // Mandaremos el correo, unicamente si se genero. Si no tenia faltas de asistencias NO se manda correo.
                     if (email != null)
@@ -97,7 +97,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         };
 
                         // Enviamos el correo
-                        manejadorDeCorreos.EnviarCorreoAsync(servidorSmtp, email, generarLog);
+                        manejadorDeCorreos.EnviarCorreoAsync(email, generarLog);
                         huboCorreosCorrectamenteEnviados = true;
                     }
                 }
@@ -110,7 +110,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             }
         }
 
-        public EmailMessage GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(DateTime fechaInicial, Miembro miembro, TipoDeReporte tipoDeReporte, string tituloDelReporte, string remitente)
+        public EmailMessage GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(DateTime fechaInicial, Miembro miembro, TipoDeReporte tipoDeReporte, string tituloDelReporte)
         {
             if (miembro.Borrado == false)
             {
@@ -166,7 +166,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
                     //Inicializamos el contenido del correo
                     contenido.AppendLine(string.Format("<h3>{0}</h3>", tituloDelReporte));
-                    contenido.AppendLine("<p>A continuación se mostraran las faltas de registro de asistencia, separadas por redes, de las cuales el usuario es líder directo. Las siguientes células aún no han registrado asistencias en la semana anterior inmediata:</p>");
+                    contenido.AppendLine("<p>A continuacion se mostraran las faltas de registro de asistencia, separadas por redes, de las cuales el usuario es lider directo. Las siguientes celulas aun no han registrado asistencias en la semana anterior inmediata:</p>");
 
                     //Por cada celular que sea lider directo se va a buscar la asistencia de sus "celulas" de primer orden o TODA la red, dependiendo del tipo de reporte
                     foreach (int celulaId in celulasALasQueEsLider)
@@ -196,7 +196,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         }
 
                         contenido.AppendLine("<br/><table border='1' width='500px'>");
-                        contenido.AppendLine(string.Format("<tr><th>{0}</th><th>{1}</th></tr>", "Id", "Descripción"));
+                        contenido.AppendLine(string.Format("<tr><th>{0}</th><th>{1}</th></tr>", "Id", "Descripcion"));
 
                         foreach (int c in celulasSinAsistenciaRegistrada)
                         {
@@ -226,7 +226,6 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         //Preparamos los ultimos detalles del correo a enviar
                         email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML, BodyPartEncoding.None);
                         email.Recipients.Add(miembro.Email, miembro.NombreCompleto, RecipientType.To);
-                        email.From.Email = remitente;
                         email.From.Name = "Reporte de Asistencias No Registradas";
                         email.Subject = tituloDelReporte;
                         return email;

@@ -90,7 +90,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.Reportes.Celulas
 
                 ManejadorDeReportesDeAsistencias manejador = new ManejadorDeReportesDeAsistencias();
                 DateTime fechaInicial = DateTime.Now.GetFirstDateOfWeek().AddDays(-7);
-                EmailMessage mensaje = manejador.GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(fechaInicial, miembro, (ManejadorDeReportesDeAsistencias.TipoDeReporte)cboTipoDeReporteGenerado.ObtenerId(), string.Empty, WebConfigurationManager.AppSettings["RemitenteDeCorreos"]);
+                EmailMessage mensaje = manejador.GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(fechaInicial, miembro, (ManejadorDeReportesDeAsistencias.TipoDeReporte)cboTipoDeReporteGenerado.ObtenerId(), string.Empty);
 
                 if (mensaje != null)
                 {

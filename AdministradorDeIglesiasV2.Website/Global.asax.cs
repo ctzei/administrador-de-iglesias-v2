@@ -13,19 +13,31 @@ using AdministradorDeIglesiasV2.Core;
 using AdministradorDeIglesiasV2.Core.Manejadores;
 using AdministradorDeIglesiasV2.Core.Modelos;
 using log4net;
+using Quartz;
+using Quartz.Impl;
+using AdministradorDeIglesiasV2.Core.ScheduledJobs;
 
 namespace AdministradorDeIglesiasV2.Website
 {
     public class Global : System.Web.HttpApplication
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Global));
+        private IScheduler scheduler;
 
         protected void Application_Start(object sender, EventArgs e)
         {
             // log4net initialization
             log4net.Config.XmlConfigurator.Configure();
 
+            // init jobs
+            InitScheduledJobs();
+
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+            scheduler.Shutdown();
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -66,6 +78,33 @@ namespace AdministradorDeIglesiasV2.Website
             routes.MapPageRoute("Inscripciones", "Inscripcion", "~/PaginasExternas/Eventos/Inscripciones/Inscripcion.html");
             routes.MapPageRoute("Error", "Error", "~/Errores/Error.aspx");
             routes.MapPageRoute("404", "404", "~/Errores/404.aspx");
+        }
+
+        private void InitScheduledJobs()
+        {
+            // Quartz.Net initialization
+            log.Debug("Starting Quartz.Net engine");
+            scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            scheduler.Start();
+
+            #region NotificacionDeNuevasBoletasDeConsolidacion
+
+            IJobDetail jobNotificacionDeNuevasBoletasDeConsolidacion = JobBuilder.Create<NotificacionDeNuevasBoletasDeConsolidacion>()
+                //.WithIdentity("job1", "group1")
+                .Build();
+
+            ITrigger triggerNotificacionDeNuevasBoletasDeConsolidacion = TriggerBuilder.Create()
+                //.WithIdentity("trigger1", "group1")
+                .WithDailyTimeIntervalSchedule(x => x
+                    .WithIntervalInHours(24)
+                    .OnEveryDay()
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 0)))
+                .Build();
+
+            scheduler.ScheduleJob(jobNotificacionDeNuevasBoletasDeConsolidacion, triggerNotificacionDeNuevasBoletasDeConsolidacion);
+
+            #endregion
+
         }
     }
 }

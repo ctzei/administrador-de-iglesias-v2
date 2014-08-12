@@ -56,7 +56,7 @@ namespace AdministradorDeIglesiasV2.Website.WebServices.Notificaciones
             string jsonResult;
             try
             {
-                bool correosEnviados = manejador.NotificarFaltaDeAsistenciasPorEmail(WebConfigurationManager.AppSettings["RemitenteDeCorreos"], WebConfigurationManager.AppSettings["ServidorDeCorreos"]);
+                bool correosEnviados = manejador.NotificarFaltaDeAsistenciasPorEmail();
 
                 jsonResult = (new
                 {
