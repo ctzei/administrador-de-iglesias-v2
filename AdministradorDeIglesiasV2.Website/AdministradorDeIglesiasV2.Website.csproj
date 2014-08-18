@@ -163,7 +163,6 @@
     <Content Include="Recursos\js\Paginas\Reportes\Celulas\lideresDeCelula.js" />
     <Content Include="Recursos\js\Paginas\UserControls\buscadorSimple.js" />
     <Content Include="WebServices\Generales\PruebaDeCorreo.aspx" />
-    <Content Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx" />
     <None Include="App_Data\wurfl.xml.gz" />
     <None Include="App_Offline.htm.bak" />
     <Content Include="PaginasExternas\Eventos\Inscripciones\bak\jquery.datepicker.css" />
@@ -587,13 +586,6 @@
     </Compile>
     <Compile Include="WebServices\Generales\Municipios.aspx.designer.cs">
       <DependentUpon>Municipios.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx.cs">
-      <DependentUpon>FaltaDeAsistencias.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebServices\Notificaciones\FaltaDeAsistencias.aspx.designer.cs">
-      <DependentUpon>FaltaDeAsistencias.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

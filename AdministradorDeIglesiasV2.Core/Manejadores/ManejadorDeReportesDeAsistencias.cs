@@ -19,6 +19,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
     public class ManejadorDeReportesDeAsistencias
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ManejadorDeReportesDeAsistencias));
+        private IglesiaEntities contexto = new IglesiaEntities(); // Este manejador se puede llamar desde un thread secundario
 
         #region Notificacion de AsistenciasPorSemana por Email
 
@@ -36,80 +37,6 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             SimpleSinCorreos = 3,
             DetalladaSinCorreos = 4
         }
-
-        public bool NotificarFaltaDeAsistenciasPorEmail()
-        {
-            DateTime fecha = DateTime.Now;
-            DateTime fechaInicial = fecha.GetFirstDateOfWeek().AddDays(-7);
-            int semanaActual = fecha.GetWeekNumber();
-            string tituloDelReporte = string.Format("Asistencias de Celula NO REGISTRADAS de la semana {0} ({2} a {3})", semanaActual, fecha.Year, fechaInicial.ToString("dd/MMM/yy"), fechaInicial.AddDays(7).ToString("dd/MMM/yy"));
-
-            //Obtenemos todos los miembros inscritos a este reporte
-            List<int> inscripcionesANotificar = (from inscripciones in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaInscripcion
-                                                 join logs in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaLog on
-                                                    inscripciones.Id equals logs.NotificacionDeAsistenciaId into ps
-                                                 from logs in ps.DefaultIfEmpty()
-                                                 where
-                                                    inscripciones.Borrado == false &&
-                                                    inscripciones.Miembro.Borrado == false &&
-                                                    (logs.Semana != semanaActual || logs == null) &&
-                                                    (((inscripciones.DiaSemanaId == (int)fecha.DayOfWeek) && ((inscripciones.HoraDiaId / 2) - .5 <= fecha.Hour)) || //Si es el mismo dia de la inscripcion valida la hora actual contra la de la inscripcion
-                                                    ((int)fecha.DayOfWeek > inscripciones.DiaSemanaId)) //Si ya se paso del dia de la inscipcion se manda la notificacion sin importar la hora
-                                                 select inscripciones.Id).ToList<int>();
-
-            NotificacionDeAsistenciaInscripcion notificacionInscripcion;
-            
-
-            if (inscripcionesANotificar.Count > 0)
-            {
-                //SMTP smtpClient = new SMTP(servidorSmtp);
-                ManejadorDeCorreos manejadorDeCorreos = new ManejadorDeCorreos();
-
-                bool huboCorreosCorrectamenteEnviados = false;
-                foreach (int inscripcionId in inscripcionesANotificar)
-                {
-                    // Obtenemos el miembro suscrito y su email
-                    notificacionInscripcion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().NotificacionDeAsistenciaInscripcion where o.Id == inscripcionId select o).SingleOrDefault();
-
-                    // Se mandara un correo unico por miembro; incluyendo toda la info de todas las celulas a las que es lider directo
-                    EmailMessage email = GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(fechaInicial, notificacionInscripcion.Miembro, (TipoDeReporte)notificacionInscripcion.TipoId, tituloDelReporte);
-
-                    // Mandaremos el correo, unicamente si se genero. Si no tenia faltas de asistencias NO se manda correo.
-                    if (email != null)
-                    {
-
-                        Action generarLog = delegate() {
-                            IglesiaEntities contexto = new IglesiaEntities();
-
-                            // Actualizamos o creamos el log; para guardar cuando fue la ultima vez que se proceso dicha inscripcion y no volverla a procesar hasta dentro de una semana
-                            NotificacionDeAsistenciaLog notificacionLog = (from o in contexto.NotificacionDeAsistenciaLog where o.NotificacionDeAsistenciaId == inscripcionId select o).SingleOrDefault();
-
-                            if (notificacionLog == null)
-                            {
-                                notificacionLog = new NotificacionDeAsistenciaLog();
-                            }
-
-                            notificacionLog.NotificacionDeAsistenciaId = inscripcionId;
-                            notificacionLog.Semana = semanaActual;
-                            notificacionLog.Guardar(contexto);
-
-                            log.InfoFormat("Log de notificacion generado correctamente para: {0}", notificacionLog.NotificacionDeAsistenciaInscripcion.Miembro.Email);
-                        };
-
-                        // Enviamos el correo
-                        manejadorDeCorreos.EnviarCorreoAsync(email, generarLog);
-                        huboCorreosCorrectamenteEnviados = true;
-                    }
-                }
-
-                return huboCorreosCorrectamenteEnviados;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public EmailMessage GenerarCorreoSemanalDeFaltaDeAsistenciasPorRed(DateTime fechaInicial, Miembro miembro, TipoDeReporte tipoDeReporte, string tituloDelReporte)
         {
             if (miembro.Borrado == false)
@@ -200,7 +127,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
                         foreach (int c in celulasSinAsistenciaRegistrada)
                         {
-                            Celula celula = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == c && o.Borrado == false select o).SingleOrDefault();
+                            Celula celula = (from o in contexto.Celula where o.CelulaId == c && o.Borrado == false select o).SingleOrDefault();
                             if (celula != null)
                             {
                                 if (agregarCorreosDeLideres)
@@ -253,7 +180,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
             if (reporte == null)
             {
-                List<ObtenerReporteDeAsistenciasPorCelulas_Result> asistencias = SesionActual.Instance.getContexto<IglesiaEntities>().ObtenerReporteDeAsistenciasPorCelulas(celulaId, fechaInicial, fechaFinal, mostrarRed).ToList<ObtenerReporteDeAsistenciasPorCelulas_Result>();
+                List<ObtenerReporteDeAsistenciasPorCelulas_Result> asistencias = contexto.ObtenerReporteDeAsistenciasPorCelulas(celulaId, fechaInicial, fechaFinal, mostrarRed).ToList<ObtenerReporteDeAsistenciasPorCelulas_Result>();
                 reporte = new Modelos.Retornos.ReporteDeAsistenciasDeCelulaSumarizado();
 
                 foreach (ObtenerReporteDeAsistenciasPorCelulas_Result asistencia in asistencias)
@@ -272,13 +199,13 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         public List<ObtenerReporteDeAsistenciasPorMiembro_Result> ObtenerReporteDeAsistenciasPorMiembro(int celulaId, int miembroId, DateTime fechaInicial, DateTime fechaFinal, bool esSemanal)
         {
-            return SesionActual.Instance.getContexto<IglesiaEntities>().ObtenerReporteDeAsistenciasPorMiembro(celulaId, miembroId, fechaInicial.GetFirstDateOfWeek(), fechaFinal, esSemanal).ToList<ObtenerReporteDeAsistenciasPorMiembro_Result>();
+            return contexto.ObtenerReporteDeAsistenciasPorMiembro(celulaId, miembroId, fechaInicial.GetFirstDateOfWeek(), fechaFinal, esSemanal).ToList<ObtenerReporteDeAsistenciasPorMiembro_Result>();
         }
 
         public List<ObtenerReporteDeAsistenciasPorMiembro_Result> ObtenerReporteDeAsistenciasPorMiembro(int celulaId, int miembroId, DateTime fechaFinal, bool esSemanal)
         {
             //Obtenemos la primera asistencia y en base a ella iniciamos el reporte completo
-            CelulaMiembroAsistencia primeraAsistencia = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia
+            CelulaMiembroAsistencia primeraAsistencia = (from o in contexto.CelulaMiembroAsistencia
                                                          where
                                                              o.CelulaId == celulaId &&
                                                              o.MiembroId == miembroId
@@ -296,7 +223,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                 fechaInicial = DateTime.Now; //Si aun no tiene asistencias se toma le fecha de HOY, de todas maneras el reporte debera de salir en blanco
             }
 
-            return SesionActual.Instance.getContexto<IglesiaEntities>().ObtenerReporteDeAsistenciasPorMiembro(celulaId, miembroId, fechaInicial.GetFirstDateOfWeek(), fechaFinal, esSemanal).ToList<ObtenerReporteDeAsistenciasPorMiembro_Result>();
+            return contexto.ObtenerReporteDeAsistenciasPorMiembro(celulaId, miembroId, fechaInicial.GetFirstDateOfWeek(), fechaFinal, esSemanal).ToList<ObtenerReporteDeAsistenciasPorMiembro_Result>();
         }
 
         #endregion
@@ -323,7 +250,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                 ObjectParameter miembrosAsistenIglesiaMujeres = new ObjectParameter("miembrosAsistenIglesiaMujeres", typeof(int));
                 ObjectParameter folis = new ObjectParameter("folis", typeof(int));
 
-                SesionActual.Instance.getContexto<IglesiaEntities>().ObtenerInformacionGeneralPorRed(celulaId, 6, 9, numeroCelulas, lideresCelula, estacas, miembros, miembrosHombres, miembrosMujeres, miembrosAsistenIglesia, miembrosAsistenIglesiaHombres, miembrosAsistenIglesiaMujeres, folis);
+                contexto.ObtenerInformacionGeneralPorRed(celulaId, 6, 9, numeroCelulas, lideresCelula, estacas, miembros, miembrosHombres, miembrosMujeres, miembrosAsistenIglesia, miembrosAsistenIglesiaHombres, miembrosAsistenIglesiaMujeres, folis);
                 reporte = new Modelos.Retornos.InformacionGeneralPorRed();
                 reporte.CantidadDeCelulas = Convert.ToInt32(numeroCelulas.Value);
                 reporte.CantidadDeLideresDeCelula = Convert.ToInt32(lideresCelula.Value);

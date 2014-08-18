@@ -321,6 +321,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogicaDeNegocios\Celula.cs" />
+    <Compile Include="ScheduledJobs\NotificacionDeFaltaDeRegistroDeAsistencia.cs" />
     <Compile Include="ScheduledJobs\NotificacionDeNuevasBoletasDeConsolidacion.cs" />
   </ItemGroup>
   <ItemGroup>

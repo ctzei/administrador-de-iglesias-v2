@@ -5,7 +5,6 @@ using System.IO;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Security;
-using System.Web.SessionState;
 using System.Web.Routing;
 using ZagueEF.Core;
 using System.Reflection;
@@ -90,18 +89,29 @@ namespace AdministradorDeIglesiasV2.Website
             #region NotificacionDeNuevasBoletasDeConsolidacion
 
             IJobDetail jobNotificacionDeNuevasBoletasDeConsolidacion = JobBuilder.Create<NotificacionDeNuevasBoletasDeConsolidacion>()
-                //.WithIdentity("job1", "group1")
                 .Build();
 
             ITrigger triggerNotificacionDeNuevasBoletasDeConsolidacion = TriggerBuilder.Create()
-                //.WithIdentity("trigger1", "group1")
                 .WithDailyTimeIntervalSchedule(x => x
                     .WithIntervalInHours(24)
                     .OnEveryDay()
-                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 0)))
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(23, 0))) // Corre todos los dias a las 11PM
                 .Build();
 
             scheduler.ScheduleJob(jobNotificacionDeNuevasBoletasDeConsolidacion, triggerNotificacionDeNuevasBoletasDeConsolidacion);
+
+            #endregion
+
+            #region NotificacionDeFaltaDeRegistroDeAsistencia
+
+            IJobDetail jobNotificacionDeFaltaDeRegistroDeAsistencia = JobBuilder.Create<NotificacionDeFaltaDeRegistroDeAsistencia>()
+                .Build();
+
+            ITrigger triggerNotificacionDeFaltaDeRegistroDeAsistencia = TriggerBuilder.Create()
+                .WithCronSchedule("0 0,30 * * * ?") // Corre cada hora y cada minuto 30 de cada hora
+                .Build();
+
+            scheduler.ScheduleJob(jobNotificacionDeFaltaDeRegistroDeAsistencia, triggerNotificacionDeFaltaDeRegistroDeAsistencia);
 
             #endregion
 
