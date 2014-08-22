@@ -1,23 +1,23 @@
-﻿using System;
+﻿using AdministradorDeIglesiasV2.Core;
+using AdministradorDeIglesiasV2.Core.Constantes;
+using AdministradorDeIglesiasV2.Core.Manejadores;
+using AdministradorDeIglesiasV2.Core.Modelos;
+using Ext.Net;
+using ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ExtensionMethods;
-using Ext.Net;
 using ZagueEF.Core;
 using ZagueEF.Core.Web;
 using ZagueEF.Core.Web.Interfaces;
-using AdministradorDeIglesiasV2.Core;
-using AdministradorDeIglesiasV2.Core.Constantes;
-using AdministradorDeIglesiasV2.Core.Modelos;
-using AdministradorDeIglesiasV2.Core.Manejadores;
 
 namespace AdministradorDeIglesiasV2.Website.Paginas
 {
     public partial class CatalogoDeBoletas : PaginaBase, ICatalogo
     {
+        ManejadorDeConsolidacion manejadorDeConsolidacion = new ManejadorDeConsolidacion();
+        ManejadorDeCelulas manejadorCelulas = new ManejadorDeCelulas();
+
         void ICatalogo.CargarControles()
         {
             StoreGeneros.Cargar(Genero.Obtener());
@@ -30,7 +30,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
 
             if (SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.VerTodasLasBoletasDeConsolidacion, false))
             {
-                filtroFechaDeCulto.Value = DateTime.Now.PreviousSunday().PreviousSunday();
+                filtroFechaDeCulto.Value = manejadorDeConsolidacion.ObtenerUltimaBoletaRegistrada().FechaDeCulto;
                 registroFechaDeCulto.Value = DateTime.Now.PreviousSunday();
             }
         }
@@ -48,8 +48,6 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
             int? asignadaACelulaId = filtroCelulaAsignada.ObtenerId(true);
             int? asignadaAMiembroId = filtroMiembroAsignada.ObtenerId(true);
             bool verTodasLasBoletasDeConsolidacion = SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.VerTodasLasBoletasDeConsolidacion, false);
-
-            ManejadorDeCelulas manejadorCelulas = new ManejadorDeCelulas();
             List<int> idsCelulasPermitidas = manejadorCelulas.ObtenerCelulasPermitidasPorMiembroComoIds(SesionActual.Instance.UsuarioId);
 
             var query = (
@@ -82,49 +80,56 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
                 orderby o.PrimerNombre, o.SegundoNombre, o.ApellidoPaterno, o.ApellidoMaterno
                 select new
                 {
-                    Id = o.Id,
-                    Email = o.Email,
-                    PrimerNombre = o.PrimerNombre,
-                    SegundoNombre = o.SegundoNombre,
-                    ApellidoPaterno = o.ApellidoPaterno,
-                    ApellidoMaterno = o.ApellidoMaterno,
-                    Genero = o.Genero.Descripcion,
-                    InvitadoPorMiembroId = o.InvitadoPorMiembroId,
-                    Culto = o.Culto.Descripcion,
-                    FechaDeCulto = o.FechaDeCulto,
-                    RazonDeVisita = o.ConsolidacionBoletaRazonVisita.Descripcion,
-                    Municipio = o.UbicacionMunicipio.Descripcion,
-                    Colonia = o.Colonia,
-                    Direccion = o.Direccion,
-                    Nacimiento = o.FechaDeNacimiento,
-                    Edad = o.Edad,
-                    EstadoCivil = o.EstadoCivil.Descripcion,
-                    AsignadaACelulaId = o.AsignadaACelulaId,
-                    AsignadaAMiembroId = o.AsignadaAMiembroId,
-                    TelCasa = o.TelefonoCasa,
-                    TelMovil = o.TelefonoMovil,
-                    TelTrabajo = o.TelefonoTrabajo,
-                    Observaciones = o.Observaciones,
-                    Categoria = o.ConsolidacionBoletaCategoria.Descripcion
+                    Boleta = o
                 });
 
-            //*** Filtros complejos ***//
+
+            // Agregamos los filtros complejos
 
             if (filtroFechaDeCulto.SelectedValue != null)
             {
-                query = query.Where(o => o.FechaDeCulto == filtroFechaDeCulto.SelectedDate);
+                query = query.Where(o => o.Boleta.FechaDeCulto == filtroFechaDeCulto.SelectedDate);
             }
 
             if (filtroEdad.Value != null)
             {
                 int edad = Convert.ToInt32(filtroEdad.Number);
-                query = query.Where(o => o.Edad == edad);
+                query = query.Where(o => o.Boleta.Edad == edad);
             }
 
-            StoreResultados.Cargar(query);
+            // Executamos el query, y luego modificamos ciertos campos
+            StoreResultados.Cargar(query.AsEnumerable().Select(o => new
+            {
+                Id = o.Boleta.Id,
+                Email = o.Boleta.Email,
+                PrimerNombre = o.Boleta.PrimerNombre,
+                SegundoNombre = o.Boleta.SegundoNombre,
+                ApellidoPaterno = o.Boleta.ApellidoPaterno,
+                ApellidoMaterno = o.Boleta.ApellidoMaterno,
+                Genero = o.Boleta.Genero.Descripcion,
+                Estatus = ConsolidacionBoleta.Estatus.Lista().Where(x => x.Key == o.Boleta.BoletaEstatusId).FirstOrDefault().Value,
+                InvitadoPorMiembroId = o.Boleta.InvitadoPorMiembroId,
+                Culto = o.Boleta.Culto.Descripcion,
+                FechaDeCulto = o.Boleta.FechaDeCulto,
+                RazonDeVisita = o.Boleta.ConsolidacionBoletaRazonVisita.Descripcion,
+                Municipio = o.Boleta.UbicacionMunicipio.Descripcion,
+                Colonia = o.Boleta.Colonia,
+                Direccion = o.Boleta.Direccion,
+                Nacimiento = o.Boleta.FechaDeNacimiento,
+                Edad = o.Boleta.Edad,
+                EstadoCivil = o.Boleta.EstadoCivil.Descripcion,
+                AsignadaACelula = o.Boleta.AsignadaACelulaId,
+                AsignadaAMiembro = o.Boleta.AsignadaAMiembroId,
+                TelCasa = o.Boleta.TelefonoCasa,
+                TelMovil = o.Boleta.TelefonoMovil,
+                TelTrabajo = o.Boleta.TelefonoTrabajo,
+                Observaciones = o.Boleta.Observaciones,
+                Categoria = o.Boleta.ConsolidacionBoletaCategoria.Descripcion
+            }));
+
             registroNumeroDeBoletas.Value = string.Format("Total de boletas: {0}", query.Count());
         }
-        
+
         void ICatalogo.Mostrar(int id)
         {
             ConsolidacionBoleta entidad = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().ConsolidacionBoleta where o.Id == id select o).FirstOrDefault();
@@ -259,8 +264,7 @@ namespace AdministradorDeIglesiasV2.Website.Paginas
         [DirectMethod(ShowMask = true)]
         public void CargarDatosDeBoletaAnterior()
         {
-            ManejadorDeConsolidacion manejador = new ManejadorDeConsolidacion();
-            ConsolidacionBoleta ultimaBoleta = manejador.ObtenerUltimaBoletaRegistrada();
+            ConsolidacionBoleta ultimaBoleta = manejadorDeConsolidacion.ObtenerUltimaBoletaRegistrada();
             ((ICatalogo)this).Mostrar(ultimaBoleta.Id);
 
             registroId.Number = -1;

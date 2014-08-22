@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Net.Mail;
 using System.Reflection;
-using System.IO;
-using System.Linq.Expressions;
-using System.Xml;
-using Newtonsoft.Json;
 
 namespace ExtensionMethods
 {

@@ -20,6 +20,7 @@
                     <ext:RecordField Name="SegundoNombre" />
                     <ext:RecordField Name="ApellidoPaterno" />
                     <ext:RecordField Name="ApellidoMaterno" />
+                    <ext:RecordField Name="Estatus" />
                     <ext:RecordField Name="Genero" />
                     <ext:RecordField Name="InvitadoPorMiembroId" />
                     <ext:RecordField Name="Culto" />
@@ -31,8 +32,8 @@
                     <ext:RecordField Name="Nacimiento" />
                     <ext:RecordField Name="Edad" />
                     <ext:RecordField Name="EstadoCivil" />
-                    <ext:RecordField Name="AsignadaACelulaId" />
-                    <ext:RecordField Name="AsignadaAMiembroId" />
+                    <ext:RecordField Name="AsignadaACelula" />
+                    <ext:RecordField Name="AsignadaAMiembro" />
                     <ext:RecordField Name="TelCasa" />
                     <ext:RecordField Name="TelMovil" />
                     <ext:RecordField Name="TelTrabajo" />
@@ -593,6 +594,7 @@
                 <ext:Column Header="Segundo Nombre" Width="100" DataIndex="SegundoNombre" />
                 <ext:Column Header="Apellido Paterno" Width="100" DataIndex="ApellidoPaterno" />
                 <ext:Column Header="Apellido Materno" Width="100" DataIndex="ApellidoMaterno" Hidden="true" />
+                <ext:Column Header="Estatus" Width="100" DataIndex="Estatus" />
                 <ext:Column Header="Género" Width="100" DataIndex="Genero" />
                 <ext:Column Header="Invitado por Miembro (ID)" Width="40" DataIndex="InvitadoPorMiembroId" Hidden="true" />
                 <ext:Column Header="Culto" Width="100" DataIndex="Culto" Hidden="true" />
@@ -609,8 +611,8 @@
                 </ext:Column>
                 <ext:Column Header="Edad" Width="100" DataIndex="Edad" />
                 <ext:Column Header="Estado Civil" Width="100" DataIndex="EstadoCivil" />
-                <ext:Column Header="Asignada a Célula (ID)" Width="40" DataIndex="AsignadaACelulaId" Hidden="true" />
-                <ext:Column Header="Asignada a Miembro (ID)" Width="40" DataIndex="AsignadaAMiembroId" Hidden="true" />
+                <ext:Column Header="Asignada a Célula (ID)" Width="40" DataIndex="AsignadaACelula" Hidden="true" />
+                <ext:Column Header="Asignada a Miembro (ID)" Width="40" DataIndex="AsignadaAMiembro" Hidden="true" />
                 <ext:Column Header="Tel (Casa)" Width="100" DataIndex="TelCasa" />
                 <ext:Column Header="Tel (Cel)" Width="100" DataIndex="TelMovil" />
                 <ext:Column Header="Tel (Trabajo)" Width="100" DataIndex="TelTrabajo" Hidden="true" />
