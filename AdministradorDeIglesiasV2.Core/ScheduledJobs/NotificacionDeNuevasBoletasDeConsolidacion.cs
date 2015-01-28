@@ -26,7 +26,8 @@ namespace AdministradorDeIglesiasV2.Core.ScheduledJobs
             log.Debug(String.Format("{0} boletas ya asignadas a algun miembro modificadas hoy", boletasParaMiembros.Count));
 
             Dictionary<Miembro, List<ConsolidacionBoleta>> boletasPorMiembro = new Dictionary<Miembro, List<ConsolidacionBoleta>>();
-            foreach (ConsolidacionBoleta boleta in boletasParaMiembros) {
+            foreach (ConsolidacionBoleta boleta in boletasParaMiembros)
+            {
                 if (!boletasPorMiembro.ContainsKey(boleta.Miembro))
                 {
                     boletasPorMiembro.Add(boleta.Miembro, new List<ConsolidacionBoleta>());
@@ -43,10 +44,11 @@ namespace AdministradorDeIglesiasV2.Core.ScheduledJobs
                 StringBuilder contenido = new StringBuilder(750);
                 contenido.AppendFormat("<h3>Reporte de Nuevas Boletas de Consolidacion para: {0}</h3>", entry.Key.NombreCompleto);
                 contenido.AppendFormat("<p>A continuacion se mostraran las nuevas boletas de consolidacion:</p>");
-                contenido.AppendLine("<table border='1' width='500px'><thead><tr><td>Id</td><td>Nombre</td></tr></thead><tbody>");
+                contenido.AppendLine("<table border='1' width='800px'><thead><tr><td>Id</td><td>Nombre</td><td>Edad</td><td>Genero</td><td>Direccion</td><td>Telefonos</td><td>Email</td></tr></thead><tbody>");
                 foreach (ConsolidacionBoleta boleta in entry.Value)
                 {
-                    contenido.AppendFormat("<tr><td>{0}</td><td>{1}</td></tr>", boleta.Id, boleta.PrimerNombre + " " + boleta.ApellidoPaterno);
+                    contenido.AppendFormat("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td><td>{6}</td></tr>",
+                        boleta.Id, boleta.PrimerNombre + " " + boleta.ApellidoPaterno, boleta.Edad, boleta.Genero.Descripcion, boleta.Direccion + ", " + boleta.UbicacionMunicipio.Descripcion + ", " + boleta.UbicacionMunicipio.UbicacionEstado.Descripcion, boleta.TelefonoCasa + "|" + boleta.TelefonoMovil + "|" + boleta.TelefonoTrabajo, boleta.Email);
                 }
                 contenido.AppendFormat("</tbody></table>");
                 email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML);
@@ -85,10 +87,11 @@ namespace AdministradorDeIglesiasV2.Core.ScheduledJobs
                 StringBuilder contenido = new StringBuilder(750);
                 contenido.AppendFormat("<h3>Reporte de Nuevos Miembros asignados desde Consolidacion para: {0}</h3>", entry.Key.Descripcion);
                 contenido.AppendFormat("<p>A continuacion se mostraran los nuevos miembros asignados desde consolidacion:</p>");
-                contenido.AppendLine("<table border='1' width='500px'><thead><tr><td>Id</td><td>Nombre</td></tr></thead><tbody>");
+                contenido.AppendLine("<table border='1' width='800px'><thead><tr><td>Id</td><td>Nombre</td><td>Edad</td><td>Genero</td><td>Direccion</td><td>Telefonos</td><td>Email</td></tr></thead><tbody>");
                 foreach (ConsolidacionBoleta boleta in entry.Value)
                 {
-                    contenido.AppendFormat("<tr><td>{0}</td><td>{1}</td></tr>", boleta.Id, boleta.PrimerNombre + " " + boleta.ApellidoPaterno);
+                    contenido.AppendFormat("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td><td>{6}</td></tr>",
+                        boleta.Id, boleta.PrimerNombre + " " + boleta.ApellidoPaterno, boleta.Edad, boleta.Genero.Descripcion, boleta.Direccion + ", " + boleta.UbicacionMunicipio.Descripcion + ", " + boleta.UbicacionMunicipio.UbicacionEstado.Descripcion, boleta.TelefonoCasa + "|" + boleta.TelefonoMovil + "|" + boleta.TelefonoTrabajo, boleta.Email);
                 }
                 contenido.AppendFormat("</tbody></table>");
                 email.BodyParts.Add(contenido.ToString(), BodyPartFormat.HTML);

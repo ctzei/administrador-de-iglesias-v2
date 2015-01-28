@@ -45,3 +45,4 @@ PublishProfiles/
 *.prod
 *.Publish.xml
 Log.txt
+*.v11.suo
