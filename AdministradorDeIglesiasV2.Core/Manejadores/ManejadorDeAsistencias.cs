@@ -323,9 +323,34 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         public DateTime ObtenerFechaDeUltimaAsistencia(int celulaId)
         {
-            ObjectParameter pfechaDeUltimaAsistencia = new ObjectParameter("fecha", typeof(DateTime));
-            SesionActual.Instance.getContexto<IglesiaEntities>().DeterminarFechaDeUltimaAsistenciaACelula(celulaId, pfechaDeUltimaAsistencia);
-            return Convert.ToDateTime(pfechaDeUltimaAsistencia.Value).Date;
+            // Obtenemos la fecha de creacion de la celula
+            DateTime fechaDeCreacion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == celulaId select o.Creacion).SingleOrDefault();
+
+            // Obtenemos las asistencias registradas (primera y ultima)
+            var ultimaAsistencia = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia where o.CelulaId == celulaId orderby o.Anio descending, o.Mes descending, o.Dia descending select new { Anio = o.Anio, Mes = o.Mes, Dia = o.Dia }).FirstOrDefault();
+            var primeraAsistencia = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia where o.CelulaId == celulaId orderby o.Anio ascending, o.Mes ascending, o.Dia ascending select new { Anio = o.Anio, Mes = o.Mes, Dia = o.Dia }).FirstOrDefault();
+
+            // Obtenemos las cancelaciones registradas (primera y ultima)
+            var ultimaCancelacion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaCancelacionAsistencia where o.CelulaId == celulaId orderby o.Anio descending, o.Mes descending, o.Dia descending select new { Anio = o.Anio, Mes = o.Mes, Dia = o.Dia }).FirstOrDefault();
+            var primeraCancelacion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaCancelacionAsistencia where o.CelulaId == celulaId orderby o.Anio ascending, o.Mes ascending, o.Dia ascending select new { Anio = o.Anio, Mes = o.Mes, Dia = o.Dia }).FirstOrDefault();
+
+            // Obtenemos las fechas de las asistencias registradas (primera y ultima)
+            DateTime fechaDeUltimaAsistencia = ultimaAsistencia != null ? new DateTime(ultimaAsistencia.Anio, ultimaAsistencia.Mes, ultimaAsistencia.Dia) : DateTime.MinValue;
+            DateTime fechaDePrimeraAsistencia = primeraAsistencia != null ? new DateTime(primeraAsistencia.Anio, primeraAsistencia.Mes, primeraAsistencia.Dia) : DateTime.MinValue;
+
+            // Obtenemos las fechas de las cancelaciones registradas (primera y ultima)
+            DateTime fechaDeUltimaCancelacion = ultimaCancelacion != null ? new DateTime(ultimaCancelacion.Anio, ultimaCancelacion.Mes, ultimaCancelacion.Dia) : DateTime.MinValue;
+            DateTime fechaDePrimeraCancelacion = primeraCancelacion != null ? new DateTime(primeraCancelacion.Anio, primeraCancelacion.Mes, primeraCancelacion.Dia) : DateTime.MinValue;
+
+            // Si no tiene registradas asistencias o cancelaciones, la fecha de la ultima asistencia es la fecha de creacion de la celula en si...
+            if (primeraAsistencia == null && primeraCancelacion == null)
+            {
+                return fechaDeCreacion.Date;
+            }
+            else
+            {
+                return new DateTime(Math.Max(fechaDeUltimaAsistencia.Ticks, fechaDeUltimaCancelacion.Ticks)).Date;
+            }
         }
 
         public DateTime ObtenerFechaDeSiguienteAsistencia(int celulaId)
@@ -358,17 +383,18 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         private void determinarSiFechaEsPermitida(DateTime fecha, int celulaId)
         {
-            /*
-            DiaSemana diaDeCelula = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == celulaId select o.DiaSemana).SingleOrDefault();
-            if (fecha.DayOfWeek != diaDeCelula.DayOfWeek)
-            {
-                throw new ExcepcionReglaNegocio(string.Format(Literales.AsistenciaEnDiaIncorrecto, DateTimeFormatInfo.CurrentInfo.GetDayName(diaDeCelula.DayOfWeek).ToUpper()));
-            }*/
 
             fecha = fecha.Date; //Borramos la HORA
             DateTime fechaDeUltimaAsistencia = ObtenerFechaDeUltimaAsistencia(celulaId);
             DateTime fechaMinimaPermitida = fechaDeUltimaAsistencia.AddDays(diasPermitidosEntreAsistencias - diasDeMargenEntreAsistencias).Date;
             DateTime fechaMaximaPermitida = fechaDeUltimaAsistencia.AddDays(diasPermitidosEntreAsistencias + diasDeMargenEntreAsistencias).Date;
+
+            // Corte anual
+            if (fechaMinimaPermitida.Year < fecha.Year)
+            {
+                fechaMinimaPermitida = new DateTime(fecha.Year, 1, 1).Date;
+                fechaMaximaPermitida = fecha.Date;
+            }
 
             if (fecha != fechaDeUltimaAsistencia) //Si es la fecha de la ultima asistencia SI te deja modificar... asi se puede modificar solo lo ultimo registrado
             {

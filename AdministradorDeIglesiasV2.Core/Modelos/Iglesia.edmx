@@ -2320,10 +2320,6 @@
           <Parameter Name="usuarioQueRegistra" Type="int" Mode="In" />
           <Parameter Name="razonDeLaCancelacion" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="DeterminarFechaDeUltimaAsistenciaACelula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="celulaId" Type="int" Mode="In" />
-          <Parameter Name="fecha" Type="smalldatetime" Mode="InOut" />
-        </Function>
         <Function Name="ObtenerCelulasProximasACoordenadas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="latitud" Type="varchar" Mode="In" />
           <Parameter Name="longitud" Type="varchar" Mode="In" />
@@ -2474,10 +2470,6 @@
             <Parameter Name="dia" Mode="In" Type="Int32" />
             <Parameter Name="usuarioQueRegistra" Mode="In" Type="Int32" />
             <Parameter Name="razonDeLaCancelacion" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="DeterminarFechaDeUltimaAsistenciaACelula">
-            <Parameter Name="celulaId" Mode="In" Type="Int32" />
-            <Parameter Name="fecha" Mode="InOut" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="ObtenerCelulasProximasACoordenadas" ReturnType="Collection(Int32)">
             <Parameter Name="latitud" Mode="In" Type="String" />
@@ -5258,7 +5250,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="AsistenciaDeCelulaFueCancelada" FunctionName="IglesiaModel.Store.AsistenciaDeCelulaFueCancelada" />
           <FunctionImportMapping FunctionImportName="CancelarAsistenciaDeCelula" FunctionName="IglesiaModel.Store.CancelarAsistenciaDeCelula" />
-          <FunctionImportMapping FunctionImportName="DeterminarFechaDeUltimaAsistenciaACelula" FunctionName="IglesiaModel.Store.DeterminarFechaDeUltimaAsistenciaACelula" />
           <FunctionImportMapping FunctionImportName="ObtenerCelulasProximasACoordenadas" FunctionName="IglesiaModel.Store.ObtenerCelulasProximasACoordenadas" />
           <EntitySetMapping Name="CelulaCategoria">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.CelulaCategoria">

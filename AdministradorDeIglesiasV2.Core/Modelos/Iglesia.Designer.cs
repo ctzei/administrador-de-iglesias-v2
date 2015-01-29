@@ -1711,26 +1711,6 @@ namespace AdministradorDeIglesiasV2.Core.Modelos
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        /// <param name="celulaId">No Metadata Documentation available.</param>
-        /// <param name="fecha">No Metadata Documentation available.</param>
-        public int DeterminarFechaDeUltimaAsistenciaACelula(Nullable<global::System.Int32> celulaId, ObjectParameter fecha)
-        {
-            ObjectParameter celulaIdParameter;
-            if (celulaId.HasValue)
-            {
-                celulaIdParameter = new ObjectParameter("celulaId", celulaId);
-            }
-            else
-            {
-                celulaIdParameter = new ObjectParameter("celulaId", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction("DeterminarFechaDeUltimaAsistenciaACelula", celulaIdParameter, fecha);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="latitud">No Metadata Documentation available.</param>
         /// <param name="longitud">No Metadata Documentation available.</param>
         /// <param name="kmRedonda">No Metadata Documentation available.</param>
