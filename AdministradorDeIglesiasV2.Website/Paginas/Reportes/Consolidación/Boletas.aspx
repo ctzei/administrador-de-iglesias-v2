@@ -91,6 +91,19 @@
         #tablaPivote table {
             margin: 0 auto;
         }
+
+        #tablaPivote ul {
+            margin-top: 5px;
+        }
+
+        #reportesPredefinidos > li {
+            background-color: #eee;
+            border: 1px solid #ddd;
+            display: inline-block;
+            margin-bottom: 3px;
+            margin-right: 3px;
+            padding: 15px;
+        }
     </style>
 
     <script type="text/javascript">
@@ -130,17 +143,86 @@
 
                         if (rows && rows.length > 0) {
 
-                            // Generamos la tabla pivote
                             var renderers = $.extend($.pivotUtilities.renderers, $.pivotUtilities.gchart_renderers);
-                            $("#tablaPivote > div").pivotUI(rows, {
-                                rows: ["Estatus", "SubEstatus"],
-                                cols: ["Año", "Mes"],
-                                renderers: renderers,
-                                rendererName: "Heatmap"
-                            }, true, "en");
+                            var tablaPivote = $("#tablaPivote > .display");
+
+                            var generarReporteDeEstatusPorMes = function () {
+                                tablaPivote.pivotUI(rows, {
+                                    renderers: renderers,
+                                    rows: ["Estatus", "SubEstatus"],
+                                    cols: ["Año", "Mes"],
+                                    rendererName: "Heatmap"
+                                }, true);
+                            };
+
+                            var generarReporteDeEstatusPorMesEnPorcientos = function () {
+                                tablaPivote.pivotUI(rows, {
+                                    renderers: renderers,
+                                    rows: ["Estatus", "SubEstatus"],
+                                    cols: ["Año", "Mes"],
+                                    rendererName: "Heatmap",
+                                    aggregatorName: "Count as Fraction of Columns"
+                                }, true);
+                            };
+
+                            var generarReporteAcumuladoAnualDeEstatus = function () {
+                                tablaPivote.pivotUI(rows, {
+                                    renderers: renderers,
+                                    rows: ["Estatus"],
+                                    aggregator: "Count as Fraction of Total",
+                                    rendererName: "Heatmap"
+                                }, true);
+                            };
+
+                            generarReporteDeEstatusPorRed = function () {
+                                tablaPivote.pivotUI(rows, {
+                                    renderers: renderers,
+                                    rows: ["Estatus", "SubEstatus"],
+                                    cols: ["Red"],
+                                    rendererName: "Heatmap"
+                                }, true);
+                            };
+
+                            generarReporteDeEstatusPorConsolidador = function () {
+                                tablaPivote.pivotUI(rows, {
+                                    renderers: renderers,
+                                    rows: ["Miembro"],
+                                    cols: ["Estatus", "SubEstatus"],
+                                    rendererName: "Heatmap"
+                                }, true);
+                            };
+
+                            // Generamos el reporte predeterminado
+                            generarReporteDeEstatusPorMes();
+
+                            // Agregamos los reportes predefinidos
+                            var reportes = $("<div><h1>Reportes Predefinidos: </h1><ul id='reportesPredefinidos' /></div>");
+                            var reportesUl = reportes.find("ul");
+
+                            var reporteDeEstatusPorMes = $("<li><a href='javascript:void(0);'>Estatus por Mes</a></li>");
+                            reporteDeEstatusPorMes.on("click", generarReporteDeEstatusPorMes);
+                            reportesUl.append(reporteDeEstatusPorMes);
+
+                            var reporteDeEstatusPorMesEnPorcientos = $("<li><a href='javascript:void(0);'>Estatus por Mes (%)</a></li>");
+                            reporteDeEstatusPorMesEnPorcientos.on("click", generarReporteDeEstatusPorMesEnPorcientos);
+                            reportesUl.append(reporteDeEstatusPorMesEnPorcientos);
+
+                            var reporteAcumuladoAnualDeEstatus = $("<li><a href='javascript:void(0);'>Acumulado Anual de Estatus</a></li>");
+                            reporteAcumuladoAnualDeEstatus.on("click", generarReporteAcumuladoAnualDeEstatus);
+                            reportesUl.append(reporteAcumuladoAnualDeEstatus);
+
+                            var reporteDeEstatusPorRed = $("<li><a href='javascript:void(0);'>Estatus por Red</a></li>");
+                            reporteDeEstatusPorRed.on("click", generarReporteDeEstatusPorRed);
+                            reportesUl.append(reporteDeEstatusPorRed);
+
+                            var reporteDeEstatusPorConsolidador = $("<li><a href='javascript:void(0);'>Estatus por Consolidador</a></li>");
+                            reporteDeEstatusPorConsolidador.on("click", generarReporteDeEstatusPorConsolidador);
+                            reportesUl.append(reporteDeEstatusPorConsolidador);
+
+                            tablaPivote.parent().prepend(reportes);
 
                             // Generamos la files de la tabla HTML
-                            var table = $('#tablaPlana > table');
+                            var table = $('#tablaPlana > .display');
 
                             // Agregmos el thead y tbody
                             table.append($("<thead />")).append($("<tbody />"));
