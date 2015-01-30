@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
     <link href="<%= ResolveUrl("~/Recursos/css/FullCalendar/fullcalendar.css")%>" rel="stylesheet" type="text/css" />
-    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryUrl"] %>' type="text/javascript"></script>
+    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryJsUrl"] %>' type="text/javascript"></script>
     <script src="<%= ResolveUrl("~/Recursos/js/FullCalendar/fullcalendar.js")%>" type="text/javascript"></script>
 </asp:Content>
 

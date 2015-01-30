@@ -4,7 +4,7 @@
 <%@ MasterType VirtualPath="~/MainMasterPage.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
-    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryUrl"] %>' type="text/javascript"></script>
+    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryJsUrl"] %>' type="text/javascript"></script>
     <script src="<%= ResolveUrl("~/Recursos/js/Highcharts/highcharts.js")%>" type="text/javascript"></script>
 </asp:Content>
 

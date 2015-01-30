@@ -7,7 +7,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/> 
     <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
     <script src='<%= ResolveUrl("~/Recursos/js/extjs.gmaps.helpers.js")%>' type="text/javascript"></script>
-    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryUrl"] %>' type="text/javascript"></script>
+    <script src='<%= System.Web.Configuration.WebConfigurationManager.AppSettings["jQueryJsUrl"] %>' type="text/javascript"></script>
     <script src='<%= ResolveUrl("~/Recursos/js/Highcharts/highcharts.js")%>' type="text/javascript"></script>
 
     <style type="text/css">

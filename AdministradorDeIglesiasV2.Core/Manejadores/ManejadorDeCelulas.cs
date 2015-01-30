@@ -364,6 +364,32 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
         #region Red
 
         /// <summary>
+        /// Obtiene un diccionario con todas las redes de mas alto nivel, junto con su lista completa de celulas hijas
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<Celula, List<int>> ObtenerRedes()
+        {
+            // LLenamos la lista que contiene las redes
+            List<int> idsDeRedes = new List<int> { 
+                    2, // Jovenes
+                    141, // Familiar
+                    178, // Dorada
+                    199 // Matrimonios Jovenes
+                };
+            Dictionary<Celula, List<int>> redes = new Dictionary<Celula, List<int>>();
+            foreach (int id in idsDeRedes)
+            {
+                Celula celula = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == id && o.Borrado == false select o).SingleOrDefault();
+                if (celula != null)
+                {
+                    redes.Add(celula, this.ObtenerRedInferior(id));
+                }
+            }
+
+            return redes;
+        }
+
+        /// <summary>
         /// Obtiene la lista de ids de las celulas que pertenecen a un red especifica, para abajo a partir de la celula definida como parametro de entrada
         /// </summary>
         /// <param name="celulaId">El id de la celula "padre" de la red a buscar</param>

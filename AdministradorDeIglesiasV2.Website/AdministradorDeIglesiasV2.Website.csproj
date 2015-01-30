@@ -140,6 +140,7 @@
     <Content Include="Paginas\Foli\CatalogoDeGrupos.aspx" />
     <Content Include="Paginas\Foli\AvanceDeMiembros.aspx" />
     <Content Include="Paginas\Miembros\InicioDeSesionSecundaria.aspx" />
+    <Content Include="Paginas\Reportes\Consolidación\Boletas.aspx" />
     <Content Include="Paginas\Reportes\Células\UltimasAsistencias.aspx" />
     <Content Include="Paginas\Reportes\Células\LideresDeCelula.aspx" />
     <Content Include="Paginas\Servidores\CatalogoDeCapitanes.aspx" />
@@ -162,6 +163,7 @@
     <Content Include="Recursos\js\Paginas\Reportes\Celulas\ultimasAsistencias.js" />
     <Content Include="Recursos\js\Paginas\Reportes\Celulas\lideresDeCelula.js" />
     <Content Include="Recursos\js\Paginas\UserControls\buscadorSimple.js" />
+    <Content Include="Recursos\js\pivot.js" />
     <Content Include="WebServices\Generales\PruebaDeCorreo.aspx" />
     <None Include="App_Data\wurfl.xml.gz" />
     <None Include="App_Offline.htm.bak" />
@@ -403,6 +405,13 @@
     </Compile>
     <Compile Include="Paginas\Miembros\DetallesDeMiembro.aspx.designer.cs">
       <DependentUpon>DetallesDeMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Consolidación\Boletas.aspx.cs">
+      <DependentUpon>Boletas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\Consolidación\Boletas.aspx.designer.cs">
+      <DependentUpon>Boletas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Reportes\Células\Asistencias.aspx.cs">
       <DependentUpon>Asistencias.aspx</DependentUpon>
