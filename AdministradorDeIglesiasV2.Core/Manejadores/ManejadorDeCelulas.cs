@@ -8,11 +8,15 @@ using System.Data.Objects;
 using AdministradorDeIglesiasV2.Core;
 using AdministradorDeIglesiasV2.Core.Modelos;
 using ZagueEF.Core;
+using log4net;
 
 namespace AdministradorDeIglesiasV2.Core.Manejadores
 {
     public class ManejadorDeCelulas
     {
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(ManejadorDeCelulas));
+
         public void BorrarCelulaPermanentemente(int celulaId)
         {
             List<int> celulas = this.ObtenerRedInferior(celulaId);
@@ -396,7 +400,36 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
         /// <returns>Lista de ids de las celulas de la red</returns>
         public List<int> ObtenerRedInferior(int celulaId)
         {
-            return SesionActual.Instance.getContexto<IglesiaEntities>().ExecuteStoreQuery<int>("SELECT CelulaId FROM ObtenerRed({0})", celulaId).ToList<int>();
+            List<int> red;
+            int index = 0;
+
+            Func<int, List<int>> obtenerRedInferiorDirecta = (celulaHijaId) =>
+            {
+                index++;
+                return (from liderzago in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaLider
+                        join miembro in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro on liderzago.MiembroId equals miembro.MiembroId
+                        where
+                        miembro.CelulaId == celulaHijaId &&
+                        miembro.Borrado == false &&
+                        liderzago.Borrado == false &&
+                        liderzago.Celula.Borrado == false
+                        select liderzago.CelulaId).Distinct().ToList<int>();
+            };
+
+            red = obtenerRedInferiorDirecta(celulaId);
+            do
+            {
+                red.AddRange(obtenerRedInferiorDirecta(red[index -1]));
+
+                // Valores unicos
+                red = red.Distinct().ToList<int>();
+
+            } while (index <= red.Count);
+
+            // Ordemos de menor a mayor
+            red.Sort();
+
+            return red;
         }
 
         /// <summary>
