@@ -239,29 +239,58 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
             if (reporte == null)
             {
-                ObjectParameter numeroCelulas = new ObjectParameter("numeroCelulas", typeof(int));
-                ObjectParameter lideresCelula = new ObjectParameter("lideresCelula", typeof(int));
-                ObjectParameter estacas = new ObjectParameter("estacas", typeof(int));
-                ObjectParameter miembros = new ObjectParameter("miembros", typeof(int));
-                ObjectParameter miembrosHombres = new ObjectParameter("miembrosHombres", typeof(int));
-                ObjectParameter miembrosMujeres = new ObjectParameter("miembrosMujeres", typeof(int));
-                ObjectParameter miembrosAsistenIglesia = new ObjectParameter("miembrosAsistenIglesia", typeof(int));
-                ObjectParameter miembrosAsistenIglesiaHombres = new ObjectParameter("miembrosAsistenIglesiaHombres", typeof(int));
-                ObjectParameter miembrosAsistenIglesiaMujeres = new ObjectParameter("miembrosAsistenIglesiaMujeres", typeof(int));
-                ObjectParameter folis = new ObjectParameter("folis", typeof(int));
+                ManejadorDeCelulas manejadorDeCelulas = new ManejadorDeCelulas();
+                List<int> red = new List<int>() { celulaId };
+                red.AddRange(manejadorDeCelulas.ObtenerRedInferior(celulaId));
 
-                contexto.ObtenerInformacionGeneralPorRed(celulaId, 6, 9, numeroCelulas, lideresCelula, estacas, miembros, miembrosHombres, miembrosMujeres, miembrosAsistenIglesia, miembrosAsistenIglesiaHombres, miembrosAsistenIglesiaMujeres, folis);
+                // Queries
+
+                IEnumerable<Miembro> miembros = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro
+                                                 where
+                                                 (o.CelulaId == celulaId || red.Contains(o.CelulaId)) &&
+                                                 o.Borrado == false
+                                                 select o);
+
+                IEnumerable<CelulaLider> lideres = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaLider where o.Borrado == false && o.Miembro.Borrado == false && (red.Contains(o.CelulaId) && o.CelulaId != celulaId) select o);
+
+                IEnumerable<Miembro> estacas = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro
+                                                join p in SesionActual.Instance.getContexto<IglesiaEntities>().MiembroPaso on o.MiembroId equals p.MiembroId
+                                                where
+                                                (o.CelulaId == celulaId || red.Contains(o.CelulaId)) &&
+                                                p.PasoId == 9 &&
+                                                !lideres.Select(x => x.MiembroId).Contains(o.MiembroId) &&
+                                                o.Borrado == false &&
+                                                p.Borrado == false
+                                                select o);
+
+                IEnumerable<Miembro> folis = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro
+                                                join p in SesionActual.Instance.getContexto<IglesiaEntities>().MiembroPaso on o.MiembroId equals p.MiembroId
+                                                where
+                                                (o.CelulaId == celulaId || red.Contains(o.CelulaId)) &&
+                                                p.PasoId == 6 &&
+                                                !lideres.Select(x => x.MiembroId).Contains(o.MiembroId) &&
+                                                !estacas.Select(x => x.MiembroId).Contains(o.MiembroId) &&
+                                                o.Borrado == false &&
+                                                p.Borrado == false
+                                                select o);
+
+                int cantidadDeMiembrosHombres = miembros.Where(o => o.GeneroId == 1).Count();
+                int cantidadDeMiembrosMujeres = miembros.Where(o => o.GeneroId == 2).Count();
+                int CantidadDeMiembrosQueAsistenIglesiaHombres = miembros.Where(o => o.GeneroId == 1 && o.AsisteIglesia == true).Count();
+                int CantidadDeMiembrosQueAsistenIglesiaMujeres = miembros.Where(o => o.GeneroId == 2 && o.AsisteIglesia == true).Count();
+
                 reporte = new Modelos.Retornos.InformacionGeneralPorRed();
-                reporte.CantidadDeCelulas = Convert.ToInt32(numeroCelulas.Value);
-                reporte.CantidadDeLideresDeCelula = Convert.ToInt32(lideresCelula.Value);
-                reporte.CantidadDeEstacas = Convert.ToInt32(estacas.Value);
-                reporte.CantidadDeMiembros = Convert.ToInt32(miembros.Value);
-                reporte.CantidadDeMiembrosHombres = Convert.ToInt32(miembrosHombres.Value);
-                reporte.CantidadDeMiembrosMujeres = Convert.ToInt32(miembrosMujeres.Value);
-                reporte.CantidadDeMiembrosQueAsistenIglesia = Convert.ToInt32(miembrosAsistenIglesia.Value);
-                reporte.CantidadDeMiembrosQueAsistenIglesiaHombres = Convert.ToInt32(miembrosAsistenIglesiaHombres.Value);
-                reporte.CantidadDeMiembrosQueAsistenIglesiaMujeres = Convert.ToInt32(miembrosAsistenIglesiaMujeres.Value);
-                reporte.CantidadDeFolis = Convert.ToInt32(folis.Value);
+                reporte.CantidadDeCelulas = red.Count - 1;
+                reporte.CantidadDeLideresDeCelula = lideres.Count();
+                reporte.CantidadDeEstacas = estacas.Count();
+                reporte.CantidadDeFolis = folis.Count();
+                reporte.CantidadDeMiembros = cantidadDeMiembrosHombres + cantidadDeMiembrosMujeres;
+                reporte.CantidadDeMiembrosHombres = cantidadDeMiembrosHombres;
+                reporte.CantidadDeMiembrosMujeres = cantidadDeMiembrosMujeres;
+                reporte.CantidadDeMiembrosQueAsistenIglesia = CantidadDeMiembrosQueAsistenIglesiaHombres + CantidadDeMiembrosQueAsistenIglesiaMujeres;
+                reporte.CantidadDeMiembrosQueAsistenIglesiaHombres = CantidadDeMiembrosQueAsistenIglesiaHombres;
+                reporte.CantidadDeMiembrosQueAsistenIglesiaMujeres = CantidadDeMiembrosQueAsistenIglesiaMujeres;
+
                 Cache.Instance.Guardar(cacheKey, reporte, 2);
             }
 

@@ -14,7 +14,6 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 {
     public class ManejadorDeCelulas
     {
-
         private static readonly ILog log = LogManager.GetLogger(typeof(ManejadorDeCelulas));
 
         public void BorrarCelulaPermanentemente(int celulaId)
@@ -417,17 +416,21 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             };
 
             red = obtenerRedInferiorDirecta(celulaId);
-            do
+
+            if (red.Any())
             {
-                red.AddRange(obtenerRedInferiorDirecta(red[index -1]));
+                do
+                {
+                    red.AddRange(obtenerRedInferiorDirecta(red[index - 1]));
 
-                // Valores unicos
-                red = red.Distinct().ToList<int>();
+                    // Valores unicos
+                    red = red.Distinct().ToList<int>();
 
-            } while (index <= red.Count);
+                } while (index <= red.Count);
 
-            // Ordemos de menor a mayor
-            red.Sort();
+                // Ordemos de menor a mayor
+                red.Sort();
+            }
 
             return red;
         }
