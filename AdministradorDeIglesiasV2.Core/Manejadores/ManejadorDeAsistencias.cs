@@ -91,13 +91,13 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         public bool CelulaFueCancelada(int celulaId, DateTime fecha)
         {
-            int anioSeleccionado = fecha.Year;
-            int mesSeleccionado = fecha.Month;
-            int diaSeleccionado = fecha.Day;
-            ObjectParameter fueCancelada = new ObjectParameter("fueCancelada", typeof(int));
-
-            SesionActual.Instance.getContexto<IglesiaEntities>().AsistenciaDeCelulaFueCancelada(celulaId, anioSeleccionado, mesSeleccionado, diaSeleccionado, fueCancelada);
-            return Convert.ToBoolean(fueCancelada.Value);
+            return (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaCancelacionAsistencia
+                    where
+                    o.CelulaId == celulaId &&
+                    o.Anio == fecha.Year &&
+                    o.Mes == fecha.Month &&
+                    o.Dia == fecha.Day
+                    select o).Any();
         }
 
         public string ObtenerRazonDeLaCancelacion(int celulaId, DateTime fecha)
@@ -111,12 +111,45 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         public bool CancelarAsistencia(int celulaId, DateTime fecha, string razonDeLaCancelacion, int usuarioIdQueRegistra)
         {
-            int anioSeleccionado = fecha.Year;
-            int mesSeleccionado = fecha.Month;
-            int diaSeleccionado = fecha.Day;
-
             determinarSiFechaEsPermitida(fecha, celulaId);
-            SesionActual.Instance.getContexto<IglesiaEntities>().CancelarAsistenciaDeCelula(celulaId, anioSeleccionado, mesSeleccionado, diaSeleccionado, usuarioIdQueRegistra, razonDeLaCancelacion);
+
+            CelulaCancelacionAsistencia cancelacion = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaCancelacionAsistencia
+                                                       where
+                                                       o.CelulaId == celulaId &&
+                                                       o.Anio == fecha.Year &&
+                                                       o.Mes == fecha.Month &&
+                                                       o.Dia == fecha.Day
+                                                       select o).SingleOrDefault();
+
+            if (cancelacion == null)
+            {
+                cancelacion = new CelulaCancelacionAsistencia();
+            }
+
+            // Agregamos o actualizamos el registro de la cancelacion
+            cancelacion.CelulaId = celulaId;
+            cancelacion.Anio = fecha.Year;
+            cancelacion.Mes = fecha.Month;
+            cancelacion.Dia = fecha.Day;
+            cancelacion.MiembroQueRegistraId = usuarioIdQueRegistra;
+            cancelacion.Descripcion = razonDeLaCancelacion;
+            cancelacion.Guardar(SesionActual.Instance.getContexto<IglesiaEntities>());
+
+            // Borramos cualquier otra asistencia registrada para ese mismo dia
+            foreach (CelulaMiembroAsistencia asistencia in (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia
+                                                            where
+                                                            o.CelulaId == celulaId &&
+                                                            o.Anio == fecha.Year &&
+                                                            o.Mes == fecha.Month &&
+                                                            o.Dia == fecha.Day
+                                                            select o).ToList())
+            {
+                SesionActual.Instance.getContexto<IglesiaEntities>().DeleteObject(asistencia);
+            }
+
+            //Las eliminaciones se hacen en grupo
+            SesionActual.Instance.getContexto<IglesiaEntities>().SaveChanges();
+
             log.InfoFormat("Asistencia de la celula [{0}] del dia {1} cancelada correctamente por [{2}]", celulaId, fecha.ToFullDateString(), usuarioIdQueRegistra);
             return true;
         }
