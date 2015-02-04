@@ -2305,42 +2305,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="AsistenciaDeCelulaFueCancelada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="celulaId" Type="int" Mode="In" />
-          <Parameter Name="anio" Type="int" Mode="In" />
-          <Parameter Name="mes" Type="int" Mode="In" />
-          <Parameter Name="dia" Type="int" Mode="In" />
-          <Parameter Name="fueCancelada" Type="bit" Mode="InOut" />
-        </Function>
-        <Function Name="CancelarAsistenciaDeCelula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="celulaId" Type="int" Mode="In" />
-          <Parameter Name="anio" Type="int" Mode="In" />
-          <Parameter Name="mes" Type="int" Mode="In" />
-          <Parameter Name="dia" Type="int" Mode="In" />
-          <Parameter Name="usuarioQueRegistra" Type="int" Mode="In" />
-          <Parameter Name="razonDeLaCancelacion" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="ObtenerCelulasProximasACoordenadas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="latitud" Type="varchar" Mode="In" />
-          <Parameter Name="longitud" Type="varchar" Mode="In" />
-          <Parameter Name="kmRedonda" Type="int" Mode="In" />
-        </Function>
-        <Function Name="ObtenerInformacionGeneralPorRed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="celulaId" Type="int" Mode="In" />
-          <Parameter Name="pasoIdInicialParaFoli" Type="int" Mode="In" />
-          <Parameter Name="pasoIdFinalParaFoli" Type="int" Mode="In" />
-          <Parameter Name="numeroCelulas" Type="int" Mode="InOut" />
-          <Parameter Name="lideresCelula" Type="int" Mode="InOut" />
-          <Parameter Name="estacas" Type="int" Mode="InOut" />
-          <Parameter Name="miembros" Type="int" Mode="InOut" />
-          <Parameter Name="miembrosHombres" Type="int" Mode="InOut" />
-          <Parameter Name="miembrosMujeres" Type="int" Mode="InOut" />
-          <Parameter Name="miembrosAsistenIglesia" Type="int" Mode="InOut" />
-          <Parameter Name="miembrosAsistenIglesiaHombres" Type="int" Mode="InOut" />
-          <Parameter Name="miembrosAsistenIglesiaMujeres" Type="int" Mode="InOut" />
-          <Parameter Name="folis" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="ObtenerLideresSinRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ObtenerReporteDeAsistenciasPorCelulas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="celulaId" Type="int" Mode="In" />
           <Parameter Name="fechaInicial" Type="datetime" Mode="In" />
@@ -2456,26 +2420,6 @@
             <End Role="Miembro" EntitySet="Miembro" />
             <End Role="CelulaCancelacionAsistencia" EntitySet="CelulaCancelacionAsistencia" />
           </AssociationSet>
-          <FunctionImport Name="AsistenciaDeCelulaFueCancelada">
-            <Parameter Name="celulaId" Mode="In" Type="Int32" />
-            <Parameter Name="anio" Mode="In" Type="Int32" />
-            <Parameter Name="mes" Mode="In" Type="Int32" />
-            <Parameter Name="dia" Mode="In" Type="Int32" />
-            <Parameter Name="fueCancelada" Mode="InOut" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="CancelarAsistenciaDeCelula">
-            <Parameter Name="celulaId" Mode="In" Type="Int32" />
-            <Parameter Name="anio" Mode="In" Type="Int32" />
-            <Parameter Name="mes" Mode="In" Type="Int32" />
-            <Parameter Name="dia" Mode="In" Type="Int32" />
-            <Parameter Name="usuarioQueRegistra" Mode="In" Type="Int32" />
-            <Parameter Name="razonDeLaCancelacion" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ObtenerCelulasProximasACoordenadas" ReturnType="Collection(Int32)">
-            <Parameter Name="latitud" Mode="In" Type="String" />
-            <Parameter Name="longitud" Mode="In" Type="String" />
-            <Parameter Name="kmRedonda" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="CelulaCategoria" EntityType="AdministradorDeIglesiasV2.Core.Modelos.CelulaCategoria" />
           <EntitySet Name="Celula" EntityType="AdministradorDeIglesiasV2.Core.Modelos.Celula" />
           <AssociationSet Name="Celula_CelulaLider_FK1" Association="AdministradorDeIglesiasV2.Core.Modelos.Celula_CelulaLider_FK1">
@@ -2649,21 +2593,6 @@
             <End Role="ServidorCapitan" EntitySet="ServidorCapitan" />
             <End Role="ServidorIntegrante" EntitySet="ServidorIntegrante" />
           </AssociationSet>
-          <FunctionImport Name="ObtenerInformacionGeneralPorRed">
-            <Parameter Name="celulaId" Mode="In" Type="Int32" />
-            <Parameter Name="pasoIdInicialParaFoli" Mode="In" Type="Int32" />
-            <Parameter Name="pasoIdFinalParaFoli" Mode="In" Type="Int32" />
-            <Parameter Name="numeroCelulas" Mode="InOut" Type="Int32" />
-            <Parameter Name="lideresCelula" Mode="InOut" Type="Int32" />
-            <Parameter Name="estacas" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembros" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembrosHombres" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembrosMujeres" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembrosAsistenIglesia" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembrosAsistenIglesiaHombres" Mode="InOut" Type="Int32" />
-            <Parameter Name="miembrosAsistenIglesiaMujeres" Mode="InOut" Type="Int32" />
-            <Parameter Name="folis" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="ReiniciarAsistenciaDeCelula">
             <Parameter Name="celulaId" Mode="In" Type="Int32" />
             <Parameter Name="anio" Mode="In" Type="Int32" />
@@ -2671,7 +2600,6 @@
             <Parameter Name="dia" Mode="In" Type="Int32" />
             <Parameter Name="usuarioQueRegistra" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ObtenerLideresSinRoles" ReturnType="Collection(AdministradorDeIglesiasV2.Core.Modelos.ObtenerLideresSinRoles_Result)" />
           <EntitySet Name="Rol" EntityType="AdministradorDeIglesiasV2.Core.Modelos.Rol" />
           <EntitySet Name="RolAsignable" EntityType="AdministradorDeIglesiasV2.Core.Modelos.RolAsignable" />
           <AssociationSet Name="Rol_MiembroRol_FK1" Association="AdministradorDeIglesiasV2.Core.Modelos.Rol_MiembroRol_FK1">
@@ -4193,10 +4121,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="ObtenerLideresSinRoles_Result">
-          <Property Type="Int32" Name="MiembroId" Nullable="false" />
-          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="RolId" />
@@ -5248,9 +5172,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AsistenciaDeCelulaFueCancelada" FunctionName="IglesiaModel.Store.AsistenciaDeCelulaFueCancelada" />
-          <FunctionImportMapping FunctionImportName="CancelarAsistenciaDeCelula" FunctionName="IglesiaModel.Store.CancelarAsistenciaDeCelula" />
-          <FunctionImportMapping FunctionImportName="ObtenerCelulasProximasACoordenadas" FunctionName="IglesiaModel.Store.ObtenerCelulasProximasACoordenadas" />
           <EntitySetMapping Name="CelulaCategoria">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.CelulaCategoria">
               <MappingFragment StoreEntitySet="CelulaCategoria">
@@ -5590,16 +5511,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ObtenerInformacionGeneralPorRed" FunctionName="IglesiaModel.Store.ObtenerInformacionGeneralPorRed" />
           <FunctionImportMapping FunctionImportName="ReiniciarAsistenciaDeCelula" FunctionName="IglesiaModel.Store.ReiniciarAsistenciaDeCelula" />
-          <FunctionImportMapping FunctionImportName="ObtenerLideresSinRoles" FunctionName="IglesiaModel.Store.ObtenerLideresSinRoles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.ObtenerLideresSinRoles_Result">
-                <ScalarProperty Name="MiembroId" ColumnName="MiembroId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="Rol">
             <EntityTypeMapping TypeName="AdministradorDeIglesiasV2.Core.Modelos.Rol">
               <MappingFragment StoreEntitySet="Rol">

@@ -1,14 +1,12 @@
-﻿using System;
+﻿using AdministradorDeIglesiasV2.Core.Modelos;
+using log4net;
+using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.Transactions;
-using System.Data.Objects;
-using AdministradorDeIglesiasV2.Core;
-using AdministradorDeIglesiasV2.Core.Modelos;
 using ZagueEF.Core;
-using log4net;
 
 namespace AdministradorDeIglesiasV2.Core.Manejadores
 {
@@ -502,32 +500,57 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
         public List<Modelos.Retornos.CelulaProxima> ObtenerCelulasProximas(double latitud, double longitud, int kilometrosRedonda, List<int> idCategoriasDeCelulas)
         {
-            string key = MethodBase.GetCurrentMethod().DeclaringType.FullName + MethodBase.GetCurrentMethod().Name + latitud + longitud + kilometrosRedonda + string.Join("|", idCategoriasDeCelulas);
-            List<Modelos.Retornos.CelulaProxima> registros = Cache.Instance.Obtener<List<Modelos.Retornos.CelulaProxima>>(key);
-            if (registros == null)
+            List<Modelos.Retornos.CelulaProxima> registros = new List<Modelos.Retornos.CelulaProxima>();
+
+            Func<double, double> Radians = (val) =>
             {
+                return val * Math.PI / 180;
+            };
 
-                System.Data.Objects.ObjectResult r;
-                r = SesionActual.Instance.getContexto<IglesiaEntities>().ObtenerCelulasProximasACoordenadas(latitud.ToString(), longitud.ToString(), kilometrosRedonda);
-                List<int> celulasProximas = r.OfType<int>().ToList();
-                registros = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula
-                             where
-                               (idCategoriasDeCelulas.Contains(o.CategoriaId) || (idCategoriasDeCelulas.Count == 0)) &&
-                               celulasProximas.Contains(o.CelulaId)
-                             select new Modelos.Retornos.CelulaProxima
-                             {
-                                 Id = o.CelulaId,
-                                 Descripcion = o.Descripcion,
-                                 Dia = o.DiaSemana.Descripcion,
-                                 Hora = o.HoraDia.Descripcion,
-                                 Coordenadas = o.Coordenadas,
-                                 Municipio = o.UbicacionMunicipio.Descripcion,
-                                 Colonia = o.Colonia,
-                                 Direccion = o.Direccion
-                             }).ToList<Modelos.Retornos.CelulaProxima>();
+            Func<double, double, double, double, double> DistanceBetweenPlaces = (lon1, lat1, lon2, lat2) =>
+            {
+                double R = 6378.16; // km
+                double sLat1 = Math.Sin(Radians(lat1));
+                double sLat2 = Math.Sin(Radians(lat2));
+                double cLat1 = Math.Cos(Radians(lat1));
+                double cLat2 = Math.Cos(Radians(lat2));
+                double cLon = Math.Cos(Radians(lon1) - Radians(lon2));
+                double cosD = sLat1 * sLat2 + cLat1 * cLat2 * cLon;
+                double d = Math.Acos(cosD);
+                double dist = R * d;
+                return dist;
+            };
 
-                Cache.Instance.Guardar(key, registros);
+            List<Celula> celulas = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula
+                                    where
+                                    (idCategoriasDeCelulas.Contains(o.CategoriaId) || (idCategoriasDeCelulas.Count == 0)) &&
+                                    o.Borrado == false &&
+                                    o.Coordenadas != null
+                                    select o).ToList();
+
+            foreach (Celula celula in celulas)
+            {
+                String[] coordenadas = celula.Coordenadas.Replace("(", String.Empty).Replace(")", String.Empty).Split(',');
+                double longitudCelula = double.Parse(coordenadas[1]);
+                double latitudCelula = double.Parse(coordenadas[0]);
+
+                if (longitudCelula != 0 && latitudCelula != 0 && DistanceBetweenPlaces(longitud, latitud, longitudCelula, latitudCelula) <= kilometrosRedonda)
+                {
+                    Modelos.Retornos.CelulaProxima registro = new Modelos.Retornos.CelulaProxima();
+
+                    registro.Id = celula.CelulaId;
+                    registro.Descripcion = celula.Descripcion;
+                    registro.Dia = celula.DiaSemana.Descripcion;
+                    registro.Hora = celula.HoraDia.Descripcion;
+                    registro.Coordenadas = celula.Coordenadas;
+                    registro.Municipio = celula.UbicacionMunicipio.Descripcion;
+                    registro.Colonia = celula.Colonia;
+                    registro.Direccion = celula.Direccion;
+
+                    registros.Add(registro);
+                }
             }
+
             return registros;
         }
 

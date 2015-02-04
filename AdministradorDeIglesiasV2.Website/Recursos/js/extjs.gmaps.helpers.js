@@ -2,8 +2,8 @@
 
 function obtenerCoordenadasDesdeDireccion(municipio, colonia, direccion, onFinish, onZeroResults, onError, ocultarvalidaciones) {
     if (!ocultarvalidaciones == true) {
-        if (!(direccion.length > 0) || !(colonia.length > 0) || !(municipio.length > 0)) {
-            Ext.Msg.alert('', 'Antes de continuar es necesario llenar los datos de dirección, colonia y municpio.');
+        if (!(colonia.length > 0) || !(municipio.length > 0)) {
+            Ext.Msg.alert('', 'Antes de continuar es necesario llenar los datos de colonia y municpio.');
             return;
         }
     }

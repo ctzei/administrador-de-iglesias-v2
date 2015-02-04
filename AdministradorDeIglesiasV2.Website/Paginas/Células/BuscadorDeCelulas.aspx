@@ -49,7 +49,7 @@
                                                         ID="filtroDireccion" 
                                                         runat="server"
                                                         FieldLabel="Direccion"
-                                                        AllowBlank="false"
+                                                        AllowBlank="true"
                                                         Flex="1">
                                                     </Z:ZTextField>
                                                 </Items>
