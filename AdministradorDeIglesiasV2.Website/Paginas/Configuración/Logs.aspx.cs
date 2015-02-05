@@ -30,12 +30,29 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.Configuracion
             }
 
             StringBuilder sbAppSettings = new StringBuilder(255);
-            sbAppSettings.AppendLine();
             foreach (string key in ConfigurationManager.AppSettings)
             {
                 sbAppSettings.AppendLine(string.Format("{0} = {1}", key, ConfigurationManager.AppSettings[key]));
             }
             txtPropiedades.Text = sbAppSettings.ToString();
+
+
+            StringBuilder sbLog = new StringBuilder(255);
+            if (!log4net.LogManager.GetRepository().Configured)
+            {
+                sbLog.AppendLine("log4net NO configurado.");
+            }
+            else
+            {
+                sbLog.AppendLine("log4net configurado.");
+            }
+            sbLog.AppendLine();
+            foreach (log4net.Util.LogLog message in log4net.LogManager.GetRepository().ConfigurationMessages)
+            {
+                sbLog.AppendLine(message.ToJson());
+            }
+            txtLog.Text = sbLog.ToString();
+
         }
 
         [DirectMethod(ShowMask = true)]

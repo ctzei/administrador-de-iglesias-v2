@@ -3,9 +3,22 @@
 <%@ Register assembly="Ext.Net" namespace="Ext.Net" tagprefix="ext" %>
 <%@ MasterType VirtualPath="~/MainMasterPage.master" %>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
+
+    <style type="text/css">
+
+        #cphMain_txtPropiedades,
+        #cphMain_txtLog {
+            font: 12px Consolas, Lucida Console, Courier, Monospace;
+        }
+
+    </style>
+
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="cphMain" runat="server">
     <h1>Propiedades</h1>
-    <ext:TextArea runat="server" id="txtPropiedades" StyleSpec="width:99%; height: 160px;" ReadOnly="true"></ext:TextArea>
+    <ext:TextArea runat="server" id="txtPropiedades" StyleSpec="width:99%; height: 20vh;" ReadOnly="true"></ext:TextArea>
 
     <h1>Logs</h1>
     <select runat="server" id="cboLogs" onchange="cargarLog()">
@@ -13,7 +26,7 @@
     </select>
 
     <h1>Log</h1>
-    <ext:TextArea runat="server" id="txtLog" StyleSpec="width:99%; height: 500px;" ReadOnly="true"></ext:TextArea>
+    <ext:TextArea runat="server" id="txtLog" StyleSpec="width:99%; height: 65vh" ReadOnly="true" wrap="off"></ext:TextArea>
 </asp:Content>
 
 <asp:Content ID="Content5" ContentPlaceHolderID="cphFooter" runat="server">
