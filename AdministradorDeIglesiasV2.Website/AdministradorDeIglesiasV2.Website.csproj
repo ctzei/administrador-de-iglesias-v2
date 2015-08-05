@@ -605,10 +605,6 @@
       <Project>{4DF26FC9-EDFB-4AC8-9844-D35FCCC4AFA0}</Project>
       <Name>AdministradorDeIglesiasV2.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZagueEF.Core.Web.CompressionModule\ZagueEF.Core.Web.CompressionModule.csproj">
-      <Project>{C82C8611-6AD4-45A9-A011-9FE994B1C335}</Project>
-      <Name>ZagueEF.Core.Web.CompressionModule</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZagueEF.Core.Web.ExtNET\ZagueEF.Core.Web.ExtNET.csproj">
       <Project>{230B67BA-9C9C-4401-8807-F82A29C11EDF}</Project>
       <Name>ZagueEF.Core.Web.ExtNET</Name>
