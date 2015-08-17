@@ -5,25 +5,69 @@ using System.Text;
 using ZagueEF.Core;
 using System.Linq.Expressions;
 using LinqKit;
+using System.Text.RegularExpressions;
 
 namespace AdministradorDeIglesiasV2.Core.Modelos
 {
     public partial class Celula
     {
+
         partial void OnAgregar(System.Data.Objects.ObjectStateEntry entry)
         {
             SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.CrearCelulas);
+            validarEntidad(entry);
         }
 
         partial void OnModificar(System.Data.Objects.ObjectStateEntry entry)
         {
-            SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.ModificarCelulas); 
+            SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.ModificarCelulas);
+            validarEntidad(entry);
         }
 
         partial void OnBorrar(System.Data.Objects.ObjectStateEntry entry)
         {
             SesionActual.Instance.ValidarPermisoEspecial((int)PermisosEspeciales.BorrarCelulas);
         }
+
+        #region Validacion de Reglas de Negocio
+
+        private void validarEntidad(System.Data.Objects.ObjectStateEntry entry)
+        {
+            Celula entidadActual = ((Celula)entry.Entity);
+            validarDescripcion(entidadActual);
+            validarUnicidad(entidadActual);
+        }
+
+        private void validarDescripcion(Celula entidad)
+        {
+            if (!tieneIdentificadorValido(entidad.Descripcion))
+            {
+                string identificadorNoValido = string.Format("La descripción de la célula no contiene un identificador válido.");
+                throw new ExcepcionReglaNegocio(identificadorNoValido);
+            }
+        }
+
+        private void validarUnicidad(Celula entidad)
+        {
+            string identificador = entidad.Descripcion.Split(' ')[0];
+
+            // Validamos si no existe ya una celula cuya descripcion empiece con el mismo identificador
+            Boolean entidadPreexistente = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.Descripcion.StartsWith(identificador + " ") select o).Any();
+
+            if (entidadPreexistente)
+            {
+                string registroExistenteMsg = string.Format("Ya existe alguna célula registrada con el identificador [{0}].", identificador);
+                throw new ExcepcionReglaNegocio(registroExistenteMsg);
+            }
+        }
+
+        private Boolean tieneIdentificadorValido(string descripcion)
+        {
+            string identificador = descripcion.Split(' ')[0];
+            return Regex.IsMatch(identificador, @"^[0-9.]+$") && !identificador.EndsWith(".");
+        }
+
+        #endregion
 
         #region Busquedas
 
