@@ -141,6 +141,12 @@ namespace ExtensionMethods
             }
         }
 
+        public static DateTime FirstMondayOfYear(this DateTime date)
+        {
+            DateTime dt = new DateTime(date.Year - 1, 12, 30);
+            return dt.AddDays(8 - (int)dt.DayOfWeek);
+        }
+
         #endregion
 
         #region MailMessage

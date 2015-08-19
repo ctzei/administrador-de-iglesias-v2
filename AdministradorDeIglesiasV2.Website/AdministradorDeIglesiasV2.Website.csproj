@@ -123,6 +123,7 @@
     <Content Include="Errores\Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Errores\404.aspx" />
+    <Content Include="MainMasterPageBootstrap.Master" />
     <None Include="index.html.bak" />
     <Content Include="Info.txt" />
     <Content Include="Paginas\Alabanza\CatalogoDeCanciones.aspx" />
@@ -140,6 +141,7 @@
     <Content Include="Paginas\Foli\CatalogoDeGrupos.aspx" />
     <Content Include="Paginas\Foli\AvanceDeMiembros.aspx" />
     <Content Include="Paginas\Miembros\InicioDeSesionSecundaria.aspx" />
+    <Content Include="Paginas\Reportes\General.aspx" />
     <Content Include="Paginas\Reportes\Consolidación\Boletas.aspx" />
     <Content Include="Paginas\Reportes\Células\UltimasAsistencias.aspx" />
     <Content Include="Paginas\Reportes\Células\LideresDeCelula.aspx" />
@@ -241,6 +243,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Literales.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainMasterPageBootstrap.Master.cs">
+      <DependentUpon>MainMasterPageBootstrap.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainMasterPageBootstrap.Master.designer.cs">
+      <DependentUpon>MainMasterPageBootstrap.Master</DependentUpon>
     </Compile>
     <Compile Include="Errores\Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
@@ -405,6 +414,13 @@
     </Compile>
     <Compile Include="Paginas\Miembros\DetallesDeMiembro.aspx.designer.cs">
       <DependentUpon>DetallesDeMiembro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Reportes\General.aspx.cs">
+      <DependentUpon>General.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Reportes\General.aspx.designer.cs">
+      <DependentUpon>General.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Reportes\Consolidación\Boletas.aspx.cs">
       <DependentUpon>Boletas.aspx</DependentUpon>
