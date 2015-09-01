@@ -8,10 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace AdministradorDeIglesiasV2.Website {
-
-
-    public partial class MainMasterPageBootstrap
-    {
+    
+    
+    public partial class MainMasterPageBootstrap {
         
         /// <summary>
         /// cphHead control.
@@ -30,15 +29,6 @@ namespace AdministradorDeIglesiasV2.Website {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm frmMain;
-        
-        /// <summary>
-        /// mainResourceManager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.ResourceManager mainResourceManager;
         
         /// <summary>
         /// cphMain control.

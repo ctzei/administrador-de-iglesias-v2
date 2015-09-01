@@ -13,39 +13,12 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.Reportes {
     public partial class General {
         
         /// <summary>
-        /// StoreCelulas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store StoreCelulas;
-        
-        /// <summary>
-        /// pnlFiltros control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.FormPanel pnlFiltros;
-        
-        /// <summary>
         /// cboCelula control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ZagueEF.Core.Web.ExtNET.Controls.ZComboBox cboCelula;
-        
-        /// <summary>
-        /// cmdMostrarReporte control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Button cmdMostrarReporte;
+        protected global::System.Web.UI.WebControls.DropDownList cboCelula;
     }
 }

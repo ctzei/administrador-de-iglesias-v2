@@ -391,6 +391,23 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
         }
 
         /// <summary>
+        /// Obtiene la lista de ids de las celulas que pertenecen a un red especifica, directamente abajo a partir de la celula definida como parametro de entrada
+        /// </summary>
+        /// <param name="celulaId">El id de la celula "padre" de la red a buscar</param>
+        /// <returns>Lista de ids de las celulas de la red</returns>
+        public List<int> ObtenerRedInferiorDirecta(int celulaId)
+        {
+            return (from liderzago in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaLider
+                    join miembro in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro on liderzago.MiembroId equals miembro.MiembroId
+                    where
+                    miembro.CelulaId == celulaId &&
+                    miembro.Borrado == false &&
+                    liderzago.Borrado == false &&
+                    liderzago.Celula.Borrado == false
+                    select liderzago.CelulaId).Distinct().ToList<int>();
+        }
+
+        /// <summary>
         /// Obtiene la lista de ids de las celulas que pertenecen a un red especifica, para abajo a partir de la celula definida como parametro de entrada
         /// </summary>
         /// <param name="celulaId">El id de la celula "padre" de la red a buscar</param>
@@ -403,14 +420,7 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
             Func<int, List<int>> obtenerRedInferiorDirecta = (celulaHijaId) =>
             {
                 index++;
-                return (from liderzago in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaLider
-                        join miembro in SesionActual.Instance.getContexto<IglesiaEntities>().Miembro on liderzago.MiembroId equals miembro.MiembroId
-                        where
-                        miembro.CelulaId == celulaHijaId &&
-                        miembro.Borrado == false &&
-                        liderzago.Borrado == false &&
-                        liderzago.Celula.Borrado == false
-                        select liderzago.CelulaId).Distinct().ToList<int>();
+                return this.ObtenerRedInferiorDirecta(celulaHijaId);
             };
 
             red = obtenerRedInferiorDirecta(celulaId);

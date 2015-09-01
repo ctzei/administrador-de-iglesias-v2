@@ -149,6 +149,7 @@
     <Content Include="Paginas\UserControls\BuscadorSimple.ascx" />
     <Content Include="Recursos\css\FullCalendar\fullcalendar.css" />
     <Content Include="Recursos\css\FullCalendar\fullcalendar.print.css" />
+    <Content Include="Recursos\css\jquery.loadmask.css" />
     <Content Include="Recursos\img\sin_foto.jpg" />
     <Content Include="Recursos\js\admi.main.js" />
     <Content Include="Recursos\js\admi.helpers.js" />
@@ -156,7 +157,7 @@
     <Content Include="Recursos\js\FullCalendar\fullcalendar.js" />
     <Content Include="Recursos\js\FullCalendar\fullcalendar.min.js" />
     <Content Include="Recursos\js\FullCalendar\gcal.js" />
-    <Content Include="Recursos\js\jquery-1.7.1.min.js" />
+    <Content Include="Recursos\js\jquery.loadmask.js" />
     <Content Include="Recursos\js\Paginas\Celulas\borrarCelulaPermanentemente.js" />
     <Content Include="Recursos\js\Paginas\Celulas\reinicioDeAsistenciaDeCelula.js" />
     <Content Include="Recursos\js\Paginas\Consolidación\catalogoDeBoletas.js" />

@@ -1,7 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMasterPageBootstrap.Master.cs" Inherits="AdministradorDeIglesiasV2.Website.MainMasterPageBootstrap" %>
 
-<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
-
 <!DOCTYPE HTML>
 <html>
 <head runat="server">
@@ -12,42 +10,58 @@
 
     <!-- ExtJS/Bootstrap fixes -->
     <style type="text/css">
+        html, body {
+            min-height: 100vh;
+        }
+
         th {
             font-weight: bold;
         }
+
         .x-form-text.x-form-field {
             box-sizing: content-box;
             height: 17px;
         }
+
         .tab-content > .tab-pane {
             padding-top: 10px;
         }
     </style>
 
     <link href="~/Recursos/css/admi.main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    
+    <link href="~/Recursos/css/jquery.loadmask.css" rel="stylesheet" type="text/css" />
+    <link href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js" type="text/javascript"></script>
+    <script src="//code.highcharts.com/4/highcharts.js" type="text/javascript"></script>
+    <script src='<%=Page.ResolveUrl("~/Recursos/js/jquery.loadmask.js")%>' type="text/javascript"></script>
+
     <asp:ContentPlaceHolder ID="cphHead" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
+
+    <script type="text/javascript">
+        Highcharts.setOptions({
+            lang: {
+                resetZoom: "Reiniciar zoom"
+            }
+        });
+
+        $(".validate").validate();
+    </script>
+
     <form id="frmMain" runat="server">
-        <ext:ResourceManager ID="mainResourceManager" runat="server" Theme="Slate" RemoveViewState="True" RethrowAjaxExceptions="True" CleanResourceUrl="False" Locale="es" />
-        <div>
+        <div style="padding: 10px 15px;">
             <asp:ContentPlaceHolder ID="cphMain" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="//code.highcharts.com/4/highcharts.js"></script>
-
     <script type="text/javascript">
         var baseUrl = "<%= ResolveUrl("~/") %>";
     </script>
-
-    <script src='<%=Page.ResolveUrl("~/Recursos/js/extjs.helpers.js")%>' type="text/javascript"></script>
-    <script src='<%=Page.ResolveUrl("~/Recursos/js/admi.helpers.js")%>' type="text/javascript"></script>
-    <script src='<%=Page.ResolveUrl("~/Recursos/js/admi.main.js")%>' type="text/javascript"></script>
 
     <asp:ContentPlaceHolder ID="cphFooter" runat="server"></asp:ContentPlaceHolder>
 

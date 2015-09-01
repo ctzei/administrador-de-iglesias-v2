@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ExtensionMethods;
+﻿using AdministradorDeIglesiasV2.Core.Manejadores;
+using AdministradorDeIglesiasV2.Core.Modelos;
 using Ext.Net;
+using ExtensionMethods;
+using log4net;
+using System;
+using System.Collections.Generic;
+using System.Data.Objects;
+using System.Diagnostics;
+using System.Dynamic;
+using System.Linq;
 using ZagueEF.Core;
 using ZagueEF.Core.Web;
-using ZagueEF.Core.Web.Interfaces;
-using AdministradorDeIglesiasV2.Core;
-using AdministradorDeIglesiasV2.Core.Constantes;
-using AdministradorDeIglesiasV2.Core.Modelos;
-using AdministradorDeIglesiasV2.Core.Modelos.Retornos;
-using AdministradorDeIglesiasV2.Core.Manejadores;
-using System.Dynamic;
-using System.Data.Objects;
-
 
 namespace AdministradorDeIglesiasV2.Website.Paginas.Reportes
 {
     public partial class General : PaginaBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(General));
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!X.IsAjaxRequest)
@@ -33,78 +29,119 @@ namespace AdministradorDeIglesiasV2.Website.Paginas.Reportes
         public void CargarControles()
         {
             ManejadorDeCelulas manejador = new ManejadorDeCelulas();
-            StoreCelulas.DataSource = manejador.ObtenerCelulasPermitidasPorMiembroComoCelulas(SesionActual.Instance.UsuarioId);
-            StoreCelulas.DataBind();
+            cboCelula.DataSource = manejador.ObtenerCelulasPermitidasPorMiembroComoCelulas(SesionActual.Instance.UsuarioId);
+            cboCelula.DataBind();
         }
 
-        [DirectMethod(ShowMask = true, Timeout = 120000)]
+        [System.Web.Services.WebMethod]
         public static string ObtenerReporteGeneral(int celulaId)
         {
 
             if (celulaId > 0)
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
                 ManejadorDeCelulas manejadorDeCelulas = new ManejadorDeCelulas();
-                List<int> red = new List<int>() { celulaId };
-                red.AddRange(manejadorDeCelulas.ObtenerRedInferior(celulaId));
 
-                List<dynamic> resultadoAnual = new List<dynamic>();
+                List<int> celulasInferioresrDirectas = manejadorDeCelulas.ObtenerRedInferiorDirecta(celulaId);
+                List<Celula> celulasDirectas = new List<Celula>() { (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where o.CelulaId == celulaId select o).SingleOrDefault() };
+                celulasDirectas.AddRange((from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula where celulasInferioresrDirectas.Contains(o.CelulaId) select o));
 
-                DateTime fecha = DateTime.Now.FirstMondayOfYear();
-                while (fecha < DateTime.Now)
+                List<dynamic> resultadosAnuales = new List<dynamic>();
+
+                foreach (Celula celula in celulasDirectas.OrderBy(o => o.Descripcion))
                 {
-                    dynamic resultadoSemanal = new ExpandoObject();
-
-                    DateTime fechaSiguiente = fecha.Date.AddDays(7);
-
-                    resultadoSemanal.semana = fecha.GetWeekNumber();
-
-                    resultadoSemanal.activas = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula
-                                                            where
-                                                            red.Contains(o.CelulaId) &&
-                                                            o.Creacion <= fechaSiguiente &&
-                                                            o.Borrado == false
-                                                            select o).Count();
-
-                    resultadoSemanal.realizadas = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia
-                                                where
-                                                red.Contains(o.CelulaId) &&
-                                                EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
-                                                EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
-                                                select o.CelulaId).Distinct().Count();
-
-
-                    resultadoSemanal.invitados = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaInvitadosAsistencia
-                                                  where
-                                                  red.Contains(o.CelulaId) &&
-                                                  EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
-                                                  EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
-                                                  select (int?)o.NumeroDeInvitados).Sum() ?? 0;
-
-                    resultadoSemanal.asistencia = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia
-                                                   where
-                                                   red.Contains(o.CelulaId) &&
-                                                   EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
-                                                   EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
-                                                   select o).Count();
-
-                    //resultadoSemanal.fechaInicial = fecha;
-                    //resultadoSemanal.fechaFinal = fechaSiguiente;
-
-
-                    // Agregamos el resultado semanal al resultado anual
-                    resultadoAnual.Add(resultadoSemanal);
-
-                    // Una semana mas
-                    fecha = fecha.AddDays(7);
+                    resultadosAnuales.Add(ObtenerResultadosAnualesParaGanar(celula));
                 }
 
-                return resultadoAnual.ToJson();
+                stopwatch.Stop();
+                log.Info("Segundos para generar el reporte: " + stopwatch.Elapsed.TotalSeconds);
+
+                return resultadosAnuales.ToJson();
             }
             else
             {
-                X.Msg.Alert(Generales.nickNameDeLaApp, Resources.Literales.CelulaYFechaNecesarias).Show();
-                return string.Empty;
+                return (new { error =  Resources.Literales.CelulaYFechaNecesarias}).ToJson();
             }
+        }
+
+        private static dynamic ObtenerResultadosAnualesParaGanar(Celula celula)
+        {
+            dynamic rtn = new ExpandoObject();
+
+            ManejadorDeCelulas manejadorDeCelulas = new ManejadorDeCelulas();
+            List<int> red = new List<int>() { celula.CelulaId };
+            red.AddRange(manejadorDeCelulas.ObtenerRedInferior(celula.CelulaId));
+
+            rtn.id = celula.CelulaId;
+            rtn.nombre = celula.Descripcion;
+            rtn.resultadoAnual = new List<dynamic>();
+
+            DateTime fechaInicial = DateTime.Now.FirstMondayOfYear();
+            DateTime fechaFinal = fechaInicial.AddYears(1).AddDays(-1);
+
+            List<Celula> totalCelulas = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().Celula
+                                         where
+                                         red.Contains(o.CelulaId) &&
+                                         o.Creacion <= fechaFinal &&
+                                         o.Borrado == false
+                                         select o).ToList();
+
+            List<CelulaMiembroAsistencia> totalAsistencias = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaMiembroAsistencia
+                                                             where
+                                                             red.Contains(o.CelulaId) &&
+                                                             EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fechaInicial &&
+                                                             EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaFinal
+                                                             select o).ToList();
+
+            List<CelulaInvitadosAsistencia> totalInvitados = (from o in SesionActual.Instance.getContexto<IglesiaEntities>().CelulaInvitadosAsistencia
+                                                              where
+                                                              red.Contains(o.CelulaId) &&
+                                                              EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fechaInicial &&
+                                                              EntityFunctions.CreateDateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaFinal
+                                                              select o).ToList();
+
+            DateTime fecha = fechaInicial;
+            while (fecha < DateTime.Now)
+            {
+                dynamic resultadoSemanal = new ExpandoObject();
+
+                DateTime fechaSiguiente = fecha.Date.AddDays(7);
+
+                resultadoSemanal.semana = fecha.GetWeekNumber();
+
+                resultadoSemanal.activas = (from o in totalCelulas
+                                            where
+                                            o.Creacion <= fechaSiguiente
+                                            select o).Count();
+
+                resultadoSemanal.realizadas = (from o in totalAsistencias
+                                               where
+                                               new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
+                                               new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
+                                               select o.CelulaId).Distinct().Count();
+
+
+                resultadoSemanal.invitados = (from o in totalInvitados
+                                              where
+                                              new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
+                                              new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
+                                              select (int?)o.NumeroDeInvitados).Sum() ?? 0;
+
+                resultadoSemanal.asistencia = (from o in totalAsistencias
+                                               where
+                                               new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) > fecha &&
+                                               new DateTime(o.Anio, o.Mes, o.Dia, 0, 0, 0) <= fechaSiguiente
+                                               select o).Count();
+
+                // Agregamos el resultado semanal al resultado anual
+                rtn.resultadoAnual.Add(resultadoSemanal);
+
+                // Una semana mas
+                fecha = fecha.AddDays(7);
+            }
+
+            return rtn;
         }
     }
 }
