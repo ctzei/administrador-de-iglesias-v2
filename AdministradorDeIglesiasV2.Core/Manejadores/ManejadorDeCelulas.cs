@@ -24,75 +24,95 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
 
                 foreach (int celula in celulas)
                 {
+
+                    // Se va a hacer cambios a los miembros, sin borrarlos en si
                     using (var contexto = new IglesiaEntities())
                     {
 
                         // Obtenemos todos los miembros de la celula
+                        // List<int> miembros = (from o in contexto.Miembro where o.CelulaId == celula select o.MiembroId).Take<int>(1).ToList<int>();
                         List<int> miembros = (from o in contexto.Miembro where o.CelulaId == celula select o.MiembroId).ToList<int>();
 
                         foreach (int miembro in miembros)
                         {
                             // Borramos las "Fotos" de cada miembro
-                            foreach (MiembroFoto aBorrar in (from o in contexto.MiembroFoto where o.MiembroId == miembro select o))
-                            {
+                            foreach (MiembroFoto aBorrar in (from o in contexto.MiembroFoto where o.MiembroId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos los "Pasos" de cada miembro
-                            foreach (MiembroPaso aBorrar in (from o in contexto.MiembroPaso where o.MiembroId == miembro select o))
-                            {
+                            foreach (MiembroPaso aBorrar in (from o in contexto.MiembroPaso where o.MiembroId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos los "Roles" de cada miembro
-                            foreach (MiembroRol aBorrar in (from o in contexto.MiembroRol where o.MiembroId == miembro select o))
-                            {
+                            foreach (MiembroRol aBorrar in (from o in contexto.MiembroRol where o.MiembroId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos las "Asistencias a las celulas" de cada miembro
-                            foreach (CelulaMiembroAsistencia aBorrar in (from o in contexto.CelulaMiembroAsistencia where o.MiembroId == miembro select o))
-                            {
+                            foreach (CelulaMiembroAsistencia aBorrar in (from o in contexto.CelulaMiembroAsistencia where o.MiembroId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos las "Asistencias Registradas" de cada miembro
-                            foreach (CelulaMiembroAsistencia aBorrar in (from o in contexto.CelulaMiembroAsistencia where o.MiembroQueRegistraId == miembro select o))
-                            {
+                            foreach (CelulaMiembroAsistencia aBorrar in (from o in contexto.CelulaMiembroAsistencia where o.MiembroQueRegistraId == miembro select o)) {
+                                contexto.DeleteObject(aBorrar);
+                            }
+
+                            // Borramos las "Asistencias de Invitados Registradas" de cada miembro
+                            foreach (CelulaInvitadosAsistencia aBorrar in (from o in contexto.CelulaInvitadosAsistencia where o.MiembroQueRegistraId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos las "Cancelaciones Registradas" de cada miembro
-                            foreach (CelulaCancelacionAsistencia aBorrar in (from o in contexto.CelulaCancelacionAsistencia where o.MiembroQueRegistraId == miembro select o))
-                            {
+                            foreach (CelulaCancelacionAsistencia aBorrar in (from o in contexto.CelulaCancelacionAsistencia where o.MiembroQueRegistraId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos los "Liderazgos" de cada miembro
-                            foreach (CelulaLider aBorrar in (from o in contexto.CelulaLider where o.MiembroId == miembro select o))
-                            {
+                            foreach (CelulaLider aBorrar in (from o in contexto.CelulaLider where o.MiembroId == miembro select o)) {
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Borramos las "Notificaciones de Asistencia" de cada miembro
-                            foreach (NotificacionDeAsistenciaInscripcion aBorrar in (from o in contexto.NotificacionDeAsistenciaInscripcion where o.MiembroId == miembro select o))
-                            {
-                                contexto.DeleteObject((from o in contexto.NotificacionDeAsistenciaLog where o.NotificacionDeAsistenciaId == aBorrar.Id select o).SingleOrDefault());
+                            foreach (NotificacionDeAsistenciaInscripcion aBorrar in (from o in contexto.NotificacionDeAsistenciaInscripcion where o.MiembroId == miembro select o)) {
+                                NotificacionDeAsistenciaLog log = (from o in contexto.NotificacionDeAsistenciaLog where o.NotificacionDeAsistenciaId == aBorrar.Id select o).SingleOrDefault();
+                                if (log != null) {
+                                    contexto.DeleteObject(log);
+                                }
+
                                 contexto.DeleteObject(aBorrar);
                             }
 
                             // Modificamos las "Boletas de Consolidacion" asignadas a cada miembro
-                            foreach (ConsolidacionBoleta aModificar in (from o in contexto.ConsolidacionBoleta where o.AsignadaAMiembroId == miembro select o))
-                            {
+                            foreach (ConsolidacionBoleta aModificar in (from o in contexto.ConsolidacionBoleta where o.AsignadaAMiembroId == miembro select o)) {
                                 aModificar.AsignadaAMiembroId = null;
                             }
 
                             // Modificamos las "Boletas de Consolidacion" en que cada miembro "invito"
-                            foreach (ConsolidacionBoleta aModificar in (from o in contexto.ConsolidacionBoleta where o.InvitadoPorMiembroId == miembro select o))
-                            {
+                            foreach (ConsolidacionBoleta aModificar in (from o in contexto.ConsolidacionBoleta where o.InvitadoPorMiembroId == miembro select o)) {
                                 aModificar.InvitadoPorMiembroId = null;
                             }
 
+                            // Modificamos las "Conyugues" en cada miembro
+                            foreach (Miembro aModificar in (from o in contexto.Miembro where o.ConyugeId == miembro select o)) {
+                                aModificar.ConyugeId = null;
+                            }
+
+                        }
+
+                        // Guardamos los cambios en la BD (Por miembros...)
+                        contexto.SaveChanges(SaveOptions.DetectChangesBeforeSave, true);
+                    }
+
+                    // Se va a hacer cambios a los miembros, incluido borrarlos
+                    using (var contexto = new IglesiaEntities()) {
+
+                        // Obtenemos todos los miembros de la celula
+                        List<int> miembros = (from o in contexto.Miembro where o.CelulaId == celula select o.MiembroId).ToList<int>();
+
+                        foreach (int miembro in miembros) {
                             // Borramos los miembros en si
                             Miembro miembroABorrar = (from o in contexto.Miembro where o.MiembroId == miembro select o).SingleOrDefault();
                             contexto.DeleteObject(miembroABorrar);
@@ -102,11 +122,18 @@ namespace AdministradorDeIglesiasV2.Core.Manejadores
                         contexto.SaveChanges(SaveOptions.DetectChangesBeforeSave, true);
                     }
 
+
+                    // Se va a hacer cambios a las celulas, incluido borrarlas
                     using (var contexto = new IglesiaEntities())
                     {
                         // Borramos las "Asistencias" de la celula en si
                         foreach (CelulaMiembroAsistencia aBorrar in (from o in contexto.CelulaMiembroAsistencia where o.CelulaId == celula select o))
                         {
+                            contexto.DeleteObject(aBorrar);
+                        }
+
+                        // Borramos las "Asistencias de Invitados" de la celula en si
+                        foreach (CelulaInvitadosAsistencia aBorrar in (from o in contexto.CelulaInvitadosAsistencia where o.CelulaId == celula select o)) {
                             contexto.DeleteObject(aBorrar);
                         }
 
